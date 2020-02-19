@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArticleController!{% endblock %}
+{% block title %}Hello SectionController!{% endblock %}
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
 
 {% block body %}
-
 <div class="list-articles">
     {% for article in articles %}
         <div class="item-article" onClick={window.location="/article/{{ article.id }}"}>
@@ -17,4 +16,3 @@
     {% endfor %}
 </div>
 {% endblock %}
-{% block javascripts %}<script src="/js/article.js"></script>{% endblock %}

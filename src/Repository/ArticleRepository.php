@@ -19,6 +19,18 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    function findBySection($section){
+        $qb = $this->createQueryBuilder('as');
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->leftJoin('a.sections', 's')
+            ->addSelect('s')
+            ->add('where', $qb->expr()->in('s', ':s') )
+            ->setParameter('s', $section)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
