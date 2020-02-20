@@ -10,7 +10,11 @@
 
         $ composer start
 
-3. Créer la BD
+3. Installer les dépendances si besoin
+
+        $ composer install
+
+4. Créer la BD
     - Dupliquer le fichier .env et le renommer en .env.local
     - Modifier la ligne commençant par DATABASE_URL
     - Créer la BD avec la commande

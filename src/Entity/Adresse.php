@@ -32,6 +32,11 @@ class Adresse
     private $cp;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pays;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tel;
@@ -79,6 +84,18 @@ class Adresse
     public function setCp(string $cp): self
     {
         $this->cp = $cp;
+
+        return $this;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?string $pays): self
+    {
+        $this->pays = $pays;
 
         return $this;
     }

@@ -102,20 +102,23 @@ class Client implements UserInterface
         return $this->adresses;
     }
 
-    public function addAdress(Adresse $adress): self
+    public function addAdresse(Adresse $adresse): self
     {
-        if (!$this->adresses->contains($adress)) {
-            $this->adresses[] = $adress;
+        if(!$this->adresses){
+            $this->adresses = [];
+        }
+        if (!$this->adresses->contains($adresse)) {
+            $this->adresses[] = $adresse;
             $adress->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeAdress(Adresse $adress): self
+    public function removeAdresse(Adresse $adresse): self
     {
-        if ($this->adresses->contains($adress)) {
-            $this->adresses->removeElement($adress);
+        if ($this->adresses->contains($adresse)) {
+            $this->adresses->removeElement($adresse);
             // set the owning side to null (unless already changed)
             if ($adress->getClient() === $this) {
                 $adress->setClient(null);
