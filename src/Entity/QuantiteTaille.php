@@ -17,7 +17,7 @@ class QuantiteTaille
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="quantiteTailles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="quantite_tailles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;
