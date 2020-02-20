@@ -28,6 +28,12 @@
 
 ## Le projet
 
+### L'authentification
+
+La connection se fait par le biais de l'email du client.
+Le compte admin a pour adresse mail "admin@gmail.com", pour les autres vous devez vous réferencer a votre bd.
+Le mot de passe par default pour tout les comptes est "azerty"
+
 ### Les criteres de tri
 
 Les articles peuvent être triés a l'aide de plusieurs filtres :
