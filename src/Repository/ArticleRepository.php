@@ -79,18 +79,6 @@ class ArticleRepository extends ServiceEntityRepository
 
 // http://127.0.0.1:8000/article?libelle=jupe&section=homme&critere_tri=prix_u&tri_ordre=DESC&taille=L&type_article=jupe&categorie=vetement&prix_entre=20_30&description=pull
 
-    function findBySection($section){
-        $qb = $this->createQueryBuilder('as');
-        return $this->createQueryBuilder('a')
-            ->select('a')
-            ->leftJoin('a.sections', 's')
-            ->addSelect('s')
-            ->add('where', $qb->expr()->in('s', ':s') )
-            ->setParameter('s', $section)
-            ->getQuery()
-            ->getResult();
-    }
-
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

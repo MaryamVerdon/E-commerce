@@ -19,6 +19,18 @@ class CommandeRepository extends ServiceEntityRepository
         parent::__construct($registry, Commande::class);
     }
 
+    function findByClient($client){
+        $qb = $this->createQueryBuilder('ccl');
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->leftJoin('c.client', 'cl')
+            ->addSelect('cl')
+            ->add('where', $qb->expr()->in('cl', ':cl') )
+            ->setParameter('cl', $client)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */

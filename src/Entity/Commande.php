@@ -125,4 +125,13 @@ class Commande
         }
         return $total;
     }
+
+    public function getNbArticles()
+    {
+        $total = 0;
+        foreach($this->lignes_de_commande as $ligne_de_commande){
+            $total += $ligne_de_commande->getQte();
+        }
+        return $total;
+    }
 }

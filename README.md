@@ -40,6 +40,10 @@ L'accès au compte du client connecté se fait par le biais de la route :
 
         http://127.0.0.1:8000/compte
 
+Ses commandes sont accessible depuis :
+
+        http://127.0.0.1:8000/compte/commande
+
 ### Les criteres de tri
 
 Les articles peuvent être triés a l'aide de plusieurs filtres :
