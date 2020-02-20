@@ -31,8 +31,14 @@
 ### L'authentification
 
 La connection se fait par le biais de l'email du client.
-Le compte admin a pour adresse mail "admin@gmail.com", pour les autres vous devez vous réferencer a votre bd.
+
+Le compte admin a pour adresse mail "admin@gmail.com", pour les autres vous devez vous réferencer à votre bd.
+
 Le mot de passe par default pour tout les comptes est "azerty"
+
+L'accès au compte du client connecté se fait par le biais de la route :
+
+        http://127.0.0.1:8000/compte
 
 ### Les criteres de tri
 
