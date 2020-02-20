@@ -37,10 +37,6 @@ class ArticleRepository extends ServiceEntityRepository
             }
             $qb->orderBy('a.' . $parameters['critereTri'], $triOrdre);
         }
-        if(isset($parameters['taille'])){
-            $qb->andWhere('UPPER(a.taille) LIKE :taille')
-                ->setParameter('taille',  strtoupper($parameters['taille']));
-        }
         if(isset($parameters['prix_entre'])){
             $prix = explode("_",$parameters['prix_entre']);
             $qb->andWhere('a.prix_u BETWEEN :prix1 AND :prix2')
@@ -71,6 +67,14 @@ class ArticleRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->andWhere('UPPER(c.libelle) = :clib')
             ->setParameter('clib', strtoupper($parameters['categorie']));
+        }
+        if(isset($parameters['taille'])){
+            $qb->addSelect('a')
+            ->leftJoin('a.quantite_tailles', 'q')
+            ->addSelect('q')
+            ->leftJoin('q.taille', 'ta')
+            ->andWhere('UPPER(ta.libelle) LIKE :taille')
+            ->setParameter('taille',  strtoupper($parameters['taille']));
         }
 
         return $qb->getQuery()

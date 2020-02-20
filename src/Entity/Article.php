@@ -36,16 +36,6 @@ class Article
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $taille;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $qte_stock;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $image;
 
     /**
@@ -59,10 +49,16 @@ class Article
      */
     private $sections;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\QuantiteTaille", mappedBy="article")
+     */
+    private $quantite_tailles;
+
     public function __construct()
     {
         $this->sections = new ArrayCollection();
         $this->lignes_de_commande = new ArrayCollection();
+        $this->quantiteTailles = new ArrayCollection();
     }
 
 
@@ -103,30 +99,6 @@ class Article
     public function setPrixU(float $prix_u): self
     {
         $this->prix_u = $prix_u;
-
-        return $this;
-    }
-
-    public function getTaille(): ?string
-    {
-        return $this->taille;
-    }
-
-    public function setTaille(string $taille): self
-    {
-        $this->taille = $taille;
-
-        return $this;
-    }
-
-    public function getQteStock(): ?int
-    {
-        return $this->qte_stock;
-    }
-
-    public function setQteStock(int $qte_stock): self
-    {
-        $this->qte_stock = $qte_stock;
 
         return $this;
     }
@@ -176,6 +148,37 @@ class Article
     {
         if ($this->sections->contains($section)) {
             $this->sections->removeElement($section);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuantiteTaille[]
+     */
+    public function getQuantiteTailles(): Collection
+    {
+        return $this->quantite_tailles;
+    }
+
+    public function addQuantiteTaille(QuantiteTaille $quantite_tailles): self
+    {
+        if (!$this->quantite_tailles->contains($quantite_tailles)) {
+            $this->quantite_tailles[] = $quantite_tailles;
+            $quantite_tailles->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuantiteTaille(QuantiteTaille $quantite_tailles): self
+    {
+        if ($this->quantite_tailles->contains($quantite_tailles)) {
+            $this->quantite_tailles->removeElement($quantite_tailles);
+            // set the owning side to null (unless already changed)
+            if ($quantite_tailles->getArticle() === $this) {
+                $quantite_tailles->setArticle(null);
+            }
         }
 
         return $this;

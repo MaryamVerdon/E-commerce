@@ -9,6 +9,8 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\TypeArticle;
 use App\Entity\Section;
 use App\Entity\Article;
+use App\Entity\Taille;
+use App\Entity\QuantiteTaille;
 
 class ArticleFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -30,13 +32,10 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
             ->getRepository(Section::class)
             ->findAll();
 
-        $tailles = [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
-        ];
+        $tailles = $this->entityManager
+            ->getRepository(Taille::class)
+            ->findAll();
+
 
         foreach($typesArticles as $typeArticle){
             foreach($sections as $section){
@@ -46,8 +45,16 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
                     $article->setLibelle($typeArticle->getLibelle() . " - " . $section->getLibelle());
                     $article->setDescription($typeArticle->getLibelle() . " pour " . $section->getLibelle());
                     $article->setPrixU(mt_rand(100, 500) / 10);
-                    $article->setTaille($tailles[array_rand($tailles)]);
-                    $article->setQteStock(mt_rand(0,20));
+                    foreach($tailles as $taille){
+                        $randTaille = mt_rand(0,4);
+                        if($randTaille > 0){
+                            $quantiteTaille = new QuantiteTaille();
+                            $quantiteTaille->setArticle($article);
+                            $quantiteTaille->setTaille($taille);
+                            $quantiteTaille->setQte(mt_rand(0,20));
+                            $manager->persist($quantiteTaille);
+                        }
+                    }
                     $article->setImage("/img/example.png");
                     $article->setTypeArticle($typeArticle);
                     $article->addSection($section);
@@ -68,6 +75,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
         return array(
             TypeArticleFixtures::class,
             SectionFixtures::class,
+            TailleFixtures::class,
         );
     }
 }
