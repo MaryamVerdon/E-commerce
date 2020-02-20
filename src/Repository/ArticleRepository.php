@@ -19,6 +19,34 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    function findByParameters($parameters){
+        $qb = $this->createQueryBuilder('a');
+
+        if(isset($parameters['libelle'])){
+            $qb->andWhere('UPPER(a.libelle) LIKE :str')
+                ->setParameter('str', '%' . strtoupper($parameters['libelle']) . '%');
+        }
+        if(isset($parameters['critereTri'])){
+            $triOrdre = 'ASC';
+            if(isset($parameters['triOrdre'])){
+                $triOrdre = strtoupper($parameters['triOrdre']);
+            }
+            $qb->orderBy('a.' . $parameters['critereTri'], $triOrdre);
+        }
+        if(isset($parameters['section'])){
+            $qb->select('a')
+            ->leftJoin('a.sections', 's')
+            ->addSelect('s')
+            ->andWhere('UPPER(s.libelle) = :slib')
+            ->setParameter('slib', strtoupper($parameters['section']));
+        }
+
+        return $qb->getQuery()
+                ->getResult();
+    }
+
+// http://127.0.0.1:8000/article?libelle=jupe&section=homme&critereTri=prix_u&triOrdre=DESC
+
     function findBySection($section){
         $qb = $this->createQueryBuilder('as');
         return $this->createQueryBuilder('a')
