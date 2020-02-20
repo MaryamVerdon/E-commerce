@@ -20,3 +20,12 @@
     - Générer les données avec la commande
 
             $ bin/console doctrine:fixtures:load
+
+
+## Le projet
+
+### Les criteres de tri
+
+Les articles peuvent être triés a l'aide de plusieurs filtres :
+
+        http://127.0.0.1:8000/article?libelle=jupe&section=homme&critere_tri=prix_u&tri_ordre=DESC&taille=L&type_article=jupe&categorie=vetement&prix_entre=20_30&description=pull
