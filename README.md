@@ -42,7 +42,7 @@ L'accès au compte du client connecté se fait par le biais de la route :
 
 Ses commandes sont accessible depuis :
 
-        http://127.0.0.1:8000/compte/commande
+        http://127.0.0.1:8000/compte/commandes
 
 ### Les criteres de tri
 
