@@ -49,3 +49,13 @@ Ses commandes sont accessible depuis :
 Les articles peuvent être triés a l'aide de plusieurs filtres :
 
         http://127.0.0.1:8000/article?libelle=jupe&section=homme&critere_tri=prix_u&tri_ordre=DESC&taille=L&type_article=jupe&categorie=vetement&prix_entre=20_30&description=pull
+
+### Le panier
+
+Doc symfony
+
+        https://symfony.com/legacy/doc/cookbook/1_0/en/shopping_cart
+
+### Idées
+
+Le client ne posséderait-il pas des moyens de paiement enregistre ? (CB)

@@ -25,7 +25,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="/section/Homme">Voir tout</a>
+                    <a class="dropdown-item" href="#">Voir tout</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -35,7 +35,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="/section/Femme">Voir tout</a>
+                    <a class="dropdown-item" href="#">Voir tout</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -45,15 +45,21 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="/section/Enfant">Voir tout</a>
+                    <a class="dropdown-item" href="#">Voir tout</a>
                     </div>
                 </li>
                 </ul>
                 <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="libelle">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
-                <a href="/login" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Connection</a>
+                
+                {% if app.user %}
+                    <div onClick={window.location="{{ path('compte') }}"}>Bonjour {{ app.user.prenom }}</div>
+                    <a href="/logout" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Deconnexion</a>
+                {% else %}
+                    <a href="/login" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Connexion</a>
+                {% endif %}
             </div>
         </nav>
         {% block body %}{% endblock %}
