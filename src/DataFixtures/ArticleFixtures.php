@@ -44,7 +44,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
                     $article = new Article();
                     $article->setLibelle($typeArticle->getLibelle() . " - " . $section->getLibelle());
                     $article->setDescription($typeArticle->getLibelle() . " pour " . $section->getLibelle());
-                    $article->setPrixU(mt_rand(100, 500) / 10);
+                    $article->setPrixU(mt_rand(1000, 5000) / 100);
                     foreach($tailles as $taille){
                         $randTaille = mt_rand(0,4);
                         if($randTaille > 0){
