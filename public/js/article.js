@@ -1,55 +1,21 @@
+window.addEventListener('load', e => {
+    addOnClickToPanier();
+});
 
-var index = 0;
-
-
-window.onload = () => {
-    let addTailleButton = document.createElement("button");
-    addTailleButton.className = "add_taille_link";
-    addTailleButton.textContent = "Ajouter une taille";
-    
-    let newLinkLi = document.createElement("li");
-    newLinkLi.appendChild(addTailleButton);
-
-    let collectionHolder = document.querySelector("ul.qte-taille");
-
-    let liInput = collectionHolder.querySelectorAll('li');
-    index = liInput.length;
-
-    liInput.forEach(element => {
-        addTailleFormDeleteLink(element);
-    });
-
-    collectionHolder.appendChild(newLinkLi);
-
-
-
-    addTailleButton.addEventListener("click", e => {
-        addTailleForm(collectionHolder, newLinkLi);
+function addOnClickToPanier(){
+    let articles = document.querySelectorAll(".item-article");
+    articles.forEach(article => {
+        let button = article.querySelector(".add-article-panier");
+        let id = article.querySelector("#id-article").value;
+        button.addEventListener("click", e => {
+            fetch("/panier/add/" + id)
+                .then(response => response.json())
+                .then(data => updatePanierSize(data['size']));
+        });
     });
 }
 
-function addTailleForm(collectionHolder, newLinkLi){
-    let prototype = collectionHolder.getAttribute("data-prototype");
-
-    let newForm = prototype.replace(/__name__/g, index);
-
-    index++;
-
-    let newFormLi = document.createElement("li");
-    newFormLi.innerHTML += newForm;
-
-    addTailleFormDeleteLink(newFormLi);
-
-    collectionHolder.insertBefore(newFormLi, newLinkLi);
-}
-
-function addTailleFormDeleteLink(tailleFormLi){
-    let removeFormButton = document.createElement("button");
-    removeFormButton.textContent = "Remove";
-
-    removeFormButton.addEventListener("click", e => {
-        tailleFormLi.remove();
-    });
-
-    tailleFormLi.appendChild(removeFormButton);
+function updatePanierSize(size){
+    let sizePanier = document.querySelector(".size-panier")
+    sizePanier.textContent = size > 0 ? size : "";
 }

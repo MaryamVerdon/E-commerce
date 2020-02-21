@@ -26,6 +26,8 @@ class PanierService {
         }
 
         $this->session->set('panier', $panier);
+
+        return $this->getNbArticles();
     }
 
     public function modify(int $id, int $quantite){
@@ -68,6 +70,17 @@ class PanierService {
         foreach($panier as $ligne){
             $totalLigne = $ligne['article']->getPrixU() * $ligne['quantite'];
             $total += $totalLigne;
+        }
+
+        return $total;
+    }
+
+    public function getNbArticles(){
+        $panier = $this->getPanier();
+        $total = 0;
+
+        foreach($panier as $ligne){
+            $total += $ligne['quantite'];
         }
 
         return $total;

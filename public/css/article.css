@@ -16,6 +16,13 @@
     padding: 5px;
 }
 
+.body-article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .image-article img {
     width: 100px;
 }

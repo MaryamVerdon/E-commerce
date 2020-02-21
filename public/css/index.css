@@ -1,0 +1,4 @@
+#button-panier {
+    display: flex;
+    flex-direction: row;
+}
