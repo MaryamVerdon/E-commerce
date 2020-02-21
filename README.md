@@ -56,10 +56,21 @@ Les articles peuvent être triés a l'aide de plusieurs filtres :
 
 ### Le panier
 
-Doc symfony
+Le panier est accessible depuis :
 
-        https://symfony.com/legacy/doc/cookbook/1_0/en/shopping_cart
+        http://127.0.0.1:8000/panier
+
+Le panier est stocké dans les données de session.
+
+Il est accessible partout depuis le servise App\Service\Panier\PanierService
+
+Il est possible d'ajouter/supprimer un article :
+
+        http://127.0.0.1:8000/panier/add/{id}
+
+        http://127.0.0.1:8000/panier/add/{id}?quantite={quantite}
+
+        http://127.0.0.1:8000/panier/remove/{id}
 
 ### Idées
 
-Le client ne posséderait-il pas des moyens de paiement enregistre ? (CB)
