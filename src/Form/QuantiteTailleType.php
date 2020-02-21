@@ -16,7 +16,11 @@ class QuantiteTailleType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-        ->add('qte', IntegerType::class)
+        ->add('qte', IntegerType::class, [
+          'attr' => [
+            'placeholder' => 10,
+          ]
+        ])
         ->add('taille', EntityType::class,[
             'class' => Taille::class,
             'choice_label' => function ($taille) {

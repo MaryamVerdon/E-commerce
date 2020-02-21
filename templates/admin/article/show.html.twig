@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
+
+{% block body %}
+{% include '/admin/panel.html' %}
+
+    <div class="item-article">
+        <div class="libelle-article">{{ article.libelle }}</div>
+        <div class="image-article"><img src="{{ article.image }}"/></div>
+        <div class="description-article">{{ article.description }}</div>
+        <div class="prix-article">{{ article.prixU }}$</div>
+    </div>
+{% endblock %}

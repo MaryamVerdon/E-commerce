@@ -42,6 +42,20 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/article/{id}", name="admin_article_show", requirements={"id"="\d+"})
+     */
+    public function show($id)
+    {
+        $article = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->find($id);
+        return $this->render('admin/article/show.html.twig', [
+            'controller_name' => 'ArticleController',
+            'article' => $article
+        ]);
+    }
+
+    /**
      * @Route("/admin/article/new", name="admin_article_new")
      */
     public function new(Request $request, EntityManagerInterface $entityManager)
@@ -49,12 +63,6 @@ class AdminController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $article = new Article();
-        $article->setLibelle("Nouvel article");
-        $article->setPrixU(0.00);
-        $article->setImage("/img/example.png");
-        $quantiteTaille = new QuantiteTaille();
-        $quantiteTaille->setQte(0);
-        $article->addQuantiteTaille($quantiteTaille);
 
         $form = $this->createForm(ArticleType::class, $article);
 
@@ -68,18 +76,18 @@ class AdminController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article_show', ['id' => $article->getId()]);
+            return $this->redirectToRoute('admin_article_show', ['id' => $article->getId()]);
         }
 
         
-        return $this->render('admin/new.html.twig', [
+        return $this->render('admin/article/new.html.twig', [
             'controller_name' => 'ArticleController',
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/admin/article/{id}/edit", name="article_edit")
+     * @Route("/admin/article/{id}/edit", name="admin_article_edit")
      */
     public function edit($id, Request $request, EntityManagerInterface $entityManager)
     {
@@ -113,18 +121,18 @@ class AdminController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article_show', ['id' => $article->getId()]);
+            return $this->redirectToRoute('admin_article_show', ['id' => $article->getId()]);
         }
 
         
-        return $this->render('admin/new.html.twig', [
+        return $this->render('admin/article/new.html.twig', [
             'controller_name' => 'ArticleController',
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/admin/article/{id}/remove", name="article_remove")
+     * @Route("/admin/article/{id}/remove", name="admin_article_remove")
      */
     public function remove($id)
     {
@@ -135,8 +143,6 @@ class AdminController extends AbstractController
             ->find($id);
         $em->remove($article);
         
-        return $this->render('article/index.html.twig', [
-            'controller_name' => 'ArticleController',
-        ]);
+        return $this->redirectToRoute('admin_article');
     }
 }
