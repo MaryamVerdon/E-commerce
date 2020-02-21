@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
+
+{% block body %}
+
+{{ form_start(form) }}
+    {{ form_row(form.libelle) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.prix_u) }}
+    {{ form_row(form.image) }}
+    {{ form_row(form.type_article) }}
+    {{ form_row(form.sections) }}
+
+
+    <h3>Quantite</h3>
+    <ul class="qte-taille" data-prototype="{{ form_widget(form.quantite_tailles.vars.prototype)|e('html_attr') }}">
+        {% for quantite_taille in form.quantite_tailles %}
+            <li>{{ form_row(quantite_taille.qte) }} {{ form_row(quantite_taille.taille) }}</li>
+        {% endfor %}
+    </ul>
+{{ form_end(form) }}
+
+{% endblock %}
+{% block javascripts %}<script src="/js/article.js"></script>{% endblock %}

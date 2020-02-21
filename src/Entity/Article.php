@@ -50,7 +50,7 @@ class Article
     private $sections;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\QuantiteTaille", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\QuantiteTaille", mappedBy="article", cascade={"persist"})
      */
     private $quantite_tailles;
 
@@ -58,7 +58,7 @@ class Article
     {
         $this->sections = new ArrayCollection();
         $this->lignes_de_commande = new ArrayCollection();
-        $this->quantiteTailles = new ArrayCollection();
+        $this->quantite_tailles = new ArrayCollection();
     }
 
 
