@@ -44,6 +44,10 @@ Ses commandes sont accessible depuis :
 
         http://127.0.0.1:8000/compte/commandes
 
+L'administration est accessible depuis :
+
+        http://127.0.0.1:8000/admin
+
 ### Les criteres de tri
 
 Les articles peuvent être triés a l'aide de plusieurs filtres :
