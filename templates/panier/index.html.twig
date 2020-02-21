@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PanierController!{% endblock %}
+
+{% block body %}
+<div class="panier">
+    {% if panier|length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in panier %}
+                    <tr>
+                        <td>{{ ligne.article.libelle }}</td>
+                        <td>{{ ligne.article.getPrixU }}$</td>
+                        <td>{{ ligne.quantite }}</td>
+                        <td>{{ ligne.article.getPrixU * ligne.quantite }}$</td>
+                        <td>
+                            <a href="{{ path('panier_remove', {id: ligne.article.id}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <td colspan="3" class="text-right">Total :</td>
+                <td>{{ total }}$</td>
+                <td></td>
+            </tfoot>
+        </table>
+    {% else %}
+        Panier Vide !
+    {% endif %}
+</div>
+{% endblock %}
