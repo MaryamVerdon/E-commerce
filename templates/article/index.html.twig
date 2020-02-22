@@ -16,13 +16,20 @@
                 <div class="prix-article">{{ article.prixU }}$</div>
             </div>
             <div class="button-article">
+                <select name="taille" id="taille-article">
+                    {% for quantiteTaille in article.getQuantiteTailles %}
+                        {% if quantiteTaille.qte > 0 %}
+                            <option value="{{ quantiteTaille.taille.id }}">{{ quantiteTaille.taille.libelle }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
                 <button class="add-article-panier">Ajouter</button>
             </div>
             <input type="hidden" value="{{ article.id }}" id="id-article">
         </div>
     {% endfor %}
 </div>
-
+ 
 {% endblock %}
 {% block javascripts %}<script src="/js/article.js"></script>{% endblock %}
 

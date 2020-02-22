@@ -29,9 +29,10 @@ class PanierController extends AbstractController
      */
     public function add($id, Request $request, PanierService $panierService)
     {
+        $idTaille = $request->query->get('taille');
         $quantite = $request->query->get('quantite');
 
-        $size = $panierService->add($id,(($quantite && is_numeric($quantite)) ? $quantite : 1));
+        $size = $panierService->add($id, $idTaille, (($quantite && is_numeric($quantite)) ? $quantite : 1));
         
         // return $this->redirectToRoute('article');
         return new JsonResponse(['size' => $size]);
@@ -40,9 +41,10 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/remove/{id}", name="panier_remove")
      */
-    public function remove($id, PanierService $panierService)
+    public function remove($id, Request $request, PanierService $panierService)
     {
-        $panierService->remove($id);
+        $idTaille = $request->query->get('taille');
+        $panierService->remove($id, $idTaille);
 
         return $this->redirectToRoute('panier');
     }
@@ -55,5 +57,15 @@ class PanierController extends AbstractController
         $size = $panierService->getNbArticles();
 
         return new JsonResponse(['size' => $size]);
+    }
+
+    /**
+     * @Route("/panier/test", name="panier_test")
+     */
+    public function test(PanierService $panierService)
+    {
+        $panier = $panierService->getPanierTest();
+
+        dd($panier);
     }
 }

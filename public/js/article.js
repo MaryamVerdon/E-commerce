@@ -7,8 +7,10 @@ function addOnClickToPanier(){
     articles.forEach(article => {
         let button = article.querySelector(".add-article-panier");
         let id = article.querySelector("#id-article").value;
+        let selectTaille = article.querySelector("#taille-article");
         button.addEventListener("click", e => {
-            fetch("/panier/add/" + id)
+            idTaille = selectTaille.options[selectTaille.selectedIndex].value;
+            fetch("/panier/add/" + id + "?taille=" + idTaille)
                 .then(response => response.json())
                 .then(data => updatePanierSize(data['size']));
         });

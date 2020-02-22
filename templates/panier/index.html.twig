@@ -9,6 +9,7 @@
             <thead>
                 <tr>
                     <th>Article</th>
+                    <th>Taille</th>
                     <th>Prix</th>
                     <th>Quantité</th>
                     <th>Total</th>
@@ -18,17 +19,18 @@
                 {% for ligne in panier %}
                     <tr>
                         <td>{{ ligne.article.libelle }}</td>
+                        <td>{{ ligne.taille.libelle }}</td>
                         <td>{{ ligne.article.getPrixU }}$</td>
                         <td>{{ ligne.quantite }}</td>
                         <td>{{ ligne.article.getPrixU * ligne.quantite }}$</td>
                         <td>
-                            <a href="{{ path('panier_remove', {id: ligne.article.id}) }}">Supprimer</a>
+                            <a href="{{ path('panier_remove', {id: ligne.article.id, taille: ligne.taille.id}) }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
-                <td colspan="3" class="text-right">Total :</td>
+                <td colspan="4" class="text-right">Total :</td>
                 <td>{{ total }}$</td>
                 <td></td>
             </tfoot>
