@@ -3,6 +3,7 @@
 namespace App\Service\Panier;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use App\Repository\ArticleRepository;
 
 class PanierService {

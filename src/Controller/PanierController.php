@@ -56,5 +56,4 @@ class PanierController extends AbstractController
 
         return new JsonResponse(['size' => $size]);
     }
-
 }
