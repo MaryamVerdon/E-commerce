@@ -54,6 +54,20 @@ Les articles peuvent être triés a l'aide de plusieurs filtres :
 
         http://127.0.0.1:8000/article?libelle=jupe&section=homme&critere_tri=prix_u&tri_ordre=DESC&taille=L&type_article=jupe&categorie=vetement&prix_entre=20_30&description=pull
 
+### Pagination
+
+La liste des articles est paginé.
+
+Elle a comme valeur par default la page 1 et 20 articles par page.
+
+La page et le nombre d'articles par page peuvent etre passé en parametre
+
+        http://127.0.0.1:8000/article?page=1&nb_max_par_page=30
+
+Les parametres actuels sont retournes au template en string depuis l'attribut "pagination.params" il sufit d'y donc d'y ajouter le parametre de la page demmandé.
+
+La numero de la page et de la derniere page sont accessible depuis les attributs "pagination.page" et "pagination.nbPages".
+
 ### Le panier
 
 Le panier est accessible depuis :
