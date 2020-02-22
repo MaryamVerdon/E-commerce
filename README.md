@@ -80,11 +80,11 @@ Il est accessible partout depuis le servise App\Service\Panier\PanierService
 
 Il est possible d'ajouter/supprimer un article :
 
-        http://127.0.0.1:8000/panier/add/{id}
+        http://127.0.0.1:8000/panier/add/{id}?taille={idTaille}
 
-        http://127.0.0.1:8000/panier/add/{id}?quantite={quantite}
+        http://127.0.0.1:8000/panier/add/{id}?taille={idTaille}&quantite={quantite}
 
-        http://127.0.0.1:8000/panier/remove/{id}
+        http://127.0.0.1:8000/panier/remove/{id}?taille={idTaille}
 
 ### Idées
 
