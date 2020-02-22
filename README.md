@@ -77,15 +77,4 @@ Il est possible d'ajouter/supprimer un article :
 
 ### A faire
 
-* Interface (Templates, CSS)
-* Les filtres pour les articles
-* Ajouter la taille dans le panier
-* Modifier la quantite dans le panier
-* Stocker les données session dans la BD
-* Continuer la partie Admin
-* Formulaire d'inscription
-* Formulaire modification client
-* La pagination des articles
-* Page d'acceuil
-* La partie pour commander
-* Le paiement
+[Voir les Issues](https://iut-info.univ-reims.fr/gitlab/verd0012/e-commerce/issues)
