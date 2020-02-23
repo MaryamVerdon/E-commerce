@@ -11,8 +11,16 @@ function addOnClickToPanier(){
         button.addEventListener("click", e => {
             idTaille = selectTaille.options[selectTaille.selectedIndex].value;
             fetch("/panier/add/" + id + "?taille=" + idTaille)
-                .then(response => response.json())
-                .then(data => updatePanierSize(data['size']));
+                .then(response => {
+                    if(response.status === 282){
+                        alert("Pas assez de quantité pour l'article");
+                        return;
+                    }
+                    return response.json()
+                })
+                .then(data => {
+                    if(data)updatePanierSize(data['size'])
+                });
         });
     });
 }

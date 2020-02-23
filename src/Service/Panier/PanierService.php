@@ -10,6 +10,8 @@ use App\Repository\ArticleRepository;
 use App\Repository\TailleRepository;
 use App\Repository\PanierRepository;
 use App\Entity\Panier;
+use App\Entity\Article;
+use App\Entity\QuantiteTaille;
 
 class PanierService {
 
@@ -118,6 +120,17 @@ class PanierService {
 
         foreach($panier as $ligne){
             $total += $ligne['quantite'];
+        }
+
+        return $total;
+    }
+
+    public function getQteFor(int $id, int $idTaille){
+        $panier = $this->session->get('panier', []);
+        $total = 0;
+
+        if(isset($panier[$id][$idTaille])){
+            $total = $panier[$id][$idTaille];
         }
 
         return $total;

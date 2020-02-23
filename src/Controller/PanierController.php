@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Service\Panier\PanierService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\Article;
 
 class PanierController extends AbstractController
 {
@@ -30,10 +31,24 @@ class PanierController extends AbstractController
     public function add($id, Request $request, PanierService $panierService)
     {
         $idTaille = $request->query->get('taille');
-        $quantite = $request->query->get('quantite');
+        $quantite = (($request->query->get('quantite') && is_numeric($quantite)) ? $quantite : 1);
 
-        $size = $panierService->add($id, $idTaille, (($quantite && is_numeric($quantite)) ? $quantite : 1));
+        $article = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->find($id);
+
+        $res = [];
         
+        foreach($article->getQuantiteTailles() as $quantiteTaille){
+            if($quantiteTaille->getTaille()->getId() == $idTaille){
+                if($quantiteTaille->getQte() < ($panierService->getQteFor($id, $idTaille) + $quantite)){
+                    return new Response('Pas assez de quantité pour l\'article',282);
+                }
+            }
+        }
+
+        $size = $panierService->add($id, $idTaille, $quantite);
+
         // return $this->redirectToRoute('article');
         return new JsonResponse(['size' => $size]);
     }
