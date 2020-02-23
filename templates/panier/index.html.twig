@@ -21,10 +21,26 @@
                         <td>{{ ligne.article.libelle }}</td>
                         <td>{{ ligne.taille.libelle }}</td>
                         <td>{{ ligne.article.getPrixU }}$</td>
-                        <td>{{ ligne.quantite }}</td>
+                        <td>
+                            <select class="qte-article">
+                                {% for quantiteTaille in ligne.article.quantiteTailles %}
+                                    {% if quantiteTaille.taille.id == ligne.taille.id %}
+                                        {% for i in 1..quantiteTaille.qte %}
+                                            {% if i == ligne.quantite %}
+                                                <option value="{{ i }}" selected>{{ i }}</option>
+                                            {% else %}
+                                                <option value="{{ i }}">{{ i }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </td>
                         <td>{{ ligne.article.getPrixU * ligne.quantite }}$</td>
                         <td>
                             <a href="{{ path('panier_remove', {id: ligne.article.id, taille: ligne.taille.id}) }}">Supprimer</a>
+                            <input type="hidden" value="{{ ligne.article.id }}" id="id-article"/>
+                            <input type="hidden" value="{{ ligne.taille.id }}" id="id-taille"/>
                         </td>
                     </tr>
                 {% endfor %}
@@ -40,3 +56,4 @@
     {% endif %}
 </div>
 {% endblock %}
+{% block javascripts %}<script src="/js/panier.js"></script>{% endblock %}

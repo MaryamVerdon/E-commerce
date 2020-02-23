@@ -31,14 +31,13 @@ class PanierController extends AbstractController
     public function add($id, Request $request, PanierService $panierService)
     {
         $idTaille = $request->query->get('taille');
-        $quantite = (($request->query->get('quantite') && is_numeric($quantite)) ? $quantite : 1);
+        $quantite = $request->query->get('quantite');
+        $quantite = (($quantite && is_numeric($quantite)) ? $quantite : 1);
 
         $article = $this->getDoctrine()
             ->getRepository(Article::class)
             ->find($id);
 
-        $res = [];
-        
         foreach($article->getQuantiteTailles() as $quantiteTaille){
             if($quantiteTaille->getTaille()->getId() == $idTaille){
                 if($quantiteTaille->getQte() < ($panierService->getQteFor($id, $idTaille) + $quantite)){
@@ -51,6 +50,21 @@ class PanierController extends AbstractController
 
         // return $this->redirectToRoute('article');
         return new JsonResponse(['size' => $size]);
+    }
+
+        /**
+     * @Route("/panier/modify/{id}", name="panier_modify")
+     */
+    public function modify($id, Request $request, PanierService $panierService)
+    {
+        $idTaille = $request->query->get('taille');
+        $quantite = $request->query->get('quantite');
+        $quantite = (($quantite && is_numeric($quantite)) ? $quantite : 1);
+
+        $size = $panierService->modify($id, $idTaille, $quantite);
+
+        // return $this->redirectToRoute('article');
+        return $this->redirectToRoute('panier');
     }
 
     /**
