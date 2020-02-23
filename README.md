@@ -25,15 +25,6 @@
 
             $ bin/console doctrine:fixtures:load
 
-    - Creer la table session
-
-            CREATE TABLE `sessions` (
-            `sess_id` VARCHAR(128) NOT NULL PRIMARY KEY,
-            `sess_data` BLOB NOT NULL,
-            `sess_time` INTEGER UNSIGNED NOT NULL,
-            `sess_lifetime` INTEGER UNSIGNED NOT NULL
-            ) COLLATE utf8mb4_bin, ENGINE = InnoDB;
-
 ## Le projet
 
 ### L'authentification
@@ -84,7 +75,11 @@ Le panier est accessible depuis :
 
 Le panier est stocké dans les données de session.
 
-Il est accessible partout depuis le servise App\Service\Panier\PanierService
+Lorque l'utilisateur est en ligne, don panier est aussi stocké dans la bdd afin qu'il retrouve son panier a sa prochaine connection depuis nimporte quelle appareil.
+
+Lorque l'utilisateur a ajouté des articles a son panier avant de se connecter et qu'il y a deja des articles stockes dans la bdd le panier se verra automatiquement ajouter les articles en bdd.
+
+Il est accessible partout depuis le service App\Service\Panier\PanierService
 
 Il est possible d'ajouter/supprimer un article :
 
