@@ -82,7 +82,8 @@ class PanierService {
             if($p == []){
                 $p = $panierDb;
             }else if($p != $panierDb){
-                $p = array_merge($p, $panierDb);
+                $p = $this->additionArray($p, $panierDb);
+                $this->session->set('panier', $p);
                 $this->storePanierDb($p);
             }
         }
@@ -125,8 +126,14 @@ class PanierService {
         return $total;
     }
 
+    public function getPanierTest(){
+        $p = $this->session->get('panier', []);
+
+        return $p;
+    }
+
     public function getQteFor(int $id, int $idTaille){
-        $panier = $this->session->get('panier', []);
+        $panier = $this->getPanier();
         $total = 0;
 
         if(isset($panier[$id][$idTaille])){
@@ -136,10 +143,27 @@ class PanierService {
         return $total;
     }
 
-    public function getPanierTest(){
+    public function getPanierTest2(){
+        $res = [];
         $p = $this->session->get('panier', []);
 
-        return $p;
+        $p1 = $this->retrievePanierDb();
+        
+        $p2 = $this->additionArray($p, $p1);
+
+        return ['panier-session' => $p, 'panier-bdd' => $p1, 'panier-merge' => $p2];
+    }
+
+    private function additionArray(...$arrays){
+        $res = [];
+        foreach($arrays as $array){
+            foreach($array as $id => $tailles){
+                foreach($tailles as $idTaille => $quantite){
+                    $res[$id][$idTaille] = ((isset($res[$id][$idTaille]) ? $res[$id][$idTaille] : 0 ) + $quantite);
+                }
+            }
+        }
+        return $res;
     }
 
     private function storePanierDb(array $panier){

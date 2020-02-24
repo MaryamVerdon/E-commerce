@@ -93,7 +93,7 @@ class PanierController extends AbstractController
      */
     public function test(PanierService $panierService)
     {
-        $panier = $panierService->getPanierTest();
+        $panier = $panierService->getPanierTest2();
 
         dd($panier);
     }
