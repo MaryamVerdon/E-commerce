@@ -32,9 +32,11 @@ class ClientController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $client = $this->getUser();
         if($client){
+            
             $commandes = $this->getDoctrine()
                 ->getRepository(Commande::class)
                 ->findByClient($client);
+                dd($commandes);
             return $this->render('client/commandes.html.twig', [
                 'controller_name' => 'ClientController',
                 'commandes' => $commandes
@@ -54,6 +56,7 @@ class ClientController extends AbstractController
             $commande = $this->getDoctrine()
                 ->getRepository(Commande::class)
                 ->find($id);
+                
             if($commande->getClient() == $client){
                 return $this->render('client/commande_show.html.twig', [
                     'controller_name' => 'ClientController',
