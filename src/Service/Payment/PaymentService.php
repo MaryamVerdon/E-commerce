@@ -14,6 +14,8 @@ use PayPal\Api\ItemList;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Transaction;
+use PayPal\Api\PaymentExecution;
+use PayPal\Exception\PayPalConnectionException;
 use App\Entity\Commande;
 use App\Entity\LigneDeCommande;
 use App\Entity\Article;
@@ -33,8 +35,7 @@ class PaymentService {
         );
     }
 
-    public function newPayment($commande)
-    {
+    private function newTransaction($commande){
         $details = (new Details())
             ->setSubtotal($commande->getPrixTotal());
 
@@ -43,23 +44,46 @@ class PaymentService {
             ->setCurrency('EUR')
             ->setDetails($details);
 
-        $transaction = (new Transaction())
+        return (new Transaction())
             ->setItemList($this->commandeToItemList($commande))
             ->setDescription("Achat sur FiveSportsWear")
             ->setAmount($amount)
             ->setCustom('test');
+    }
 
+    public function newPayment($commande)
+    {
+        $transaction = $this->newTransaction($commande);
         $payment = new Payment();
         $payment->setTransactions([$transaction]);
         $payment->setIntent('sale');
         $redirectUrls = (new RedirectUrls())
-            ->setReturnUrl('http://127.0.0.1:8000/pay')
+            ->setReturnUrl('http://127.0.0.1:8000/payment/success')
             ->setCancelUrl('http://127.0.0.1:8000/');
         $payment->setRedirectUrls($redirectUrls);
         $payment->setPayer((new Payer())->setPaymentMethod('paypal'));
 
-        $payment->create($this->apiContext);
+        try {
+            $payment->create($this->apiContext);
+        }catch (PayPalConnectionException $e){
+            return ['message' => $e->getMessage()];
+        }
         return $payment->getApprovalLink();
+    }
+
+    public function success($commande, $paymentId, $payerId){
+        $payment = Payment::get($paymentId, $this->apiContext);
+
+        $transaction = $this->newTransaction($commande);
+        $execution = (new PaymentExecution())
+            ->setPayerId($payerId)
+            ->addTransaction($transaction);
+        try{
+            $payment->execute($execution, $this->apiContext);
+            return true;
+        }catch (PayPalConnectionException $e){
+            return $e->getMessage();
+        }
     }
 
     private function commandeToItemList($commande)

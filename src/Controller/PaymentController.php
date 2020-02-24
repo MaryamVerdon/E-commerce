@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use App\Service\Payment\PaymentService;
 use App\Entity\Commande;
 
@@ -18,20 +19,58 @@ class PaymentController extends AbstractController
      */
     public function index(PaymentService $paymentService)
     {
-        //$commande = $this->getDoctrine()
-        //    ->getRepository(Commande::class)
-        //    ->findOneBy([]);
+        $client = $this->getUser();
+        if($client){
+            $commande = $this->getDoctrine()
+                ->getRepository(Commande::class)
+                ->findLastByClient($client);
+                if($commande){
 
-        $commande = $this->getCommande();
+                    $paymentUrl = $paymentService->newPayment($commande);
 
-        $paymentUrl = $paymentService->newPayment($commande);
+                    if(isset($paymentUrl['message'])){
+                        dd($paymentUrl['message']);
+                        // Exception
+                    }
 
-        return $this->redirect($paymentUrl);
-        /*
+                    return $this->redirect($paymentUrl);
+                }
+        }
+        
         return $this->render('payment/index.html.twig', [
             'controller_name' => 'PaymentController',
         ]);
-        */
+        
+    }
+
+    /**
+     * @Route("/payment/success", name="payment_success")
+     */
+    public function success(Request $request, PaymentService $paymentService)
+    {
+        $client = $this->getUser();
+        if($client){
+            $commande = $this->getDoctrine()
+                ->getRepository(Commande::class)
+                ->findLastByClient($client);
+            if($commande){
+                $paymentId = $request->query->get("paymentId");
+                $payerId = $request->query->get("payerId");
+
+                $success = $paymentService->success($commande, $paymentId, $payerId);
+                if($success != true){
+                    dd($success);
+                    // new Exception
+                }
+                return $this->render('payment/index.html.twig', [
+                    'controller_name' => 'PaymentController',
+                ]);
+            }
+        }
+        //Exception
+        return $this->render('payment/index.html.twig', [
+            'controller_name' => 'PaymentController',
+        ]);
     }
 
 
