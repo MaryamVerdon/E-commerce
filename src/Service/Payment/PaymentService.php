@@ -71,13 +71,13 @@ class PaymentService {
         return $payment->getApprovalLink();
     }
 
-    public function success($commande, $paymentId, $payerId){
+    public function success($paymentId, $payerId){
         $payment = Payment::get($paymentId, $this->apiContext);
 
-        $transaction = $this->newTransaction($commande);
+        // $transaction = $this->newTransaction($commande);
         $execution = (new PaymentExecution())
-            ->setPayerId($payerId)
-            ->addTransaction($transaction);
+            ->setPayerId($payerId);
+            // ->addTransaction($transaction);
         try{
             $payment->execute($execution, $this->apiContext);
             return true;
