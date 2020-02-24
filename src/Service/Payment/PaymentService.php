@@ -53,19 +53,19 @@ class PaymentService {
         $payment->setTransactions([$transaction]);
         $payment->setIntent('sale');
         $redirectUrls = (new RedirectUrls())
-            ->setReturnUrl('/pay')
-            ->setCancelUrl('/');
+            ->setReturnUrl('http://127.0.0.1:8000/pay')
+            ->setCancelUrl('http://127.0.0.1:8000/');
         $payment->setRedirectUrls($redirectUrls);
         $payment->setPayer((new Payer())->setPaymentMethod('paypal'));
 
-        // $payment->create($this->apiContext);
-        return $payment;
+        $payment->create($this->apiContext);
+        return $payment->getApprovalLink();
     }
 
     private function commandeToItemList($commande)
     {
         $list = new ItemList();
-        foreach($commande->getLignesDeCommande as $ligneDeCommande){
+        foreach($commande->getLignesDeCommande() as $ligneDeCommande){
             $item = new Item();
             $item->setName($ligneDeCommande->getArticle()->getLibelle());
             $item->setPrice($ligneDeCommande->getArticle()->getPrixU());

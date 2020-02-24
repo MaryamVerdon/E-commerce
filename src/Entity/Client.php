@@ -109,7 +109,7 @@ class Client implements UserInterface
         }
         if (!$this->adresses->contains($adresse)) {
             $this->adresses[] = $adresse;
-            $adress->setClient($this);
+            $adresse->setClient($this);
         }
 
         return $this;
@@ -120,8 +120,8 @@ class Client implements UserInterface
         if ($this->adresses->contains($adresse)) {
             $this->adresses->removeElement($adresse);
             // set the owning side to null (unless already changed)
-            if ($adress->getClient() === $this) {
-                $adress->setClient(null);
+            if ($adresse->getClient() === $this) {
+                $adresse->setClient(null);
             }
         }
 

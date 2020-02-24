@@ -70,11 +70,11 @@ class Commande
         return $this->lignes_de_commande;
     }
 
-    public function addLignesDeCommande(LigneDeCommande $lignesDeCommande): self
+    public function addLigneDeCommande(LigneDeCommande $ligneDeCommande): self
     {
-        if (!$this->lignes_de_commande->contains($lignesDeCommande)) {
-            $this->lignes_de_commande[] = $lignesDeCommande;
-            $lignesDeCommande->setCommande($this);
+        if (!$this->lignes_de_commande->contains($ligneDeCommande)) {
+            $this->lignes_de_commande[] = $ligneDeCommande;
+            $ligneDeCommande->setCommande($this);
         }
 
         return $this;
