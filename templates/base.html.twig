@@ -57,7 +57,7 @@
                 {% if app.user %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="/admin" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Admin</a>
-                    {% elseif is_granted('ROLE_User') %}
+                    {% elseif is_granted('ROLE_USER') %}
                         <div onClick={window.location="{{ path('compte') }}"}>Bonjour {{ app.user.prenom }}</div>
                     {% endif %}
                         <a href="/logout" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Deconnexion</a>

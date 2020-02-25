@@ -50,7 +50,7 @@ class CommandeFixtures extends Fixture implements DependentFixtureInterface
             ->getRepository(StatutCommande::class)
             ->findAll();
 
-        for($i = 0; $i < 30; $i++){
+        for($i = 0; $i < 100; $i++){
             $commande = new Commande();
             $commande->setDate($this->faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null));
 

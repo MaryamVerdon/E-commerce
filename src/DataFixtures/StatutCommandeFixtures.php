@@ -11,7 +11,7 @@ class StatutCommandeFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $statutsCommande = [
-            1  => "En attente de paiement",
+            1 => "En attente de paiement",
             2 => "Payé",
             3 => "En préparation",
             3 => "En cours de livraison",
