@@ -11,14 +11,18 @@ class StatutCommandeFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $statutsCommande = [
-            "En attente de paiement",
-            "Payé",
-            "Paiement refusé",
+            1  => "En attente de paiement",
+            2 => "Payé",
+            3 => "En préparation",
+            3 => "En cours de livraison",
+            4 => "Livré",
+            9 => "Paiement refusé",
         ];
 
-        foreach($statutsCommande as $sCommande){
+        foreach($statutsCommande as $sCode => $sCommande){
             $statutCommande = new StatutCommande();
             $statutCommande->setLibelle($sCommande);
+            $statutCommande->setCode($sCode);
             $manager->persist($statutCommande);
         }
 

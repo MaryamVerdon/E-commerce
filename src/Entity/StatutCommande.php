@@ -21,6 +21,11 @@ class StatutCommande
      */
     private $libelle;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $code;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +39,18 @@ class StatutCommande
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getCode(): ?int
+    {
+        return $this->code;
+    }
+
+    public function setCode(int $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }
