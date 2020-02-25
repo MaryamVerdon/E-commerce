@@ -51,7 +51,7 @@ L'administration est accessible depuis :
 
 Les articles peuvent être triés a l'aide de plusieurs filtres :
 
-        http://127.0.0.1:8000/article?libelle=jupe&section=homme&critere_tri=prix_u&tri_ordre=DESC&taille=L&type_article=jupe&categorie=vetement&prix_entre=20_30&description=pull
+        http://127.0.0.1:8000/article?libelle=jupe&sections[]=homme&sections[]=femme&critere_tri=prix_u&tri_ordre=DESC&tailles[]=L&types[]=jupe&categories[]=vetement&categories[]=Accessoire&prix_entre=20_30&description=pull
 
 ### Pagination
 

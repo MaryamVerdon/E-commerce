@@ -12,10 +12,10 @@ class StatutCommandeFixtures extends Fixture
     {
         $statutsCommande = [
             1 => "En attente de paiement",
-            2 => "Payé",
+            2 => "Payée",
             3 => "En préparation",
             3 => "En cours de livraison",
-            4 => "Livré",
+            4 => "Livrée",
             9 => "Paiement refusé",
         ];
 

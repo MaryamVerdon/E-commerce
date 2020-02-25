@@ -7,6 +7,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Article;
 use App\Entity\Taille;
+use App\Entity\TypeArticle;
+use App\Entity\Categorie;
+use App\Entity\Section;
 use App\Entity\QuantiteTaille;
 use App\Form\ArticleType;
 
@@ -37,7 +40,7 @@ class ArticleController extends AbstractController
         $parametres = count($parameters) > 0 ? "?" : "";
         foreach($parameters as $param => $value ){
             if($param != 'page'){
-                $parametres .= ($indexParam > 0 ? "&" : "") . $param . "=" . $value;
+                // $parametres .= ($indexParam > 0 ? "&" : "") . $param . "=" . $value;
                 $indexParam++;
             }
         }
@@ -48,9 +51,29 @@ class ArticleController extends AbstractController
             'params' => $parametres,
         ];
 
+        $sections = $this->getDoctrine()
+            ->getRepository(Section::class)
+            ->findAll();
+
+        $tailles = $this->getDoctrine()
+            ->getRepository(Taille::class)
+            ->findAll();
+
+        $typesArticle = $this->getDoctrine()
+            ->getRepository(TypeArticle::class)
+            ->findAll();
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
         return $this->render('article/index.html.twig', [
             'controller_name' => 'ArticleController',
             'articles' => $articles,
+            'sections' => $sections,
+            'tailles' => $tailles,
+            'categories' => $categories,
+            'typesArticle' => $typesArticle,
             'pagination' => $pagination,
         ]);
     }

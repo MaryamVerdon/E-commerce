@@ -57,6 +57,66 @@ class ArticleRepository extends ServiceEntityRepository
                 ->setParameter('prix1', $prix[0])
                 ->setParameter('prix2', $prix[1]);
         }
+        if(isset($parameters['sections'])){
+            $qb->select('a')
+            ->leftJoin('a.sections', 's')
+            ->addSelect('s')
+            ->andWhere('UPPER(s.libelle) IN(:slib)')
+            ->setParameter('slib', array_values($parameters['sections']));
+            // ->add('where', $qb->expr()->in('UPPER(s.libelle)', $parameters['sections']));
+        }
+        if(isset($parameters['types'])){
+            $qb->select('a')
+            ->leftJoin('a.type_article', 't')
+            ->addSelect('t')
+            ->andWhere('UPPER(t.libelle) IN(:tlib)')
+            ->setParameter('tlib', array_values($parameters['types']));
+        }
+        if(isset($parameters['categories'])){
+            if(!in_array('t', $qb->getAllAliases())){
+                $qb->select('a')
+                ->leftJoin('a.type_article', 't');
+            }
+        $qb->addSelect('t')
+            ->leftJoin('t.categorie', 'c')
+            ->addSelect('c')
+            ->andWhere('UPPER(c.libelle) IN(:clib)')
+            ->setParameter('clib', array_values($parameters['categories']));
+        }
+        if(isset($parameters['tailles'])){
+            $qb->addSelect('a')
+            ->leftJoin('a.quantite_tailles', 'q')
+            ->addSelect('q')
+            ->leftJoin('q.taille', 'ta')
+            ->andWhere('UPPER(ta.libelle) IN(:taille)')
+            ->setParameter('taille',  array_values($parameters['tailles']));
+        }
+        /*
+        if(isset($parameters['types'])){
+            $qb->select('a')
+            ->leftJoin('a.type_article', 't')
+            ->addSelect('t')
+            ->add('where', $qb->expr()->in('UPPER(t.libelle)', $parameters['types']));
+        }
+        if(isset($parameters['categories'])){
+            if(!in_array('t', $qb->getAllAliases())){
+                $qb->select('a')
+                ->leftJoin('a.type_article', 't');
+            }
+        $qb->addSelect('t')
+            ->leftJoin('t.categorie', 'c')
+            ->addSelect('c')
+            ->add('where', $qb->expr()->in('UPPER(c.libelle)', $parameters['categories']));
+        }
+        if(isset($parameters['tailles'])){
+            $qb->addSelect('a')
+            ->leftJoin('a.quantite_tailles', 'q')
+            ->addSelect('q')
+            ->leftJoin('q.taille', 'ta')
+            ->add('where', $qb->expr()->in('UPPER(ta.libelle)', $parameters['tailles']));
+        }
+        */
+        /*
         if(isset($parameters['section'])){
             $qb->select('a')
             ->leftJoin('a.sections', 's')
@@ -90,7 +150,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('UPPER(ta.libelle) LIKE :taille')
             ->setParameter('taille',  strtoupper($parameters['taille']));
         }
-
+        */
         $debut = ($page -1) * $nbMaxParPage;
         $query = $qb->getQuery();
         $query->setFirstResult($debut)

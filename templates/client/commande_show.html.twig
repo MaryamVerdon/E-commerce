@@ -21,7 +21,7 @@
     {% endfor %}
     <div class="montant-commande">Total: {{ commande.getPrixTotal }}$</div>
     <div class="statut-commande">{{ commande.statutCommande.libelle }}</div>
-    {% if commande.statutCommande.code == 1 %}
+    {% if commande.statutCommande.code == 1 or commande.statutCommande.code == 9 %}
         <button>Payer</button>
     {% endif %}
 </div>
