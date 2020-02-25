@@ -6,12 +6,14 @@
     <div class="panier">
     {% for panier in paniers %}
         <div>
-
-            <div >article : {{panier.article.prixU}}</div>
-            
+    
+            <div >article : {{panier.article.prixU * panier.qte }}</div>
+            <div >taille : {{panier.taille.libelle}}</div>
+            <div<
         </div>
        
     {% endfor %}
+  
      <div><button onclick="window.location.href='/commande/new'">validé la commande</button></div>
 </div>
 {% endblock %}

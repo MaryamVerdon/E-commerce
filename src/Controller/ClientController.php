@@ -36,7 +36,7 @@ class ClientController extends AbstractController
             $commandes = $this->getDoctrine()
                 ->getRepository(Commande::class)
                 ->findByClient($client);
-                dd($commandes);
+               
             return $this->render('client/commandes.html.twig', [
                 'controller_name' => 'ClientController',
                 'commandes' => $commandes
