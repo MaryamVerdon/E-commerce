@@ -24,7 +24,7 @@ class Commande
     private $date;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneDeCommande", mappedBy="commande")
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneDeCommande", mappedBy="commande", cascade={"persist"})
      */
     private $lignes_de_commande;
 
@@ -39,6 +39,12 @@ class Commande
      * @ORM\JoinColumn(nullable=false)
      */
     private $mode_paiement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\StatutCommande")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $statut_commande;
 
     public function __construct()
     {
@@ -80,13 +86,13 @@ class Commande
         return $this;
     }
 
-    public function removeLignesDeCommande(LigneDeCommande $lignesDeCommande): self
+    public function removeLigneDeCommande(LigneDeCommande $ligneDeCommande): self
     {
-        if ($this->lignes_de_commande->contains($lignesDeCommande)) {
-            $this->lignes_de_commande->removeElement($lignesDeCommande);
+        if ($this->lignes_de_commande->contains($ligneDeCommande)) {
+            $this->lignes_de_commande->removeElement($ligneDeCommande);
             // set the owning side to null (unless already changed)
-            if ($lignesDeCommande->getCommande() === $this) {
-                $lignesDeCommande->setCommande(null);
+            if ($ligneDeCommande->getCommande() === $this) {
+                $ligneDeCommande->setCommande(null);
             }
         }
 
@@ -133,5 +139,17 @@ class Commande
             $total += $ligne_de_commande->getQte();
         }
         return $total;
+    }
+
+    public function getStatutCommande(): ?StatutCommande
+    {
+        return $this->statut_commande;
+    }
+
+    public function setStatutCommande(?StatutCommande $statut_commande): self
+    {
+        $this->statut_commande = $statut_commande;
+
+        return $this;
     }
 }

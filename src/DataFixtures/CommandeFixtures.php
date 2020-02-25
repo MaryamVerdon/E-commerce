@@ -11,6 +11,8 @@ use App\Entity\ModePaiement;
 use App\Entity\Client;
 use App\Entity\Article;
 use App\Entity\Commande;
+use App\Entity\Taille;
+use App\Entity\StatutCommande;
 use Faker\Factory;
 
 class CommandeFixtures extends Fixture implements DependentFixtureInterface
@@ -31,6 +33,10 @@ class CommandeFixtures extends Fixture implements DependentFixtureInterface
         $articles = $this->entityManager
             ->getRepository(Article::class)
             ->findAll();
+        
+        $tailles = $this->entityManager
+            ->getRepository(Taille::class)
+            ->findAll();
 
         $clients = $this->entityManager
             ->getRepository(Client::class)
@@ -38,6 +44,10 @@ class CommandeFixtures extends Fixture implements DependentFixtureInterface
 
         $modesPaiement = $this->entityManager
             ->getRepository(ModePaiement::class)
+            ->findAll();
+
+        $statutsCommande = $this->entityManager
+            ->getRepository(StatutCommande::class)
             ->findAll();
 
         for($i = 0; $i < 30; $i++){
@@ -49,13 +59,14 @@ class CommandeFixtures extends Fixture implements DependentFixtureInterface
                 $ligneDeCommande = new LigneDeCommande();
                 $ligneDeCommande->setQte(mt_rand(1,10));
                 $ligneDeCommande->setArticle($articles[array_rand($articles)]);
-                $ligneDeCommande->setCommande($commande);
-
-                $manager->persist($ligneDeCommande);
+                $ligneDeCommande->setTaille($tailles[array_rand($tailles)]);
+                
+                $commande->addLigneDeCommande($ligneDeCommande);
             }
 
             $commande->setClient($clients[array_rand($clients)]);
             $commande->setModePaiement($modesPaiement[array_rand($modesPaiement)]);
+            $commande->setStatutCommande($statutsCommande[array_rand($statutsCommande)]);
 
             $manager->persist($commande);
         }
@@ -69,6 +80,7 @@ class CommandeFixtures extends Fixture implements DependentFixtureInterface
             ArticleFixtures::class,
             ModePaiementFixtures::class,
             ClientFixtures::class,
+            StatutCommandeFixtures::class,
         );
     }
 }
