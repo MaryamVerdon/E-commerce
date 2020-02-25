@@ -40,8 +40,15 @@ class ArticleController extends AbstractController
         $parametres = count($parameters) > 0 ? "?" : "";
         foreach($parameters as $param => $value ){
             if($param != 'page'){
-                // $parametres .= ($indexParam > 0 ? "&" : "") . $param . "=" . $value;
-                $indexParam++;
+                if(is_array($value)){
+                    foreach($value as $val){
+                        $parametres .= ($indexParam > 0 ? "&" : "") . $param . "[]=" . $val;
+                        $indexParam++;
+                    }
+                }else{
+                    $parametres .= ($indexParam > 0 ? "&" : "") . $param . "=" . $value;
+                    $indexParam++;
+                }
             }
         }
 
