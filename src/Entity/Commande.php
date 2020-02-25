@@ -46,6 +46,17 @@ class Commande
      */
     private $statut_commande;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Adresse")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $adresse;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $frais_de_port;
+
     public function __construct()
     {
         $this->lignes_de_commande = new ArrayCollection();
@@ -149,6 +160,30 @@ class Commande
     public function setStatutCommande(?StatutCommande $statut_commande): self
     {
         $this->statut_commande = $statut_commande;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?Adresse
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Adresse $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getFraisDePort(): ?float
+    {
+        return $this->frais_de_port;
+    }
+
+    public function setFraisDePort(float $frais_de_port): self
+    {
+        $this->frais_de_port = $frais_de_port;
 
         return $this;
     }

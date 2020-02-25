@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -97,7 +99,7 @@ class Client implements UserInterface
     /**
      * @return Collection|Adresse[]
      */
-    public function getAdresses(): Collection
+    public function getAdresses(): ?Collection
     {
         return $this->adresses;
     }

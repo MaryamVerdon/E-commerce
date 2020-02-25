@@ -64,9 +64,17 @@ class CommandeFixtures extends Fixture implements DependentFixtureInterface
                 $commande->addLigneDeCommande($ligneDeCommande);
             }
 
-            $commande->setClient($clients[array_rand($clients)]);
+            $client = new Client();
+
+            while(!$client->getAdresses() || ($client->getAdresses() && count($client->getAdresses()) < 1)){
+                $client = $clients[array_rand($clients)];
+            }
+
+            $commande->setClient($client);
             $commande->setModePaiement($modesPaiement[array_rand($modesPaiement)]);
             $commande->setStatutCommande($statutsCommande[array_rand($statutsCommande)]);
+            $commande->setAdresse($client->getAdresses()[0]);
+            $commande->setFraisDePort(mt_rand(100,500)/100);
 
             $manager->persist($commande);
         }
