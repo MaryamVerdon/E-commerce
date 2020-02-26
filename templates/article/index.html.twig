@@ -47,7 +47,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="filtre-types-article">
+        <div class="filtre-types">
             {#
             {% for typeArticle in typesArticle %}
                 <input type="checkbox" name="type-article" value="{{ typeArticle.libelle }}" id="{{ "type-article-" ~ typeArticle.libelle }}">
@@ -60,7 +60,7 @@
             <div class="collapse" id="collapse-types">
             {% for typeArticle in typesArticle %}
                 <label class="btn btn-secondary active">
-                <input class="input-type" type="checkbox" name="type-article" value="{{ typeArticle.libelle }}" id="{{ "type-article-" ~ typeArticle.libelle }}">
+                <input class="input-type" type="checkbox" name="type-article" value="{{ typeArticle.libelle }}" id="{{ "type-" ~ typeArticle.libelle }}">
                 {{ typeArticle.libelle }}
                 </label>
             {% endfor %}

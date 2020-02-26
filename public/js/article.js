@@ -1,5 +1,6 @@
 window.addEventListener('load', e => {
     addOnClickToPanier();
+    setFiltersByParameters(getUrlParameters());
     addOnChangeToFilters();
 });
 
@@ -38,22 +39,22 @@ function addOnChangeToFilters(){
     let tailles = document.querySelectorAll(".input-taille");
     sections.forEach(section => {
         section.addEventListener("change", e => {
-            console.log(getFiltersToUrl());
+            window.location = "/article" + getFiltersToUrl();
         });
     });
     categories.forEach(categorie => {
         categorie.addEventListener("change", e => {
-            console.log(getFiltersToUrl());
+            window.location = "/article" + getFiltersToUrl();
         });
     });
     types.forEach(type => {
         type.addEventListener("change", e => {
-            console.log(getFiltersToUrl());
+            window.location = "/article" + getFiltersToUrl();
         });
     });
     tailles.forEach(taille => {
         taille.addEventListener("change", e => {
-            console.log(getFiltersToUrl());
+            window.location = "/article" + getFiltersToUrl();
         });
     });
 }
@@ -84,5 +85,48 @@ function getFiltersToUrl(){
             url += ("&tailles[]=" + taille.value);
         }
     });
-    return url;
+    return "?" + url.substring(1);
+}
+
+function setFiltersByParameters(parameters){
+    let sections = document.querySelector(".filtre-sections");
+    let categories = document.querySelector(".filtre-categories");
+    let types = document.querySelector(".filtre-types");
+    let tailles = document.querySelector(".filtre-tailles");
+    
+    if(parameters['sections']){
+        parameters['sections'].forEach(s => {
+            sections.querySelector("#section-" + s).checked = true;
+        })
+    }
+    if(parameters['categories']){
+        parameters['categories'].forEach(s => {
+            categories.querySelector("#categorie-" + s).checked = true;
+        })
+    }
+    if(parameters['types']){
+        parameters['types'].forEach(s => {
+            types.querySelector("#type-" + s).checked = true;
+        })
+    }
+    if(parameters['tailles']){
+        parameters['tailles'].forEach(s => {
+            tailles.querySelector("#taille-" + s).checked = true;
+        })
+    }
+}
+
+function getUrlParameters() {
+    var parameters = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        if(key.includes("[]")){
+            if(!parameters[key.replace("[]","")]){
+                parameters[key.replace("[]","")] = [];
+            }
+            parameters[key.replace("[]","")].push(value);
+        }else{
+            parameters[key] = value;
+        }
+    });
+    return parameters;
 }
