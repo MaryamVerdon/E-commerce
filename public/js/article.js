@@ -65,6 +65,8 @@ function getFiltersToUrl(){
     let categories = document.querySelectorAll(".input-categorie");
     let types = document.querySelectorAll(".input-type");
     let tailles = document.querySelectorAll(".input-taille");
+    let prixMin = document.querySelector("#input-prix-min");
+    let prixMax = document.querySelector("#input-prix-max");
     sections.forEach(section => {
         if(section.checked){
             url += ("&sections[]=" + section.value);
@@ -85,6 +87,26 @@ function getFiltersToUrl(){
             url += ("&tailles[]=" + taille.value);
         }
     });
+
+    let prix = "";
+    if(prixMin.value && prixMin.value != ""){
+        if(prixMax.value && prixMax.value != ""){
+            prix = prixMin.value + "_" + prixMax.value;
+        }else{
+            prix = prixMin.value + "_999";
+        }
+    }else{
+        if(prixMax.value && prixMax.value != ""){
+            prix =  "999_" + prixMax.value;
+        }else{
+            prix = null;
+        }
+    }
+
+    if(prix){
+        url += "&prix_entre=" + prix;
+    }
+
     return "?" + url.substring(1);
 }
 

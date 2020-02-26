@@ -92,14 +92,14 @@
             <div class="collapse" id="collapse-prix">
                 Prix entre :
                 <div class="input-group">
-                    <input type="number" class="form-control" name="prix" step="5" min="0" max="200" value="" placeholder="min" id="prix-min">
+                    <input type="number" class="form-control" name="prix" step="5" min="0" max="200" value="" placeholder="min" id="input-prix-min">
                     <div class="input-group-append">
                         <span class="input-group-text">$</span>
                     </div>
                 </div>
                 et
                 <div class="input-group">
-                    <input type="number" class="form-control" name="prix" step="5" min="0" max="200" value="" placeholder="max" id="prix-max">
+                    <input type="number" class="form-control" name="prix" step="5" min="0" max="200" value="" placeholder="max" id="input-prix-max">
                     <div class="input-group-append">
                         <span class="input-group-text">$</span>
                     </div>
@@ -139,19 +139,23 @@
         <div class="pagination-articles">
         <nav aria-label="...">
             <ul class="pagination">
-                <li class="page-item disabled">
-                <span class="page-link">Previous</span>
+                <li class="{{ ('page-item' ~ (pagination.page > 1 ? ' active' : ' disabled'))}}">
+                <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=1" }}">Debut</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="{{ ('page-item' ~ (pagination.page > 1 ? ' active' : ' disabled'))}}">
+                <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.page - 1)  }}">Precedent</a>
+                </li>
                 <li class="page-item active" aria-current="page">
                 <span class="page-link">
-                    2
+                    {{ pagination.page }}
                     <span class="sr-only">(current)</span>
                 </span>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+                <li class="{{ ('page-item' ~ (pagination.page < pagination.nbPages ? ' active' : ' disabled'))}}">
+                <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.page + 1) }}">Suivant</a>
+                </li>
+                <li class="{{ ('page-item' ~ (pagination.page < pagination.nbPages ? ' active' : ' disabled'))}}">
+                <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.nbPages) }}">Fin</a>
                 </li>
             </ul>
         </nav>
