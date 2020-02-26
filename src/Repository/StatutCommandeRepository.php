@@ -47,4 +47,14 @@ class StatutCommandeRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findByCode($code)
+    {
+        $res = $this->createQueryBuilder('s')
+            ->andWhere('s.code = :code')
+            ->setParameter('code', $code)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+        return $res[0];
+    }
 }

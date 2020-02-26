@@ -4,16 +4,24 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Article;
 use App\Entity\Panier;
+use App\Entity\PanierS;
 use App\Entity\client;
 use App\Entity\Taille;
 use App\Entity\LigneDeCommande;
+use App\Entity\StatutCommande;
 use App\Entity\Commande;
 use App\Entity\ModePaiement;
+use App\Service\Panier\PanierService;
+use App\Entity\Adresse;
 
 class CommandeController extends AbstractController
 {
+    public function __construct(PanierService $PanierService){
+        $this->PanierService = $PanierService;
+    }
     /**
      * @Route("/commande", name="commande")
      */
@@ -24,24 +32,34 @@ class CommandeController extends AbstractController
         $panier = $this->getDoctrine()
         ->getRepository(Panier::class)
         ->findByClientId($client->getId());
+        $modePaiement = new ModePaiement();
+        
+        
         $modePaiement = $this->getDoctrine()->getRepository(ModePaiement::class)
-            ->find(1);
+            ->find(2);
+            
+        $p = $this->PanierService;
+        $total = $p->getTotal();
+        //dd($p->getPanier());
 
-        $p = $panier->getPanier();
-        $newPanier = [];
+        /*$newPanier = [];
         foreach($p as $id => $taille){
             foreach($taille as $idTaille => $quantite){
                 $newPanier[] = [
                     'article' => $this->getDoctrine()->getRepository(Article::class)->find($id),
                     'taille' => $this->getDoctrine()->getRepository(Taille::class)->find($idTaille),
                     'qte' => $quantite,
+                    
                 ];
             }
-        }
-
+        }*/
+        $adresse = $this->getDoctrine()->getRepository(Adresse::class)->findByClient($client->getId());
+        //dd($adresse);
         return $this->render('commande/index.html.twig' , [
             'controller_name' => 'CommandeController',
-            'paniers' => $newPanier
+            'panier' => $p->getPanier(),
+            'adresses' => $adresse,
+            'prixTot' => $total
         ]);
     }
 
@@ -49,16 +67,24 @@ class CommandeController extends AbstractController
     /**
      * @Route("/commande/new", name="commande_new")
      */
-    public function newCommande(){
+    public function newCommande(Request $request){
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $client = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+        $adresse = $request->query->get('adresse');
+        //dd($adresse);
+        $ad = $this->getDoctrine()
+        ->getRepository(Adresse::class)
+        ->find($adresse);
+        //dd($ad);
         $panier = $this->getDoctrine()
         ->getRepository(Panier::class)
         ->findByClientId($client->getId());
+      
+       
         $modePaiement = $this->getDoctrine()->getRepository(ModePaiement::class)
-            ->find(1);
-
+            ->find(2);
+        
         $p = $panier->getPanier();
         $newPanier = [];
         foreach($p as $id => $taille){
@@ -77,20 +103,28 @@ class CommandeController extends AbstractController
             // tu cree la lignecommande
             $ligne = new LigneDeCommande();
             $ligne->setQte($lignepanier['qte']);
+            $ligne->setTaille($lignepanier['taille']);
             $ligne->setArticle($lignepanier['article']);
             $em->persist($ligne);
             // tu l'insere dans le tableau avec $LignesDeCommande[] = (ta ligne)
             $LignesDeCommande[] = $ligne;
         }
-
+        //recuperation des statue de commande
+        $statut = $this->getDoctrine()
+        ->getRepository(StatutCommande::class)
+        ->findByCode(1);
+        //dd($statut);
         // tu cree la commande
         $commande = new Commande();
         $commande->setDate(new \dateTime('now'));
         $commande->setClient($client);
+        $commande->setAdresse($ad);
         $commande->setModePaiement($modePaiement);
+        $commande->setFraisDePort(2.99);
+        $commande->setStatutCommande($statut[0]);
         // tu insere le tableau $LignesDeCommande dans ta commande
         foreach($LignesDeCommande as $ligne){
-            $commande->addLignesDeCommande($ligne);
+            $commande->addLigneDeCommande($ligne);
         }
         
         $em->persist($commande);

@@ -3,15 +3,20 @@
 {% block title %}Hello CommandeController!{% endblock %}
 
 {% block body %}
-    <div class="panier">
-    {% for panier in paniers %}
-        <div>
 
-            <div >article : {{panier.article.prixU}}</div>
-            
+    <div class="commande">
+        <div>
+        <div>Montant Total : {{prixTot}}</div>
         </div>
-       
-    {% endfor %}
-     <div><button onclick="window.location.href='/commande/new'">validé la commande</button></div>
+        <div>
+            <h1 style='font-size:30px;'>Adresse de livraison</h1>
+            <select id='adresse'>
+                {% for adresse in adresses %}
+                    <option  value={{adresse.id}}>{{adresse.adresse}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div><button id='valide' >validé la commande</button></div>
 </div>
 {% endblock %}
+{% block javascripts %}<script src="/js/validationCommande.js"></script>{% endblock %}
