@@ -28,7 +28,7 @@ class ClientFixtures extends Fixture
             $client = new Client();
             $client->setPrenom($this->faker->firstName);
             $client->setNom($this->faker->lastName);
-            $client->setEmail(strtolower($client->getPrenom() . "." . $client->getNom()) . "@gmail.com");
+            $client->setEmail(mb_strtolower($client->getPrenom() . "." . $client->getNom()) . "@gmail.com");
             $client->setPassword($this->passwordEncoder->encodePassword($client,"azerty"));
             $client->setRoles(['ROLE_USER']);
 
