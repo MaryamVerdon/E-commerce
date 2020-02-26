@@ -57,14 +57,14 @@
                 {% if app.user %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="/admin" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Admin</a>
-                    {% elseif is_granted('ROLE_User') %}
+                    {% elseif is_granted('ROLE_USER') %}
                         <div onClick={window.location="{{ path('compte') }}"}>Bonjour {{ app.user.prenom }}</div>
                     {% endif %}
                         <a href="/logout" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Deconnexion</a>
                 {% else %}
                     <a href="/login" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Connexion</a>
                 {% endif %}
-                    <a href="/panier" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" id="button-panier">Panier <div class="size-panier"></div></a>
+                    <a href="/panier" class="btn btn-secondary btn-lg active float-right" role="button" aria-pressed="true" id="button-panier">Panier<div class="size-panier"></div></a>
             </div>
         </nav>
         {% block body %}{% endblock %}

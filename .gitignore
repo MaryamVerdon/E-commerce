@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -7,4 +6,6 @@
 /public/bundles/
 /var/
 /vendor/
+/.idea
+/package-lock.json
 ###< symfony/framework-bundle ###

@@ -28,6 +28,12 @@ class LigneDeCommande
     private $article;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Taille")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $taille;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="lignes_de_commande")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -58,6 +64,18 @@ class LigneDeCommande
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getTaille(): ?Taille
+    {
+        return $this->taille;
+    }
+
+    public function setTaille(?Taille $taille): self
+    {
+        $this->taille = $taille;
 
         return $this;
     }

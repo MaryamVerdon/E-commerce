@@ -1,3 +1,16 @@
+.container-articles {
+    display: flex;
+}
+
+.container-tri-articles {
+    display: flex;
+    flex-direction: column;
+}
+
+.filtres-Articles {
+    
+}
+
 .list-articles {
     display: flex;
     flex-direction: row;

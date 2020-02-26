@@ -5,7 +5,37 @@
 {% block stylesheets %}<link rel="stylesheet" href="css/index.css"/>{% endblock %}
 
 {% block body %}
-
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active bg-warning">
+      <h2>Nouvel article !!</h2>
+      <h3>{{ lastArticle.libelle }}</h3>
+      <h3>{{ lastArticle.description }}</h3>
+      <h4>{{ lastArticle.prix_u}}</h4>
+      <img class="d-block w-25 h-25 mx-auto" id="carousel_image" src={{ lastArticle.image }} alt="First slide">
+    </div>
+    <div class="carousel-item bg-success">
+      <img class="d-block w-25 h-25 mx-auto" id="carousel_image" src="img/example.png" alt="Second slide">
+    </div>
+    <div class="carousel-item bg-warning">
+      <img class="d-block w-25 h-25 mx-auto" id="carousel_image" src="img/example.png" alt="Third slide">
+      <p>Hello</p>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 
 {% endblock %}
 
