@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Entity\QuantiteTaille;
 use App\Entity\Article;
 use App\Entity\Panier;
 use App\Entity\PanierS;
@@ -14,6 +15,7 @@ use App\Entity\LigneDeCommande;
 use App\Entity\StatutCommande;
 use App\Entity\Commande;
 use App\Entity\ModePaiement;
+use App\Service\Payment;
 use App\Service\Panier\PanierService;
 use App\Entity\Adresse;
 
@@ -101,6 +103,13 @@ class CommandeController extends AbstractController
 
         foreach($newPanier as $lignepanier){
             // tu cree la lignecommande
+            $quantite = $this->getDoctrine()
+            ->getRepository(QuantiteTaille::class)
+            ->findQuantiteTailleByArticleAndTaille($lignepanier['article'],$lignepanier['taille']);
+            $quantite->setQte($quantite->getQte()-$lignepanier['qte']);
+            $em->merge($quantite);
+            
+
             $ligne = new LigneDeCommande();
             $ligne->setQte($lignepanier['qte']);
             $ligne->setTaille($lignepanier['taille']);
@@ -121,7 +130,7 @@ class CommandeController extends AbstractController
         $commande->setAdresse($ad);
         $commande->setModePaiement($modePaiement);
         $commande->setFraisDePort(2.99);
-        $commande->setStatutCommande($statut[0]);
+        $commande->setStatutCommande($statut);
         // tu insere le tableau $LignesDeCommande dans ta commande
         foreach($LignesDeCommande as $ligne){
             $commande->addLigneDeCommande($ligne);
@@ -129,10 +138,23 @@ class CommandeController extends AbstractController
         
         $em->persist($commande);
         $em->flush();
+
+        //modification du stock
+
+        /*
+        $quantite = $this->getDoctrine()
+        ->getRepository(QuantiteTaille::class)
+        ->findQuantiteTailleByArticleAndTaille()
+        */
+
+        //vide le panier du client apres avoir valider la commande
+        $this->PanierService->clear();
         
-        return $this->render('commande/commandeValide.html.twig' , [
-            'controller_name' => 'CommandeController'
+        //redirection sur le site paypal
+        return $this->redirectToRoute('payment', [
+            'commandeId' => $commande->getId()
         ]);
     }
+    
         
 }

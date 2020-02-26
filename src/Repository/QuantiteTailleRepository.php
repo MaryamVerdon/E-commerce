@@ -47,4 +47,16 @@ class QuantiteTailleRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findQuantiteTailleByArticleAndTaille($article, $taille): ?QuantiteTaille
+{
+    return $this->createQueryBuilder('q')
+        ->select('q')
+        ->andWhere('q.article IN(:art)')
+        ->setParameter('art', $article)
+        ->andWhere('q.taille IN(:tai)')
+        ->setParameter('tai', $taille)
+        ->getQuery()
+        ->getOneOrNullResult()
+    ;
+}
 }
