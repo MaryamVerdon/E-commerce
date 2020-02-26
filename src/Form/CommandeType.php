@@ -11,17 +11,33 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use App\Entity\ModePaiement;
 use App\Entity\StatutCommande;
 use App\Entity\Commande;
+use App\Entity\Adresse;
 use App\Form\LigneDeCommandeType;
+use App\Repository\AdresseRepository;
 
 class CommandeType extends AbstractType
 {
+
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
         ->add('date', DateType::class)
+        ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+          $commande = $event->getData();
+          $client = $commande->getClient();
+          $event->getForm()->add('adresse',EntityType::class,[
+            'class' => Adresse::class,
+            'choice_label' => 'adresse',
+            'query_builder' => function (AdresseRepository $ar) use ($client) {
+                return $ar->getQueryByClient($client);
+            }
+          ]);
+        })
         ->add('mode_paiement', EntityType::class,[
           'class' => ModePaiement::class,
           'choice_label' => function ($entityType) {

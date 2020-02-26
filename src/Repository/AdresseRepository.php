@@ -58,4 +58,14 @@ class AdresseRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    function getQueryByClient($client){
+        $qb = $this->createQueryBuilder('ccl');
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->leftJoin('c.client', 'cl')
+            ->addSelect('cl')
+            ->add('where', $qb->expr()->in('cl', ':cl') )
+            ->setParameter('cl', $client);
+    }
 }
