@@ -31,6 +31,21 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    function findLastByClient($client){
+        $qb = $this->createQueryBuilder('ccl');
+        $res = $this->createQueryBuilder('c')
+            ->select('c')
+            ->addOrderBy('c.date', 'DESC')
+            ->leftJoin('c.client', 'cl')
+            ->addSelect('cl')
+            ->add('where', $qb->expr()->in('cl', ':cl') )
+            ->setParameter('cl', $client)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+        return $res[0];
+    }
+
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */

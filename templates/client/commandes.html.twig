@@ -13,6 +13,7 @@
             <div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div>
             <div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div>
             <div class="montant-commande">{{ commande.getPrixTotal }}$</div>
+            <div class="status-commande">{{ commande.statutCommande.libelle }}</div>
         </div>
     {% endfor %}
 </div>

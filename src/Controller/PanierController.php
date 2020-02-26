@@ -98,3 +98,6 @@ class PanierController extends AbstractController
         dd($panier);
     }
 }
+
+
+

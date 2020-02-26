@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommandeController!{% endblock %}
+
+{% block body %}
+    <div class="panier">
+    {% for panier in paniers %}
+        <div>
+
+            <div >article : {{panier.article.prixU}}</div>
+            
+        </div>
+       
+    {% endfor %}
+     <div><button onclick="window.location.href='/commande/new'">validé la commande</button></div>
+</div>
+{% endblock %}
