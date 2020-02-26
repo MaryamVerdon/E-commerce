@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+    {{ form_start(form) }}
+    {{ form_row(form.adresse, {'label' : 'Adresse', 'attr' : {'placeholder' : 'exemple: 03 rue des Oliviers' }}) }}
+    {{ form_row(form.cp, {'label' : 'Code Postal', 'attr' : {'placeholder' : 'exemple: 51100' }}) }}
+    {{ form_row(form.ville, {'label' : 'Ville'}) }}
+    {{ form_row(form.pays, {'label' : 'Pays'}) }}
+    {{ form_row(form.tel, {'label' : 'Numero de téléphone'}) }}
+    <button type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+
+{% endblock %}

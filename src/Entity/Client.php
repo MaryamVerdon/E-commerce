@@ -5,10 +5,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="L'email que vous avez indiqué est déjà utilisé"
+ * )
  */
 class Client implements UserInterface
 {
@@ -21,6 +27,7 @@ class Client implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
@@ -35,7 +42,8 @@ class Client implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist"})
+     * @Assert\Type(type="App\Entity\Adresse")
      */
     private $adresses;
 
@@ -52,8 +60,14 @@ class Client implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min="4", minMessage="Votre mot de passe doit avoir au moins 4 caractères")
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe")
+     */
+    private $confirm_password;
 
     public function getId(): ?int
     {
@@ -204,6 +218,23 @@ class Client implements UserInterface
 
         return $this;
     }
+
+
+    /**
+     * @see UserInterface
+     */
+    public function getConfirmPassword(): string
+    {
+        return (string) $this->confirm_password;
+    }
+
+    public function setConfirmPassword(string $confirm_password): self
+    {
+        $this->password = $confirm_password;
+
+        return $this;
+    }
+
 
     /**
      * @see UserInterface
