@@ -166,6 +166,14 @@ class PanierService {
         return $res;
     }
 
+    public function clear(){
+        $panier = [];
+
+        $this->session->set('panier', $panier);
+
+        $this->storePanierDb($panier);
+    }
+
     private function storePanierDb(array $panier){
         $user = $this->security->getUser();
         if($user){
