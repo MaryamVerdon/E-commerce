@@ -2,10 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\Adresse;
 use App\Entity\Client;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,9 +22,8 @@ class RegistrationFormType extends AbstractType
             ->add('confirm_password', PasswordType::class)
             ->add('nom')
             ->add('prenom')
-            //->add('adresses', Adresse::class)
-
-
+            ->add('adresses', AddressFormType::class)
+            ->add('enregistrer', SubmitType::class)
         ;
     }
 
