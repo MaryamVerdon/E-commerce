@@ -5,10 +5,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ * @UniqueEntity(fields="email", message="Email déjà prise")
  */
 class Client implements UserInterface
 {
@@ -21,11 +24,14 @@ class Client implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nom;
 
@@ -35,7 +41,7 @@ class Client implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist"})
      */
     private $adresses;
 
@@ -48,6 +54,12 @@ class Client implements UserInterface
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plain_password;
 
     /**
      * @var string The hashed password
@@ -190,6 +202,22 @@ class Client implements UserInterface
         return $this;
     }
 
+
+    /**
+     * @see UserInterface
+     */
+    public function getPlainPassword(): string
+    {
+        return (string) $this->plain_password;
+    }
+
+    public function setPlainPassword(string $plain_password): self
+    {
+        $this->plain_password = $plain_password;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -204,6 +232,7 @@ class Client implements UserInterface
 
         return $this;
     }
+
 
     /**
      * @see UserInterface
