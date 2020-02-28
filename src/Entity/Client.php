@@ -11,10 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
- * @UniqueEntity(
- *     fields={"email"},
- *     message="L'email que vous avez indiqué est déjà utilisé"
- * )
+ * @UniqueEntity(fields="email", message="Email déjà prise")
  */
 class Client implements UserInterface
 {
@@ -27,12 +24,14 @@ class Client implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nom;
 
@@ -43,7 +42,6 @@ class Client implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist"})
-     * @Assert\Type(type="App\Entity\Adresse")
      */
     private $adresses;
 
@@ -58,16 +56,16 @@ class Client implements UserInterface
     private $roles = [];
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     * @Assert\Length(min="4", minMessage="Votre mot de passe doit avoir au moins 4 caractères")
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
      */
-    private $password;
+    private $plain_password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe")
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    private $confirm_password;
+    private $password;
 
     public function getId(): ?int
     {
@@ -204,6 +202,22 @@ class Client implements UserInterface
         return $this;
     }
 
+
+    /**
+     * @see UserInterface
+     */
+    public function getPlainPassword(): string
+    {
+        return (string) $this->plain_password;
+    }
+
+    public function setPlainPassword(string $plain_password): self
+    {
+        $this->plain_password = $plain_password;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -215,22 +229,6 @@ class Client implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-
-    /**
-     * @see UserInterface
-     */
-    public function getConfirmPassword(): string
-    {
-        return (string) $this->confirm_password;
-    }
-
-    public function setConfirmPassword(string $confirm_password): self
-    {
-        $this->password = $confirm_password;
 
         return $this;
     }

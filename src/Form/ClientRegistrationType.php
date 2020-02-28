@@ -8,23 +8,25 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormBuilderInterface;
 
-class RegistrationFormType extends AbstractType
+class ClientRegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
+            ->add('nom', TextType::class)
+            ->add('prenom', TextType::class)
             ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
-            ->add('confirm_password', PasswordType::class)
-            ->add('nom')
-            ->add('prenom')
-            ->add('adresses', AddressFormType::class)
-            ->add('enregistrer', SubmitType::class)
-        ;
+            ->add('plain_password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options'  => array('label' => 'Mot de passe'),
+                'second_options' => array('label' => 'Repetez le mot de passe'),
+            ])
+            ->add('enregistrer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
