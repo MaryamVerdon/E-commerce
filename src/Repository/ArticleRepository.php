@@ -227,23 +227,24 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb->getQuery()
                 ->getResult();
     }
-    /**
-     * Trouve le dernier article ajouté
-     */
-    /**
-     * 
-     */
-    public function findLastArticle(){
-        $conn = $this->getEntityManager()->getConnection();
-        $request = ' SELECT MAX(id), libelle, description, prix_u, image FROM article a';
-        $stmt = $conn->prepare($request);
-        $stmt -> execute();
-
-        return $stmt->fetch();
-    }
 
 // http://127.0.0.1:8000/article?libelle=jupe&section=homme&critere_tri=prix_u&tri_ordre=DESC&taille=L&type_article=jupe&categorie=vetement&prix_entre=20_30&description=pull
 
+
+    
+    /**
+     * Trouve le dernier article ajouté
+     */
+    public function findLastArticles($nbArticles = 1)
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults($nbArticles)
+            ->getQuery()
+            ->getResult();
+    }
+
+    
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
