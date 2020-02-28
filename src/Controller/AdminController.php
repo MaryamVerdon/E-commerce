@@ -12,7 +12,9 @@ use App\Entity\Article;
 use App\Entity\Client;
 use App\Entity\Taille;
 use App\Entity\QuantiteTaille;
+use App\Entity\LigneDeCommande;
 use App\Form\ArticleType;
+use App\Form\CommandeType;
 
 class AdminController extends AbstractController
 {
@@ -184,6 +186,7 @@ class AdminController extends AbstractController
         
         return $this->redirectToRoute('admin_article');
     }
+
     /**
      * @Route("admin/client/", name="admin_index_client")
      */
@@ -198,6 +201,52 @@ class AdminController extends AbstractController
         return $this->render('admin/indexClient.html.twig',[
             'controller_name' => 'AdminController',
             'clients' => $client
+        ]);
+    }
+
+    /**
+     * @Route("/admin/commande/{id}/edit", name="admin_commande_edit")
+     */
+    public function commande_edit($id, Request $request, EntityManagerInterface $entityManager)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        if (null === $commande = $entityManager->getRepository(Commande::class)->find($id)) {
+            throw $this->createNotFoundException('Aucune commande pour l \'id '.$id);
+        }
+
+        $originalLignesDeCommande = new ArrayCollection();
+
+        foreach($commande->getLignesDeCommande() as $ligne_de_commande){
+            $originalLignesDeCommande->add($ligne_de_commande);
+        }
+
+        $form = $this->createForm(CommandeType::class, $commande);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            foreach($originalLignesDeCommande as $ligne_de_commande){
+                if(false === $commande->getLignesDeCommande()->contains($ligne_de_commande)){
+                    // Remove quantitetaille
+                    $entityManager->remove($ligne_de_commande);
+                }
+            }
+            foreach($commande->getLignesDeCommande() as $ligne_de_commande){
+                $ligne_de_commande->setCommande($commande);
+            }
+            $entityManager->persist($commande);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_commande_show', ['id' => $commande->getId()]);
+        }
+
+        
+        return $this->render('admin/commande/edit.html.twig', [
+            'controller_name' => 'ArticleController',
+            'form' => $form->createView(),
+
         ]);
     }
 }
