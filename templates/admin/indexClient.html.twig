@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<table>
+    <th>liste des client</th>  
+    {% for client in clients%}
+        <tr> 
+            <td>{{client.nom}}</td>
+            <td>{{client.prenom}}</td>
+            <td>{{client.email}}</td>
+            <td><button onClick={window.location="{{ path('admin_client_show', {id: client.id}) }}"}>voir profil</button></td>
+        </tr>
+    {% endfor %}
+</table>
+{% include '/admin/panel.html' %}
+{% endblock %}
+

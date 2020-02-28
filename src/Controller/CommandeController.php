@@ -85,7 +85,7 @@ class CommandeController extends AbstractController
       
        
         $modePaiement = $this->getDoctrine()->getRepository(ModePaiement::class)
-            ->find(2);
+            ->findByLibelle(2);
         
         $p = $panier->getPanier();
         $newPanier = [];

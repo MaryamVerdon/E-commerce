@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/client.css"/>{% endblock %}
+
+{% block body %}
+{% include '/admin/panel.html' %}
+
+    <div class="item-client">
+        <div class="nom-client">{{ client.nom }}</div>
+        <div class="prenom-client">{{ client.prenom }}</div>
+        <div class="email-client">{{ client.email }}</div>
+        <button class="commande-client" onClick={window.location="{{ path('admin_client_indexCommande', {id: client.id}) }}"}>acceder au commande</button>
+
+    </div>  
+
+{% endblock %}
