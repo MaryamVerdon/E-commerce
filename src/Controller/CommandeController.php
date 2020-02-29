@@ -99,12 +99,12 @@ class CommandeController extends AbstractController
         $adresse = $request->query->get('adresse');
         //dd($adresse);
         $ad = $this->getDoctrine()
-        ->getRepository(Adresse::class)
-        ->find($adresse);
+            ->getRepository(Adresse::class)
+            ->find($adresse);
         //dd($ad);
         $panier = $this->getDoctrine()
-        ->getRepository(Panier::class)
-        ->findByClientId($client->getId());
+            ->getRepository(Panier::class)
+            ->findByClientId($client->getId());
       
        
         $modePaiement = $this->getDoctrine()->getRepository(ModePaiement::class)
@@ -143,8 +143,8 @@ class CommandeController extends AbstractController
         }
         //recuperation des statue de commande
         $statut = $this->getDoctrine()
-        ->getRepository(StatutCommande::class)
-        ->findByCode(1);
+            ->getRepository(StatutCommande::class)
+            ->findByCode(1);
         //dd($statut);
         // tu cree la commande
         $commande = new Commande();

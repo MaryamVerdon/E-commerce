@@ -187,4 +187,9 @@ class Commande
 
         return $this;
     }
+
+    public function getPrixTotalWithShipping()
+    {
+        return $this->getPrixTotal() + $this->getFraisDePort();
+    }
 }

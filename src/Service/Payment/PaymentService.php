@@ -37,10 +37,11 @@ class PaymentService {
 
     private function newTransaction($commande){
         $details = (new Details())
-            ->setSubtotal($commande->getPrixTotal());
+            ->setSubtotal($commande->getPrixTotal())
+            ->setShipping($commande->getFraisDePort());
 
         $amount = (new Amount())
-            ->setTotal($commande->getPrixTotal())
+            ->setTotal($commande->getPrixTotalWithShipping())
             ->setCurrency('EUR')
             ->setDetails($details);
 
