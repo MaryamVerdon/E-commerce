@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\Payment\PaymentService;
 use App\Entity\Commande;
+use App\Entity\StatutCommande;
 
 
 use App\Entity\Article;
@@ -44,9 +45,9 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/payment/success", name="payment_success")
+     * @Route("/payment/success/{id}", name="payment_success")
      */
-    public function success(Request $request, PaymentService $paymentService)
+    public function success($id, Request $request, PaymentService $paymentService)
     {
         // $client = $this->getUser();
         // if($client){
@@ -54,22 +55,35 @@ class PaymentController extends AbstractController
         //    ->getRepository(Commande::class)
         //    ->findLastByClient($client);
         // if($commande){
-        $paymentId = $request->query->get("paymentId");
-        $payerId = $request->query->get("payerId");
+        $client = $this->getUser();
+        if($client){
+            $em = $this->getDoctrine()
+                ->getManager();
+            $commande = $em->getRepository(Commande::class)
+                ->find($id);
+            if($commande){
 
-        $success = $paymentService->success($paymentId, $payerId);
-        if($success != true){
-            dd($success);
-            // new Exception
+                $paymentId = $request->query->get("paymentId");
+                $payerId = $request->query->get("payerId");
+
+                $success = $paymentService->success($paymentId, $payerId);
+                if($success != true){
+                    throw $this->createNotFoundException('Echec du paiement');
+                }
+                $statusCommande = $em->getRepository(StatutCommande::class)
+                    ->findByCode(2);
+
+                $commande->setStatutCommande($statusCommande);
+
+                $em->persist($commande);
+                $em->flush();
+
+                return $this->render('payment/index.html.twig', [
+                    'controller_name' => 'PaymentController',
+                ]);
+            }
         }
-        return $this->render('payment/index.html.twig', [
-            'controller_name' => 'PaymentController',
-        ]);
-            // }
-        // }
         //Exception
-        return $this->render('payment/index.html.twig', [
-            'controller_name' => 'PaymentController',
-        ]);
+        throw $this->createNotFoundException('client ou commande null');
     }
 }

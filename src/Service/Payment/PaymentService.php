@@ -58,7 +58,7 @@ class PaymentService {
         $payment->setTransactions([$transaction]);
         $payment->setIntent('sale');
         $redirectUrls = (new RedirectUrls())
-            ->setReturnUrl('http://127.0.0.1:8000/payment/success')
+            ->setReturnUrl('http://127.0.0.1:8000/payment/success/' . $commande->getId())
             ->setCancelUrl('http://127.0.0.1:8000/');
         $payment->setRedirectUrls($redirectUrls);
         $payment->setPayer((new Payer())->setPaymentMethod('paypal'));
