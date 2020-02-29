@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\LigneDeCommande;
+use App\Entity\QuantiteTaille;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -233,13 +235,38 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * 
      */
-    public function findLastArticle(){
-        $conn = $this->getEntityManager()->getConnection();
-        $request = ' SELECT MAX(id), libelle, description, prix_u, image FROM article a';
-        $stmt = $conn->prepare($request);
-        $stmt -> execute();
+    public function findLastArticles($nbArticles = 1)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id','a.libelle','a.description','a.prix_u','a.image')
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults($nbArticles)
+            ->getQuery()
+            ->getResult();
+    }
 
-        return $stmt->fetch();
+    public function findMostSoldArticles($nbArticles = 1)
+    {
+        return $this->createQueryBuilder("a")
+            ->select('a.id','a.libelle','a.description','a.prix_u','a.image','count(l.article)')
+            ->join('a.ligne_de_commande', 'l')
+            ->groupBy('a.id','a.libelle','a.description','a.prix_u','a.image')
+            ->orderBy('count(l.article)','DESC')
+            ->setMaxResults($nbArticles)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findLessArticlesStocked($nbArticles = 1)
+    {
+        return $this->createQueryBuilder("a")
+            ->select('a.id','a.libelle','a.description','a.prix_u','a.image','count(q.qte)')
+            ->join('a.quantite_tailles', 'q')
+            ->groupBy('a.id','a.libelle','a.description','a.prix_u','a.image')
+            ->orderBy('sum(q.qte)','ASC')
+            ->setMaxResults($nbArticles)
+            ->getQuery()
+            ->getResult();
     }
 
 // http://127.0.0.1:8000/article?libelle=jupe&section=homme&critere_tri=prix_u&tri_ordre=DESC&taille=L&type_article=jupe&categorie=vetement&prix_entre=20_30&description=pull

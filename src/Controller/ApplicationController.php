@@ -15,11 +15,15 @@ class ApplicationController extends AbstractController
     public function index()
     {
         $repository = $this->getDoctrine()->getRepository(Article::class);
-        $lastArticle = $repository->findLastArticle();
+        $lastArticles = $repository->findLastArticles();
+        $mostSoldArticles = $repository->findMostSoldArticles();
+        $lessArticlesStocked = $repository->findLessArticlesStocked();
 
         return $this->render('application/index.html.twig', [
             'controller_name' => 'ApplicationController',
-            'lastArticle' => $lastArticle
+            'lastArticles' => $lastArticles,
+            'mostSoldArticles' => $mostSoldArticles,
+            'lessArticlesStocked' => $lessArticlesStocked
         ]);
     }
 }
