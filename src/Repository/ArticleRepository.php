@@ -245,18 +245,6 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findMostSoldArticles($nbArticles = 1)
-    {
-        return $this->createQueryBuilder("a")
-            ->select('a.id','a.libelle','a.description','a.prix_u','a.image','count(l.article)')
-            ->join('a.ligne_de_commande', 'l')
-            ->groupBy('a.id','a.libelle','a.description','a.prix_u','a.image')
-            ->orderBy('count(l.article)','DESC')
-            ->setMaxResults($nbArticles)
-            ->getQuery()
-            ->getResult();
-    }
-
     public function findLessArticlesStocked($nbArticles = 1)
     {
         return $this->createQueryBuilder("a")

@@ -18,6 +18,18 @@ class LigneDeCommandeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, LigneDeCommande::class);
     }
+    
+    public function findMostSoldArticles($nbArticles = 1)
+    {
+        return $this->createQueryBuilder("l")
+            ->select('a.id','a.libelle','a.description','a.prix_u','a.image','count(l.article)')
+            ->join('l.article', 'a')
+            ->groupBy('a.id','a.libelle','a.description','a.prix_u','a.image')
+            ->orderBy('count(l.article)','DESC')
+            ->setMaxResults($nbArticles)
+            ->getQuery()
+            ->getResult();
+    }
 
     // /**
     //  * @return LigneDeCommande[] Returns an array of LigneDeCommande objects
