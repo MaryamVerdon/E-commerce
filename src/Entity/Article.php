@@ -39,11 +39,6 @@ class Article
     private $image;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneDeCommande", mappedBy="article")
-     */
-    private $ligne_de_commande;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeArticle", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */

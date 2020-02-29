@@ -3,8 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Article;
-use App\Entity\LigneDeCommande;
-use App\Entity\QuantiteTaille;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -237,50 +235,13 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * Trouve le dernier article ajouté
      */
-<<<<<<< HEAD
-    /**
-     * 
-     */
     public function findLastArticles($nbArticles = 1)
     {
         return $this->createQueryBuilder('a')
-            ->select('a.id','a.libelle','a.description','a.prix_u','a.image')
-=======
-    public function findLastArticles($nbArticles = 1)
-    {
-        return $this->createQueryBuilder('a')
->>>>>>> ecc5a03db70dd218c06a87c8fbfe3ab079e6c45c
             ->orderBy('a.id', 'DESC')
             ->setMaxResults($nbArticles)
             ->getQuery()
             ->getResult();
-<<<<<<< HEAD
-    }
-
-    public function findMostSoldArticles($nbArticles = 1)
-    {
-        return $this->createQueryBuilder("a")
-            ->select('a.id','a.libelle','a.description','a.prix_u','a.image','count(l.article)')
-            ->join('a.ligne_de_commande', 'l')
-            ->groupBy('a.id','a.libelle','a.description','a.prix_u','a.image')
-            ->orderBy('count(l.article)','DESC')
-            ->setMaxResults($nbArticles)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findLessArticlesStocked($nbArticles = 1)
-    {
-        return $this->createQueryBuilder("a")
-            ->select('a.id','a.libelle','a.description','a.prix_u','a.image','count(q.qte)')
-            ->join('a.quantite_tailles', 'q')
-            ->groupBy('a.id','a.libelle','a.description','a.prix_u','a.image')
-            ->orderBy('sum(q.qte)','ASC')
-            ->setMaxResults($nbArticles)
-            ->getQuery()
-            ->getResult();
-=======
->>>>>>> ecc5a03db70dd218c06a87c8fbfe3ab079e6c45c
     }
 
     
