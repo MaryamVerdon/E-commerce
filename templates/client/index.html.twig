@@ -2,11 +2,45 @@
 
 {% block title %}Hello ClientController!{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block stylesheets %}<link rel="stylesheet" href="/css/compte.css"/>{% endblock %}
 
-<div onClick={window.location="{{ path('compte_commandes') }}"}>Commandes</div>
+{% block body %}
+<h2>Mon Compte</h2>
+
+<h3>Mes Informations</h3>
+<div class="infos-client">
+    <div>{{ client.nom }} {{ client.prenom }}</div>
+    <div>{{ client.email }}</div>
+    <div onClick={window.location="{{ path('compte_commandes') }}"}>Modifier</div>
+</div>
+
+<h3>Mes Adresses</h3>
+<div class="adresses-client">
+    {% for adresse in client.adresses %}
+        <div class="adresse">
+            <div class="adresse-adresse">{{ adresse.adresse }}</div>
+            <div class="cp-adresse">{{ adresse.cp }}</div>
+            <div class="ville-adresse">{{ adresse.ville }}</div>
+            <div class="pays-adresse">{{ adresse.pays }}</div>
+            <div class="tel-adresse">{{ adresse.tel }}</div>
+            <div class="supprimer-adresse" onClick={window.location="{{ path('compte_adresse_remove', {id: adresse.id}) }}"}>Supprimer</div>
+            <div class="modifier-adresse" onClick={window.location="{{ path('compte_adresse_edit', {id: adresse.id}) }}"}>Modifier</div>
+        </div>
+    {% endfor %}
+        <div class="ajouter-adresse" onClick={window.location="{{ path('compte_adresse_new') }}"}>Nouvelle Adresse</div>
+</div>
+
+<h3>Mes commandes</h3>
+<div class="commandes-client">
+    {% for commande in commandes %}
+        <div class="commande" onClick={window.location="{{ path('compte_commande_show', {id: commande.id}) }}"}>
+            <div class="id-commande">N°{{ commande.id }}</div>
+            <div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div>
+            <div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div>
+            <div class="montant-commande">{{ commande.getPrixTotal }}$</div>
+            <div class="status-commande">{{ commande.statutCommande.libelle }}</div>
+        </div>
+    {% endfor %}
+    <div onClick={window.location="{{ path('compte_commandes') }}"}>Voir toutes mes commandes</div>
+</div>
 {% endblock %}

@@ -18,23 +18,17 @@ class ModePaiementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ModePaiement::class);
     }
-
-    // /**
-    //  * @return ModePaiement[] Returns an array of ModePaiement objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    
+   
+    public function findByLibelle($libelle)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('UPPER(m.libelle) LIKE :lib')
+            ->setParameter('lib', strtoupper($libelle))
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?ModePaiement

@@ -7,10 +7,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Commande;
 use App\Entity\Article;
+use App\Entity\Client;
 use App\Entity\Taille;
 use App\Entity\QuantiteTaille;
-use App\Entity\Commande;
 use App\Entity\LigneDeCommande;
 use App\Form\ArticleType;
 use App\Form\CommandeType;
@@ -57,7 +58,44 @@ class AdminController extends AbstractController
             'article' => $article
         ]);
     }
-
+    /**
+     * @Route("/admin/client/{id}", name="admin_client_show", requirements={"id"="\d+"})
+     */
+    public function showclient($id)
+    {
+        $client = $this->getDoctrine()
+            ->getRepository(Client::class)
+            ->find($id);
+        return $this->render('admin/client/show.html.twig', [
+            'controller_name' => 'ClientController',
+            'client' => $client
+        ]);
+    }
+    /**
+     * @Route("/admin/client/commande/{id}", name="admin_client_indexCommande", requirements={"id"="\d+"})
+     */
+    public function indexCommandeClient($id){
+        $commande = $this->getDoctrine()
+        ->getRepository(Commande::class)
+        ->findByclient($id);
+        //dd($commande);
+        return $this->render('admin/client/indexCommande.html.twig',[
+            'commandes' => $commande
+        ]);
+    }
+    /**
+     * @Route("/admin/client/commande/show/{id}", name="admin_client_showCommande", requirements={"id"="\d+"})
+     */
+    public function showCommandeClient($id){
+        $commande = $this->getDoctrine()
+        ->getRepository(Commande::class)
+        ->find($id);
+        //dd($commande);
+        return $this->render('admin/client/Commande_show.html.twig',[
+            'controller_name'=> 'clientController',
+            'commande' => $commande
+        ]);
+    }
     /**
      * @Route("/admin/article/new", name="admin_article_new")
      */
@@ -145,8 +183,26 @@ class AdminController extends AbstractController
         $article = $em->getRepository(Article::class)
             ->find($id);
         $em->remove($article);
+        $em->flush();
         
         return $this->redirectToRoute('admin_article');
+    }
+
+    /**
+     * @Route("admin/client/", name="admin_index_client")
+     */
+    public function indexClient()
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $client = $this->getDoctrine()
+            ->getRepository(Client::class)
+            ->findAll();
+            //dd($client);
+    
+        return $this->render('admin/indexClient.html.twig',[
+            'controller_name' => 'AdminController',
+            'clients' => $client
+        ]);
     }
 
     /**
@@ -191,6 +247,7 @@ class AdminController extends AbstractController
         return $this->render('admin/commande/edit.html.twig', [
             'controller_name' => 'ArticleController',
             'form' => $form->createView(),
+
         ]);
     }
 }

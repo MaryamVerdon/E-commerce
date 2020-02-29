@@ -229,9 +229,15 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb->getQuery()
                 ->getResult();
     }
+
+// http://127.0.0.1:8000/article?libelle=jupe&section=homme&critere_tri=prix_u&tri_ordre=DESC&taille=L&type_article=jupe&categorie=vetement&prix_entre=20_30&description=pull
+
+
+    
     /**
      * Trouve le dernier article ajouté
      */
+<<<<<<< HEAD
     /**
      * 
      */
@@ -239,10 +245,16 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->select('a.id','a.libelle','a.description','a.prix_u','a.image')
+=======
+    public function findLastArticles($nbArticles = 1)
+    {
+        return $this->createQueryBuilder('a')
+>>>>>>> ecc5a03db70dd218c06a87c8fbfe3ab079e6c45c
             ->orderBy('a.id', 'DESC')
             ->setMaxResults($nbArticles)
             ->getQuery()
             ->getResult();
+<<<<<<< HEAD
     }
 
     public function findMostSoldArticles($nbArticles = 1)
@@ -267,10 +279,11 @@ class ArticleRepository extends ServiceEntityRepository
             ->setMaxResults($nbArticles)
             ->getQuery()
             ->getResult();
+=======
+>>>>>>> ecc5a03db70dd218c06a87c8fbfe3ab079e6c45c
     }
 
-// http://127.0.0.1:8000/article?libelle=jupe&section=homme&critere_tri=prix_u&tri_ordre=DESC&taille=L&type_article=jupe&categorie=vetement&prix_entre=20_30&description=pull
-
+    
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

@@ -13,6 +13,7 @@
   </ol>
 
   <div class="carousel-inner">
+<<<<<<< HEAD
     {% for a in lastArticles %}
       <div class="carousel-item active">
         <h2>Nouvel article !!</h2>
@@ -38,6 +39,21 @@
         <h3>{{ s.description }}</h3>
         <h4>{{ s.prix_u }} €</h4>
         <img class="d-block w-25 h-25 mx-auto" src={{ s.image }}>
+=======
+    <div class="carousel-item active bg-warning">
+      <h2>Nouvel article !!</h2>
+      <h3>{{ lastArticle.libelle }}</h3>
+      <h3>{{ lastArticle.description }}</h3>
+      <h4>{{ lastArticle.prixU }}</h4>
+      <img class="d-block w-25 h-25 mx-auto" id="carousel_image" src={{ lastArticle.image }} alt="First slide">
+    </div>
+    <div class="carousel-item bg-success">
+      <img class="d-block w-25 h-25 mx-auto" id="carousel_image" src="img/example.png" alt="Second slide">
+    </div>
+    <div class="carousel-item bg-warning">
+      <img class="d-block w-25 h-25 mx-auto" id="carousel_image" src="img/example.png" alt="Third slide">
+      <p>Hello</p>
+>>>>>>> ecc5a03db70dd218c06a87c8fbfe3ab079e6c45c
     </div>
     {% endfor %}
   </div>
