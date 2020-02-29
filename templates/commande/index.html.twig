@@ -12,15 +12,11 @@
             <h1 style='font-size:30px;'>Adresse de livraison</h1>
             <select id='adresse'>
                 {% for adresse in adresses %}
-                    <option value={{adresse.id}}>{{adresse.adresse}} {{adresse.cp}} {{adresse.ville}} {{adresse.pays}}</option>
+                    <option  value={{adresse.id}}>{{adresse.adresse}}</option>
                 {% endfor %}
-                    <option value="new">Nouvelle adresse</option>
             </select>
         </div>
-        <div class="form-new-adresse" style="display: none;">
-            {{ form(form) }}
-        </div>
-        <div><button id='valide' >Valider la commande</button></div>
+        <div><button id='valide' >validé la commande</button></div>
 </div>
 {% endblock %}
 {% block javascripts %}<script src="/js/validationCommande.js"></script>{% endblock %}

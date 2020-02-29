@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\QuantiteTaille;
 use App\Entity\Article;
 use App\Entity\Panier;
@@ -19,7 +18,6 @@ use App\Entity\ModePaiement;
 use App\Service\Payment;
 use App\Service\Panier\PanierService;
 use App\Entity\Adresse;
-use App\Form\AdresseType;
 
 class CommandeController extends AbstractController
 {
@@ -29,19 +27,17 @@ class CommandeController extends AbstractController
     /**
      * @Route("/commande", name="commande")
      */
-    public function getPanierFromClient(Request $request, EntityManagerInterface $entityManager){
+    public function getPanierFromClient(){
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $client = $this->getUser();
-        $em = $this->getDoctrine()
-            ->getManager();
+        $em = $this->getDoctrine()->getManager();
         $panier = $this->getDoctrine()
-            ->getRepository(Panier::class)
-            ->findByClientId($client->getId());
+        ->getRepository(Panier::class)
+        ->findByClientId($client->getId());
         $modePaiement = new ModePaiement();
         
         
-        $modePaiement = $this->getDoctrine()
-            ->getRepository(ModePaiement::class)
+        $modePaiement = $this->getDoctrine()->getRepository(ModePaiement::class)
             ->find(2);
             
         $p = $this->PanierService;
@@ -59,32 +55,13 @@ class CommandeController extends AbstractController
                 ];
             }
         }*/
-        $adresses = $this->getDoctrine()
-            ->getRepository(Adresse::class)
-            ->findByClient($client->getId());
-
-        $adr = new Adresse();
-
-        $formAdresse = $this->createForm(AdresseType::class,$adr);
-        
-        $formAdresse->handleRequest($request);
-
-        if($formAdresse->isSubmitted() && $formAdresse->isValid()){
-            $adr->setClient($this->getUser());
-            $entityManager->persist($adr);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('commande');
-        }
-
-
+        $adresse = $this->getDoctrine()->getRepository(Adresse::class)->findByClient($client->getId());
         //dd($adresse);
         return $this->render('commande/index.html.twig' , [
             'controller_name' => 'CommandeController',
             'panier' => $p->getPanier(),
-            'adresses' => $adresses,
-            'prixTot' => $total,
-            'form' => $formAdresse->createView(),
+            'adresses' => $adresse,
+            'prixTot' => $total
         ]);
     }
 
@@ -108,7 +85,7 @@ class CommandeController extends AbstractController
       
        
         $modePaiement = $this->getDoctrine()->getRepository(ModePaiement::class)
-            ->findByLibelle("paypal");
+            ->find(2);
         
         $p = $panier->getPanier();
         $newPanier = [];

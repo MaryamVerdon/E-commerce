@@ -16,7 +16,6 @@ class ApplicationController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $lastArticles = $repository->findLastArticles();
-<<<<<<< HEAD
         $mostSoldArticles = $repository->findMostSoldArticles();
         $lessArticlesStocked = $repository->findLessArticlesStocked();
 
@@ -25,12 +24,6 @@ class ApplicationController extends AbstractController
             'lastArticles' => $lastArticles,
             'mostSoldArticles' => $mostSoldArticles,
             'lessArticlesStocked' => $lessArticlesStocked
-=======
-
-        return $this->render('application/index.html.twig', [
-            'controller_name' => 'ApplicationController',
-            'lastArticle' => $lastArticles[0]
->>>>>>> ecc5a03db70dd218c06a87c8fbfe3ab079e6c45c
         ]);
     }
 }
