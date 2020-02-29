@@ -21,7 +21,7 @@ class Client implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
-
+ 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
@@ -41,7 +41,7 @@ class Client implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist", "remove"})
      */
     private $adresses;
 

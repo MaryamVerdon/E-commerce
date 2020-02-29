@@ -24,7 +24,7 @@ class AdresseType extends AbstractType
             ->add('ville', TextType::class, [
                 'label_format' => 'Ville',
             ])
-            ->add('cp', NumberType::class, [
+            ->add('cp', TextType::class, [
                 'label_format' => 'Code Postal',
             ])
             ->add('pays', ChoiceType::class, [

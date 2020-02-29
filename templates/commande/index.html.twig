@@ -12,7 +12,7 @@
             <h1 style='font-size:30px;'>Adresse de livraison</h1>
             <select id='adresse'>
                 {% for adresse in adresses %}
-                    <option value={{adresse.id}}>{{adresse.adresse}}</option>
+                    <option value={{adresse.id}}>{{adresse.adresse}} {{adresse.cp}} {{adresse.ville}} {{adresse.pays}}</option>
                 {% endfor %}
                     <option value="new">Nouvelle adresse</option>
             </select>

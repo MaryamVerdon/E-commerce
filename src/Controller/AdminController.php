@@ -183,6 +183,7 @@ class AdminController extends AbstractController
         $article = $em->getRepository(Article::class)
             ->find($id);
         $em->remove($article);
+        $em->flush();
         
         return $this->redirectToRoute('admin_article');
     }
