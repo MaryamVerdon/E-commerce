@@ -20,16 +20,16 @@ class AdresseType extends AbstractType
             ->add('ville')
             ->add('cp', NumberType::class)
             ->add('pays', ChoiceType::class, [
-                                                    'choices' => [
-                                                        'France' => 'France',
-                                                        'Espagne' => 'Espagne',
-                                                        'Allemagne' => 'Allemagne' ,
-                                                        'Belgique' => 'Belgique',
-                                                        'Italie' => 'Italie'
-                                                    ],
-                                                ])
+                'choices' => [
+                    'France' => 'France',
+                    'Espagne' => 'Espagne',
+                    'Allemagne' => 'Allemagne' ,
+                    'Belgique' => 'Belgique',
+                    'Italie' => 'Italie'
+                ],
+            ])
             ->add('tel', TelType::class)
-        ;
+            ->add('save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
