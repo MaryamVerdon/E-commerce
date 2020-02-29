@@ -1,7 +1,6 @@
 window.addEventListener('load', e =>{
     addNewAdresse();
     button = document.querySelector('#valide');
-    console.log(button);
     button.addEventListener('click',()=>{
         onclickValidePanier();
     });
@@ -10,14 +9,19 @@ window.addEventListener('load', e =>{
 function addNewAdresse(){
     selectAdresse = document.querySelector('#adresse');
     formNewAdresse = document.querySelector('.form-new-adresse');
+    button = document.querySelector('#valide');
     if(selectAdresse.options[selectAdresse.selectedIndex].value === 'new'){
-        formNewAdresse.style.display = block;
+        formNewAdresse.style.display = "block";
+        button.disabled = "true";
     }
     selectAdresse.addEventListener("change", e => {
         if(selectAdresse.options[selectAdresse.selectedIndex].value === 'new'){
             formNewAdresse.style.display = "block";
+            button.disabled = true;
         }else{
             formNewAdresse.style.display = "none";
+            button.disabled = false;
+            console.log("ok");
         }
     });
 }
