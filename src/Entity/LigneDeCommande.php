@@ -22,7 +22,7 @@ class LigneDeCommande
     private $qte;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="ligne_de_commande")
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;

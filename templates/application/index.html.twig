@@ -5,13 +5,41 @@
 {% block stylesheets %}<link rel="stylesheet" href="css/index.css"/>{% endblock %}
 
 {% block body %}
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+
   <div class="carousel-inner">
+<<<<<<< HEAD
+    {% for a in lastArticles %}
+      <div class="carousel-item active">
+        <h2>Nouvel article !!</h2>
+        <h3>{{ a.libelle }}</h3>
+        <h3>{{ a.description }}</h3>
+        <h4>{{ a.prix_u }}</h4>
+        <img class="d-block w-25 h-25 mx-auto" src={{ a.image }}>
+      </div>
+    {% endfor %}
+    {% for m in mostSoldArticles %}
+      <div class="carousel-item">
+        <h2>Le préféré des clients !!</h2>
+        <h3>{{ m.libelle }}</h3>
+        <h3>{{ m.description }}</h3>
+        <h4>{{ m.prix_u }} €</h4>
+        <img class="d-block w-25 h-25 mx-auto" src={{ m.image }}>
+      </div>
+    {% endfor %}
+    {% for s in lessArticlesStocked %}
+    <div class="carousel-item">
+        <h2>Bientôt en rupture de stock !</h2>
+        <h3>{{ s.libelle }}</h3>
+        <h3>{{ s.description }}</h3>
+        <h4>{{ s.prix_u }} €</h4>
+        <img class="d-block w-25 h-25 mx-auto" src={{ s.image }}>
+=======
     <div class="carousel-item active bg-warning">
       <h2>Nouvel article !!</h2>
       <h3>{{ lastArticle.libelle }}</h3>
@@ -25,13 +53,15 @@
     <div class="carousel-item bg-warning">
       <img class="d-block w-25 h-25 mx-auto" id="carousel_image" src="img/example.png" alt="Third slide">
       <p>Hello</p>
+>>>>>>> ecc5a03db70dd218c06a87c8fbfe3ab079e6c45c
     </div>
+    {% endfor %}
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
