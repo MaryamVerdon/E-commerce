@@ -16,7 +16,8 @@
 
 4. Créer la BD
     - Dupliquer le fichier .env et le renommer en .env.local
-    - Modifier la ligne commençant par DATABASE_URL
+    - Modifier la ligne commençant par DATABASE_URL 
+      ( pour l'iut "DATABASE_URL=mysql://infs4_prj08:Azerty01@mysql:3306/infs4_prj08")
     - Créer la BD avec la commande
         
             $ bin/console doctrine:schema:create
