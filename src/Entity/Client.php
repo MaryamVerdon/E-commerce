@@ -67,6 +67,16 @@ class Client implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $confirmation_token;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $actif;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -249,5 +259,29 @@ class Client implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmation_token;
+    }
+
+    public function setConfirmationToken(?string $confirmation_token): self
+    {
+        $this->confirmation_token = $confirmation_token;
+
+        return $this;
+    }
+
+    public function getActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
+
+        return $this;
     }
 }
