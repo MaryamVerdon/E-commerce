@@ -55,6 +55,7 @@ class SecurityController extends AbstractController
             $client->setRoles(['ROLE_USER']);
 
             $client->setConfirmationToken($this->generateToken());
+            $client->setActif(false);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($client);
@@ -62,7 +63,7 @@ class SecurityController extends AbstractController
 
             $mailerService->sendRegisteringConformation($client);
 
-            $this->addFlash('user-error', 'Votre inscription a été validée, vous aller recevoir un email de confirmation pour activer votre compte et pouvoir vous connecter');
+            $this->addFlash('user-error', 'Votre inscription a été validée, vous allez recevoir un email de confirmation pour activer votre compte et pouvoir vous connecter');
 
             return $this->redirectToRoute('app_login');
         }
@@ -77,6 +78,7 @@ class SecurityController extends AbstractController
      */
     public function confirmRegister($token, $email)
     {
+        $email = urldecode($email);
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository(Client::class)->findOneBy(['email' => $email]);
         if($client){
@@ -92,7 +94,7 @@ class SecurityController extends AbstractController
         }
         return $this->redirectToRoute('app_register');
     }
-    
+
     private function generateToken()
     {
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');

@@ -6,7 +6,9 @@
     <h3>Veuillez confirmer votre compte</h3>
     Bonjour {{ prenom }},<br/>
     Afin d'acceder à votre compte veuillez conformer votre adresse mail en cliquant sur le lien suivant.<br/>
-    <a href="{{ path('admin_client_show', {token: token}) }}">Confirmer l'email<a/><br/>
+    {% set domain = app.request.getSchemeAndHttpHost() %}
+    {% set filepath = path('app_register_confirm', {token: token, email: (email|url_encode)|replace({'.': '%2E'})})%}
+    <a href="{{ domain ~ filepath }}">Confirmer l'email<a/><br/>
     L'équipe FiveSportsWear.
 {% endblock %}
 {% block javascripts %}<script src="/js/validationCommande.js"></script>{% endblock %}

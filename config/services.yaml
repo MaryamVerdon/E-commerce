@@ -39,3 +39,7 @@ services:
         class: App\Service\MailerService
         arguments: ['@swiftmailer.mailer.default', '@twig']
         public: true
+
+    # secutity.user_checker:
+    #     class: App\Security\UserChecker
+    #     arguments: [ "@some.service", "%some.param%" ]

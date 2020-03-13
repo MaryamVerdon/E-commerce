@@ -3,6 +3,7 @@
 namespace App\Service\Mailer;
 
 use App\Entity\Commande;
+use App\Entity\Client;
 
 class MailerService {
 
@@ -39,8 +40,9 @@ class MailerService {
                 $this->templating->render(
                     'email/inscription-confirmation.html.twig',
                     [
-                        'prenom' => $user->getPrenom(),
-                        'token' => $user->getConfirmationToken()
+                        'prenom' => $client->getPrenom(),
+                        'token' => $client->getConfirmationToken(),
+                        'email' => $client->getEmail()
                     ]
                 ),
                 'text/html'
