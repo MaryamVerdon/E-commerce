@@ -73,7 +73,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
         if(!$user->getActif()){
-            throw new CustomUserMessageAuthenticationException('Le compte n\'est pas actif, veuillez verifier vos mails pour l\'activer.');
+            throw new CustomUserMessageAuthenticationException('Le compte n\'est pas actif, veuillez verifier vos mails pour l\'activer.',['resend' => 'true']);
         }
 
         return $user;

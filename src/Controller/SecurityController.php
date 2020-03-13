@@ -95,6 +95,14 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('app_register');
     }
 
+    /**
+     * @Route("/send_new_confirmation_token", name="send_new_confirmation_token")
+     */
+    public function sendNewConfirmationToken()
+    {
+
+    }
+
     private function generateToken()
     {
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
