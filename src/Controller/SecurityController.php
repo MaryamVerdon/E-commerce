@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\ClientRegistrationType;
 use App\Service\Mailer\MailerService;
 use App\Entity\Client;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SecurityController extends AbstractController
 {
@@ -90,17 +92,35 @@ class SecurityController extends AbstractController
                 $em->flush();
                 return $this->redirectToRoute('app_login');
             }
+            $this->addFlash('user-error', 'Lien éronné');
             return $this->redirectToRoute('app_login');
         }
         return $this->redirectToRoute('app_register');
     }
 
     /**
-     * @Route("/send_new_confirmation_token", name="send_new_confirmation_token")
+     * @Route("/send_new_confirmation_token/{email}", name="send_new_confirmation_token")
      */
-    public function sendNewConfirmationToken()
+    public function sendNewConfirmationToken($email, MailerService $mailerService)
     {
-
+        $email = urldecode($email);
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository(Client::class)->findOneBy(['email' => $email]);
+        if($client){
+            if(!$client->getActif()){
+                $client->setConfirmationToken($this->generateToken());
+                $em->persist($client);
+                $em->flush();
+    
+                $mailerService->sendRegisteringConformation($client);
+    
+            }else{
+                $this->addFlash('user-error', 'Votre compte est deja actif');
+            }
+        }else{
+            $this->addFlash('user-error', 'Aucun compte pour cet email');
+        }
+        return $this->redirectToRoute('app_login');
     }
 
     private function generateToken()

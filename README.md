@@ -29,6 +29,12 @@
 
 ## Le projet
 
+### L'inscription
+
+Lorsqu'un utilisateur s'inscrit, un email contenant un lien de confirmation lui est envoyé afin de confirmer son email.
+
+Le lien contient un token et l'email du client afin de permettre de passez son compte sur "actif".
+
 ### L'authentification
 
 La connection se fait par le biais de l'email du client.
