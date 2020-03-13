@@ -18,6 +18,7 @@ use App\Entity\Commande;
 use App\Entity\ModePaiement;
 use App\Service\Payment;
 use App\Service\Panier\PanierService;
+use App\Service\Mailer\MailerService;
 use App\Entity\Adresse;
 use App\Form\AdresseType;
 
@@ -92,7 +93,7 @@ class CommandeController extends AbstractController
     /**
      * @Route("/commande/new", name="commande_new")
      */
-    public function newCommande(Request $request){
+    public function newCommande(Request $request, MailerService $mailerService){
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $client = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -172,6 +173,9 @@ class CommandeController extends AbstractController
 
         //vide le panier du client apres avoir valider la commande
         $this->PanierService->clear();
+
+        //Envoie d'un mail de confirmation de commande
+        $mailerService->sendOrderConfirmation($commande);
         
         //redirection sur le site paypal
         return $this->redirectToRoute('payment', [

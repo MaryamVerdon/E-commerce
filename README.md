@@ -18,6 +18,7 @@
     - Dupliquer le fichier .env et le renommer en .env.local
     - Modifier la ligne commençant par DATABASE_URL 
       ( pour l'iut "DATABASE_URL=mysql://infs4_prj08:Azerty01@mysql:3306/infs4_prj08")
+    - Modifier la ligne commençant par MAILER_URL par MAILER_URL=gmail://monsuperprojetiut@gmail.com:azerty-51@localhost
     - Créer la BD avec la commande
         
             $ bin/console doctrine:schema:create
@@ -89,6 +90,17 @@ Il est possible d'ajouter/supprimer un article :
         http://127.0.0.1:8000/panier/add/{id}?taille={idTaille}&quantite={quantite}
 
         http://127.0.0.1:8000/panier/remove/{id}?taille={idTaille}
+
+
+### Emails
+
+Un email est envoyé au client afin de le prévenir de la confirmation de sa commande.
+
+Pour ne pas envoyer d'email sur des compte généré aléatoirement par les fixtures, l'email est redirigé sur le compte Gmail du projet.
+
+L'acces à ce compte Gmail se fait via les identifiants suivant:
+    - login: monsuperprojetiut@gmail.com
+    - mdp: azerty-51
 
 ### Idées
 
