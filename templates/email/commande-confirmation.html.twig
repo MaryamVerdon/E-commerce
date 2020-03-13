@@ -5,7 +5,7 @@
 {% block body %}
 
     <h3>Commande N°{{commande.id}} confirmée</h3>
-    Bonjour {{ commande.getClient.prenom }},</br>
+    Bonjour {{ commande.getClient.prenom }},<br/>
     Votre commande numéro {{commande.id}} d'un montant de {{commande.getPrixTotalWithShipping}}$ à été confirmée.
 
     <div>

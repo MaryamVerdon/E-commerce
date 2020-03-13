@@ -31,4 +31,22 @@ class MailerService {
         return $this->mailer->send($message);
     }
 
+    public function sendRegisteringConformation(Client $client){
+        $message = (new \Swift_Message('Confirmez votre compte'))
+            ->setFrom($this->from)
+            ->setTo($client->getEmail())
+            ->setBody(
+                $this->templating->render(
+                    'email/inscription-confirmation.html.twig',
+                    [
+                        'prenom' => $user->getPrenom(),
+                        'token' => $user->getConfirmationToken()
+                    ]
+                ),
+                'text/html'
+            );
+
+        return $this->mailer->send($message);
+    }
+
 }

@@ -1,0 +1,12 @@
+{% extends 'base-mail.html.twig' %}
+
+{% block title %}Hello CommandeController!{% endblock %}
+
+{% block body %}
+    <h3>Veuillez confirmer votre compte</h3>
+    Bonjour {{ prenom }},<br/>
+    Afin d'acceder à votre compte veuillez conformer votre adresse mail en cliquant sur le lien suivant.<br/>
+    <a href="{{ path('admin_client_show', {token: token}) }}">Confirmer l'email<a/><br/>
+    L'équipe FiveSportsWear.
+{% endblock %}
+{% block javascripts %}<script src="/js/validationCommande.js"></script>{% endblock %}

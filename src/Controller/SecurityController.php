@@ -9,6 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ClientRegistrationType;
+use App\Service\Mailer\MailerService;
 use App\Entity\Client;
 
 class SecurityController extends AbstractController
@@ -41,7 +42,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, MailerService $mailerService)
     {
         $client = new Client();
 
@@ -53,9 +54,15 @@ class SecurityController extends AbstractController
             $client->setPassword($password);
             $client->setRoles(['ROLE_USER']);
 
+            $client->setConfirmationToken($this->generateToken());
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($client);
             $entityManager->flush();
+
+            $mailerService->sendRegisteringConformation($client);
+
+            $this->addFlash('user-error', 'Votre inscription a été validée, vous aller recevoir un email de confirmation pour activer votre compte et pouvoir vous connecter');
 
             return $this->redirectToRoute('app_login');
         }
@@ -63,5 +70,31 @@ class SecurityController extends AbstractController
         return $this->render('security/register.html.twig', [
             'form' => $form->createView(),
             ]);
+    }
+
+    /**
+     * @Route("/compte/confirm/{token}/{email}", name="app_register_confirm")
+     */
+    public function confirmRegister($token, $email)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository(Client::class)->findOneBy(['email' => $email]);
+        if($client){
+            $bdToken = $client->getConfirmationToken();
+            if($bdToken === $token){
+                $client->setConfirmationToken(null);
+                $client->setActif(true);
+                $em->persist($client);
+                $em->flush();
+                return $this->redirectToRoute('app_login');
+            }
+            return $this->redirectToRoute('app_login');
+        }
+        return $this->redirectToRoute('app_register');
+    }
+    
+    private function generateToken()
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 }
