@@ -99,8 +99,8 @@ Un email est envoyé au client afin de le prévenir de la confirmation de sa com
 Pour ne pas envoyer d'email sur des compte généré aléatoirement par les fixtures, l'email est redirigé sur le compte Gmail du projet.
 
 L'acces à ce compte Gmail se fait via les identifiants suivant:
-    - login: monsuperprojetiut@gmail.com
-    - mdp: azerty-51
+- login: monsuperprojetiut@gmail.com
+- mdp: azerty-51
 
 ### Idées
 
