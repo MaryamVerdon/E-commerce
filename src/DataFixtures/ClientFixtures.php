@@ -28,7 +28,7 @@ class ClientFixtures extends Fixture
             $client = new Client();
             $client->setPrenom($this->faker->firstName);
             $client->setNom($this->faker->lastName);
-            $client->setEmail(mb_strtolower($client->getPrenom() . "." . $client->getNom()) . "@gmail.com");
+            $client->setEmail(mb_strtolower($this->stripAccents($client->getPrenom() . "." . $client->getNom()) . "@gmail.com"));
             $client->setPassword($this->passwordEncoder->encodePassword($client,"azerty"));
             $client->setRoles(['ROLE_USER']);
             $client->setConfirmationToken(null);
@@ -64,5 +64,11 @@ class ClientFixtures extends Fixture
         $manager->persist($client);
 
         $manager->flush();
+    }
+
+    private function stripAccents($string){ 
+        $search  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ');
+        $replace = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y');
+        return str_replace($search, $replace, $string);
     }
 }
