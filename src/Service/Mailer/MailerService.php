@@ -3,6 +3,7 @@
 namespace App\Service\Mailer;
 
 use App\Entity\Commande;
+use App\Entity\Client;
 
 class MailerService {
 
@@ -24,6 +25,44 @@ class MailerService {
                 $this->templating->render(
                     'email/commande-confirmation.html.twig',
                     ['commande' => $commande]
+                ),
+                'text/html'
+            );
+
+        return $this->mailer->send($message);
+    }
+
+    public function sendRegisteringConformation(Client $client){
+        $message = (new \Swift_Message('Confirmez votre compte'))
+            ->setFrom($this->from)
+            ->setTo($client->getEmail())
+            ->setBody(
+                $this->templating->render(
+                    'email/inscription-confirmation.html.twig',
+                    [
+                        'prenom' => $client->getPrenom(),
+                        'token' => $client->getConfirmationToken(),
+                        // 'email' => $client->getEmail()
+                    ]
+                ),
+                'text/html'
+            );
+
+        return $this->mailer->send($message);
+    }
+
+    public function sendPasswordChange(Client $client){
+        $message = (new \Swift_Message('Changement de mot de passe'))
+            ->setFrom($this->from)
+            ->setTo($client->getEmail())
+            ->setBody(
+                $this->templating->render(
+                    'email/change-mdp.html.twig',
+                    [
+                        'prenom' => $client->getPrenom(),
+                        'token' => $client->getPasswordToken(),
+                        // 'email' => $client->getEmail()
+                    ]
                 ),
                 'text/html'
             );

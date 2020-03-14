@@ -31,6 +31,8 @@ class ClientFixtures extends Fixture
             $client->setEmail(mb_strtolower($client->getPrenom() . "." . $client->getNom()) . "@gmail.com");
             $client->setPassword($this->passwordEncoder->encodePassword($client,"azerty"));
             $client->setRoles(['ROLE_USER']);
+            $client->setConfirmationToken(null);
+            $client->setActif(true);
 
             $max = rand(0,4) > 0 ? (rand(0,4) > 0 ? 1 : 2) : 0; 
             for($x = 0; $x < $max; $x++){
@@ -56,6 +58,8 @@ class ClientFixtures extends Fixture
         $client->setEmail("admin@gmail.com");
         $client->setPassword($this->passwordEncoder->encodePassword($client,"azerty"));
         $client->setRoles(['ROLE_ADMIN']);
+        $client->setConfirmationToken(null);
+        $client->setActif(true);
 
         $manager->persist($client);
 
