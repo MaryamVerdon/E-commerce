@@ -42,7 +42,7 @@ class MailerService {
                     [
                         'prenom' => $client->getPrenom(),
                         'token' => $client->getConfirmationToken(),
-                        'email' => $client->getEmail()
+                        // 'email' => $client->getEmail()
                     ]
                 ),
                 'text/html'

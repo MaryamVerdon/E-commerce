@@ -11,7 +11,6 @@
     <form method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') ~ ' ' }} {{error.messageData["resend"] is defined ? ("<a href='" ~ path('send_new_confirmation_token', {email: (error.messageData["resend"]|url_encode)|replace({'.': '%2E'})}) ~ "'>Renvoyer</a>")|raw : ""}}</div>
-            
         {% endif %}
 
         {% if app.user %}
