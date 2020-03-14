@@ -35,6 +35,8 @@ Lorsqu'un utilisateur s'inscrit, un email contenant un lien de confirmation lui 
 
 Le lien contient un token et l'email du client afin de permettre de passez son compte sur "actif".
 
+Le token a une durée de validité de 24H.
+
 ### L'authentification
 
 La connection se fait par le biais de l'email du client.
@@ -54,6 +56,12 @@ Ses commandes sont accessible depuis :
 L'administration est accessible depuis :
 
         http://127.0.0.1:8000/admin
+
+### Mot de passe oublié
+
+Sur la page d'authentification, un lien permet a l'utilisateur de se faire envoyer un mail de changement de mot de passe à partir de son adresse email.
+
+Le lien contient un token valide pendant 1H et lui permet d'acceder à un formulaire de modification de mot de passe.
 
 ### Les criteres de tri
 

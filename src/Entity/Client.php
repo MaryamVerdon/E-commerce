@@ -77,6 +77,11 @@ class Client implements UserInterface
      */
     private $actif;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $password_token;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -281,6 +286,18 @@ class Client implements UserInterface
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    public function getPasswordToken(): ?string
+    {
+        return $this->password_token;
+    }
+
+    public function setPasswordToken(?string $password_token): self
+    {
+        $this->password_token = $password_token;
 
         return $this;
     }

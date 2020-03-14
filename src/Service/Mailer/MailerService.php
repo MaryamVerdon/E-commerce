@@ -51,4 +51,23 @@ class MailerService {
         return $this->mailer->send($message);
     }
 
+    public function sendPasswordChange(Client $client){
+        $message = (new \Swift_Message('Changement de mot de passe'))
+            ->setFrom($this->from)
+            ->setTo($client->getEmail())
+            ->setBody(
+                $this->templating->render(
+                    'email/change-mdp.html.twig',
+                    [
+                        'prenom' => $client->getPrenom(),
+                        'token' => $client->getPasswordToken(),
+                        // 'email' => $client->getEmail()
+                    ]
+                ),
+                'text/html'
+            );
+
+        return $this->mailer->send($message);
+    }
+
 }

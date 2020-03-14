@@ -13,6 +13,8 @@ use App\Service\Mailer\MailerService;
 use App\Entity\Client;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 
 use App\Security\Token\ClientToken;
@@ -234,10 +236,54 @@ class SecurityController extends AbstractController
 
 
     /**
-     * @Route("/reset_password/{token}", name="reset_password")
+     * @Route("/reset_password", name="reset_password")
      */
-    public function resetPassword($token, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $token = $request->get("token");
+        if($token && ClientToken::validate($token,"abc123")){
+            $email = ClientToken::decode($token)["client/email"];
+            $em = $this->getDoctrine()->getManager();
+            $client = $em->getRepository(Client::class)->findOneBy(['email' => $email]);
+            if($client){
+                $bdToken = $client->getPasswordToken();
+                if($bdToken === $token){
+                    if(ClientToken::dateValid($token)){
+
+                        $form = $this->createFormBuilder([])
+                            ->add('plain_password', RepeatedType::class, [
+                                'type' => PasswordType::class,
+                                'first_options'  => array('label' => 'Mot de passe'),
+                                'second_options' => array('label' => 'Repetez le mot de passe'),
+                            ])
+                            ->add('save', SubmitType::class)
+                            ->getForm();
+                        $form->handleRequest($request);
+                        if ($form->isSubmitted() && $form->isValid()) {
+
+                            $client->setPasswordToken(null);
+                            $client->setPassword($passwordEncoder->encodePassword(
+                                $client,
+                                $form->get('plain_password')->getData()
+                            ));
+                            $em->persist($client);
+                            $em->flush();
+                            return $this->redirectToRoute('app_login');
+                        }
+                        return $this->render('security/reset-password.html.twig', [
+                            'form' => $form->createView()
+                        ]);
+                    }
+                    $this->addFlash('user-error', 'Jeton expiré');
+                    return $this->redirectToRoute('app_login');
+                }
+                $this->addFlash('user-error', 'Lien éronné');
+                return $this->redirectToRoute('app_login');
+            }
+            return $this->redirectToRoute('app_register');
+        }
+        $this->addFlash('user-error', 'Jeton nul ou invalide');
+        return $this->redirectToRoute('app_login');
 
     }
 
