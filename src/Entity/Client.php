@@ -56,7 +56,6 @@ class Client implements UserInterface
     private $roles = [];
 
     /**
-     * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
     private $plain_password;

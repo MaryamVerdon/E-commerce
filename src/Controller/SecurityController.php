@@ -9,6 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ClientRegistrationType;
+use App\Form\EditPwdClientType;
 use App\Service\Mailer\MailerService;
 use App\Entity\Client;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -135,6 +136,40 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
     */
+
+
+
+    /**
+     * @Route("/compte/edit_pwd", name="compte_edit_pwd")
+     */
+    public function compteEdit(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $client = $this->getUser();
+        if($client){
+            $form = $this->createForm(EditPwdClientType::class, $client);
+    
+            $form->handleRequest($request);
+    
+            if($form->isSubmitted() && $form->isValid()){
+                
+                $password = $passwordEncoder->encodePassword($client, $client->getPlainPassword());
+                $client->setPassword($password);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($client);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('compte');
+            }
+
+            return $this->render('security/edit.html.twig', [
+                'controller_name' => 'SecurityController',
+                'form' => $form->createView(),
+            ]);
+        }
+        throw $this->createNotFoundException('Utilisateur null');
+    }
 
     /**
      * @Route("/compte/confirm", name="app_register_confirm")
