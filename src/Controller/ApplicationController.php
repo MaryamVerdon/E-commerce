@@ -17,15 +17,24 @@ class ApplicationController extends AbstractController
     {
         $repositoryArticle = $this->getDoctrine()->getRepository(Article::class);
         $repositoryLigne = $this->getDoctrine()->getRepository(LigneDeCommande::class);
-        $lastArticles = $repositoryArticle->findLastArticles();
-        $mostSoldArticles = $repositoryLigne->findMostSoldArticles();
-        $lessArticlesStocked = $repositoryArticle->findLessArticlesStocked();
+        $lastArticles = $repositoryArticle->findLastArticles(8);
+        $mostSoldArticles = $repositoryLigne->findMostSoldArticles(8);
+        $lessArticlesStocked = $repositoryArticle->findArticlesStocked();
+        $mostArticlesStocked = $repositoryArticle->findArticlesStocked('DESC',2);
+
+        // dd($lastArticles,$mostSoldArticles,$lessArticlesStocked);
+
+        $test = $repositoryLigne->findMostSoldArticlesSections();
+
+        dd($test);
 
         return $this->render('application/index.html.twig', [
             'controller_name' => 'ApplicationController',
             'lastArticles' => $lastArticles,
             'mostSoldArticles' => $mostSoldArticles,
-            'lessArticlesStocked' => $lessArticlesStocked
+            'lessArticlesStocked' => $lessArticlesStocked,
+            'mostArticlesStocked' => $mostArticlesStocked,
+            'sectionsArcicles' => [],
         ]);
     }
 }

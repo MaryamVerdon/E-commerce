@@ -31,6 +31,18 @@ class LigneDeCommandeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findMostSoldArticlesSections()
+    {
+        return $this->createQueryBuilder("l")
+            ->select('a.image','s.libelle')
+            ->join('l.article', 'a')
+            ->join('a.sections', 's')
+            ->groupBy('s.libelle')
+            ->orderBy('count(l.article)','DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return LigneDeCommande[] Returns an array of LigneDeCommande objects
     //  */

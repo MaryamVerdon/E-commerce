@@ -12,33 +12,27 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ol>
   <div class="carousel-inner">
-    {% for a in lastArticles %}
-      <div class="carousel-item active">
-        <h2>Nouvel article !!</h2>
-        <h3>{{ a.libelle }}</h3>
-        <h3>{{ a.description }}</h3>
-        <h4>{{ a.prix_u }}</h4>
-        <img class="d-block w-25 h-25 mx-auto" src={{ a.image }}>
-      </div>
-    {% endfor %}
-    {% for m in mostSoldArticles %}
-      <div class="carousel-item">
-        <h2>Le préféré des clients !!</h2>
-        <h3>{{ m.libelle }}</h3>
-        <h3>{{ m.description }}</h3>
-        <h4>{{ m.prix_u }} €</h4>
-        <img class="d-block w-25 h-25 mx-auto" src={{ m.image }}>
-      </div>
-    {% endfor %}
-    {% for s in lessArticlesStocked %}
+    <div class="carousel-item active">
+      <h2>Nouvel article !!</h2>
+      <h3>{{ lastArticles[0].libelle }}</h3>
+      <h3>{{ lastArticles[0].description }}</h3>
+      <h4>{{ lastArticles[0].prix_u }}</h4>
+      <img class="d-block w-25 h-25 mx-auto" src={{ lastArticles[0].image }}>
+    </div>
+    <div class="carousel-item">
+      <h2>Le préféré des clients !!</h2>
+      <h3>{{ mostSoldArticles[0].libelle }}</h3>
+      <h3>{{ mostSoldArticles[0].description }}</h3>
+      <h4>{{ mostSoldArticles[0].prix_u }} €</h4>
+      <img class="d-block w-25 h-25 mx-auto" src={{ mostSoldArticles[0].image }}>
+    </div>
     <div class="carousel-item">
         <h2>Bientôt en rupture de stock !</h2>
-        <h3>{{ s.libelle }}</h3>
-        <h3>{{ s.description }}</h3>
-        <h4>{{ s.prix_u }} €</h4>
-        <img class="d-block w-25 h-25 mx-auto" src={{ s.image }}>
+        <h3>{{ lessArticlesStocked[0].libelle }}</h3>
+        <h3>{{ lessArticlesStocked[0].description }}</h3>
+        <h4>{{ lessArticlesStocked[0].prix_u }} €</h4>
+        <img class="d-block w-25 h-25 mx-auto" src={{ lessArticlesStocked[0].image }}>
     </div>
-    {% endfor %}
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -48,6 +42,60 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
+</div>
+
+<h4>Nouveautés</h4>
+<div class="presentoir-all">
+  {% for la in lastArticles %}
+    <div class="card" style="width: 18rem;">
+      <img src={{ la.image }} class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ la.libelle }}</h5>
+        <p class="card-text">{{ la.description }}</p>
+        {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+</div>
+
+<div class="presentoir-2">
+  {% for mas in mostArticlesStocked %}
+    <div class="card" style="width: 18rem;">
+      <img src={{ mas.image }} class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ mas.libelle }}</h5>
+        <p class="card-text">{{ mas.description }}</p>
+        {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<h4>En vedette</h4>
+<div class="presentoir-all">
+  {% for ms in mostSoldArticles %}
+    <div class="card" style="width: 18rem;">
+      <img src={{ ms.image }} class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ ms.libelle }}</h5>
+        <p class="card-text">{{ ms.description }}</p>
+        {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<h4>Sections</h4>
+<div class="presentoir-4">
+  {% for ca in sectionsArcicles %}
+    <div class="card" style="width: 18rem;">
+      <img src={{ ca.image }} class="card-img-top" alt="...">
+      <div class="card-body">
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  {% endfor %}
 </div>
 
 {% endblock %}
