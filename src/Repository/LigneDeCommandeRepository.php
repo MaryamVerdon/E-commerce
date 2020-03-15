@@ -25,7 +25,7 @@ class LigneDeCommandeRepository extends ServiceEntityRepository
             ->select('a.id','a.libelle','a.description','a.prix_u','a.image','count(l.article)')
             ->join('l.article', 'a')
             ->groupBy('a.id','a.libelle','a.description','a.prix_u','a.image')
-            ->orderBy('count(l.article)','DESC')
+            ->orderBy('sum(l.article)','DESC')
             ->setMaxResults($nbArticles)
             ->getQuery()
             ->getResult();
@@ -37,8 +37,8 @@ class LigneDeCommandeRepository extends ServiceEntityRepository
             ->select('a.image','s.libelle')
             ->join('l.article', 'a')
             ->join('a.sections', 's')
-            ->groupBy('s.libelle')
-            ->orderBy('count(l.article)','DESC')
+            ->groupBy('s.libelle', 'a.image')
+            ->orderBy('sum(l.qte)','DESC')
             ->getQuery()
             ->getResult();
     }

@@ -21,12 +21,7 @@ class ApplicationController extends AbstractController
         $mostSoldArticles = $repositoryLigne->findMostSoldArticles(8);
         $lessArticlesStocked = $repositoryArticle->findArticlesStocked();
         $mostArticlesStocked = $repositoryArticle->findArticlesStocked('DESC',2);
-
-        // dd($lastArticles,$mostSoldArticles,$lessArticlesStocked);
-
-        $test = $repositoryLigne->findMostSoldArticlesSections();
-
-        dd($test);
+        $sectionsArcicles = $repositoryLigne->findMostSoldArticlesSections();
 
         return $this->render('application/index.html.twig', [
             'controller_name' => 'ApplicationController',
@@ -34,7 +29,7 @@ class ApplicationController extends AbstractController
             'mostSoldArticles' => $mostSoldArticles,
             'lessArticlesStocked' => $lessArticlesStocked,
             'mostArticlesStocked' => $mostArticlesStocked,
-            'sectionsArcicles' => [],
+            'sectionsArcicles' => $sectionsArcicles,
         ]);
     }
 }

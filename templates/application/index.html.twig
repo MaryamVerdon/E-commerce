@@ -92,7 +92,8 @@
     <div class="card" style="width: 18rem;">
       <img src={{ ca.image }} class="card-img-top" alt="...">
       <div class="card-body">
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">{{ ca.libelle }}</h5>
+        <a href={{"/article?sections[]=" ~ ca.libelle}} class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   {% endfor %}
