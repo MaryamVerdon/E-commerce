@@ -238,7 +238,21 @@ class ArticleRepository extends ServiceEntityRepository
     public function findLastArticles($nbArticles = 1)
     {
         return $this->createQueryBuilder('a')
+            ->select('a.id','a.libelle','a.description','a.prix_u','a.image')
             ->orderBy('a.id', 'DESC')
+            ->setMaxResults($nbArticles)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findArticlesStocked($order = "ASC", $nbArticles = 1)
+    {
+        // retirer si quantité === 0
+        return $this->createQueryBuilder("a")
+            ->select('a.id','a.libelle','a.description','a.prix_u','a.image','count(q.qte)')
+            ->join('a.quantite_tailles', 'q')
+            ->groupBy('a.id','a.libelle','a.description','a.prix_u','a.image')
+            ->orderBy('sum(q.qte)',$order)
             ->setMaxResults($nbArticles)
             ->getQuery()
             ->getResult();

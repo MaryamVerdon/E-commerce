@@ -2,3 +2,33 @@
     display: flex;
     flex-direction: row;
 }
+.carousel-item{
+    background-image: url(https://www.azutura.com/media/catalog/product/cache/49/image/650x/040ec09b1e35df139433887a97daa66f/W/S/WS-47352_WP.jpg) ;
+}
+
+.presentoir-all {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 90%;
+    margin: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.presentoir-all .card{
+    flex: 0 0 auto;
+}
+
+.presentoir-2, .presentoir-4 {
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.presentoir-2 .card{
+    width: 45%;
+}
+
+.presentoir-4 .card{
+    width: 22.5%;
+}

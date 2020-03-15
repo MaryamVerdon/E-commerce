@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
+use App\Entity\LigneDeCommande;
 use App\Repository\ArticleRepository;
 
 class ApplicationController extends AbstractController
@@ -14,12 +15,21 @@ class ApplicationController extends AbstractController
      */
     public function index()
     {
-        $repository = $this->getDoctrine()->getRepository(Article::class);
-        $lastArticles = $repository->findLastArticles();
+        $repositoryArticle = $this->getDoctrine()->getRepository(Article::class);
+        $repositoryLigne = $this->getDoctrine()->getRepository(LigneDeCommande::class);
+        $lastArticles = $repositoryArticle->findLastArticles(8);
+        $mostSoldArticles = $repositoryLigne->findMostSoldArticles(8);
+        $lessArticlesStocked = $repositoryArticle->findArticlesStocked();
+        $mostArticlesStocked = $repositoryArticle->findArticlesStocked('DESC',2);
+        $sectionsArcicles = $repositoryLigne->findMostSoldArticlesSections();
 
         return $this->render('application/index.html.twig', [
             'controller_name' => 'ApplicationController',
-            'lastArticle' => $lastArticles[0]
+            'lastArticles' => $lastArticles,
+            'mostSoldArticles' => $mostSoldArticles,
+            'lessArticlesStocked' => $lessArticlesStocked,
+            'mostArticlesStocked' => $mostArticlesStocked,
+            'sectionsArcicles' => $sectionsArcicles,
         ]);
     }
 }
