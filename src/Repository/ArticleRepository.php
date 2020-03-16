@@ -49,7 +49,7 @@ class ArticleRepository extends ServiceEntityRepository
             if(isset($parameters['tri_ordre'])){
                 $triOrdre = strtoupper($parameters['tri_ordre']);
             }
-            $qb->orderBy('a.' . $parameters['critereTri'], $triOrdre);
+            $qb->orderBy('a.' . $parameters['critere_tri'], $triOrdre);
         }
         if(isset($parameters['prix_entre'])){
             $prix = explode("_",$parameters['prix_entre']);
@@ -182,7 +182,7 @@ class ArticleRepository extends ServiceEntityRepository
             if(isset($parameters['tri_ordre'])){
                 $triOrdre = strtoupper($parameters['tri_ordre']);
             }
-            $qb->orderBy('a.' . $parameters['critereTri'], $triOrdre);
+            $qb->orderBy('a.' . $parameters['critere_tri'], $triOrdre);
         }
         if(isset($parameters['prix_entre'])){
             $prix = explode("_",$parameters['prix_entre']);
