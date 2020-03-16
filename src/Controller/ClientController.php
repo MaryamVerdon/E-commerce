@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Commande;
 use App\Entity\Adresse;
 use App\Form\AdresseType;
+use App\Form\EditClientType;
 
 class ClientController extends AbstractController
 {
@@ -28,6 +29,36 @@ class ClientController extends AbstractController
                 'controller_name' => 'ClientController',
                 'client' => $client,
                 'commandes' => $commandes,
+            ]);
+        }
+        throw $this->createNotFoundException('Utilisateur null');
+    }
+
+
+    /**
+     * @Route("/compte/edit", name="compte_edit")
+     */
+    public function compteEdit(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $client = $this->getUser();
+        if($client){
+            $form = $this->createForm(EditClientType::class, $client);
+    
+            $form->handleRequest($request);
+    
+            if($form->isSubmitted() && $form->isValid()){
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($client);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('compte');
+            }
+
+            return $this->render('client/edit.html.twig', [
+                'controller_name' => 'ClientController',
+                'form' => $form->createView(),
             ]);
         }
         throw $this->createNotFoundException('Utilisateur null');

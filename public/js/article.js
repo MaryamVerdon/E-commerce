@@ -2,6 +2,8 @@ window.addEventListener('load', e => {
     addOnClickToPanier();
     setFiltersByParameters(getUrlParameters());
     addOnChangeToFilters();
+    setSortingByParameters(getUrlParameters());
+    addOnClickToParameters();
 });
 
 function addOnClickToPanier(){
@@ -59,6 +61,24 @@ function addOnChangeToFilters(){
     });
 }
 
+function addOnClickToParameters(){
+    let triArticles = document.querySelectorAll("#btn-tri-articles");
+    triArticles.forEach(triArticle => {
+        triArticle.addEventListener("click", e => {
+            if(triArticle.className.includes("actif")){
+                let tabValues = triArticle.value.split(".");
+                triArticle.value = tabValues[0] + "." + (tabValues[1] === "ASC" ? "DESC" : "ASC");
+                window.location = "/article" + getFiltersToUrl();
+            }else{
+                triArticles.forEach(triArt => {
+                    triArt.className = (triArt === triArticle ? (triArt.className + " actif") : triArt.className.replace(" actif",""));
+                    window.location = "/article" + getFiltersToUrl();
+                });
+            }
+        });
+    });
+}
+
 function getFiltersToUrl(){
     let url = "";
     let sections = document.querySelectorAll(".input-section");
@@ -67,6 +87,15 @@ function getFiltersToUrl(){
     let tailles = document.querySelectorAll(".input-taille");
     let prixMin = document.querySelector("#input-prix-min");
     let prixMax = document.querySelector("#input-prix-max");
+
+    let triArticles = document.querySelectorAll("#btn-tri-articles");
+
+    triArticles.forEach(triArticle => {
+        if(triArticle.className.includes("actif")){
+            let tabValues = triArticle.value.split(".");
+            url += ("&critere_tri=" + tabValues[0] + "&tri_ordre=" + tabValues[1]);
+        }
+    });
     sections.forEach(section => {
         if(section.checked){
             url += ("&sections[]=" + section.value);
@@ -134,6 +163,27 @@ function setFiltersByParameters(parameters){
     if(parameters['tailles']){
         parameters['tailles'].forEach(s => {
             tailles.querySelector("#taille-" + s).checked = true;
+        })
+    }
+}
+
+function setSortingByParameters(parameters){
+    let triArticles = document.querySelectorAll("#btn-tri-articles");
+    if(parameters['critere_tri']){
+        let critere = parameters['critere_tri'];
+        let order = 'ASC';
+        if(parameters['tri_ordre']){
+            order = parameters['tri_ordre'];
+        }
+        triArticles.forEach(triArticle => {
+            let tabValues = triArticle.value.split(".");
+            if(tabValues[0].toUpperCase() === critere.toUpperCase()){
+                triArticle.className = triArticle.className + " actif";
+                triArticle.value = critere + "." + order;
+                let icon = triArticle.querySelector("i");
+                icon.className = "fas fa-sort-" + (order === 'ASC' ? "up" : "down")
+                console.log(icon);
+            }
         })
     }
 }

@@ -11,7 +11,7 @@
 <div class="infos-client">
     <div>{{ client.nom }} {{ client.prenom }}</div>
     <div>{{ client.email }}</div>
-    <div onClick={window.location="{{ path('compte_commandes') }}"}>Modifier</div>
+    <div onClick={window.location="{{ path('compte_edit') }}"}>Modifier</div><div onClick={window.location="{{ path('compte_edit_pwd') }}"}>Modifier mot de passe</div>
 </div>
 
 <h3>Mes Adresses</h3>

@@ -1,0 +1,52 @@
+{% extends 'base-mail.html.twig' %}
+
+{% block title %}Hello CommandeController!{% endblock %}
+
+{% block body %}
+
+    <h3>Commande N°{{commande.id}} confirmée</h3>
+    Bonjour {{ commande.getClient.prenom }},<br/>
+    Votre commande numéro {{commande.id}} d'un montant de {{commande.getPrixTotalWithShipping}}$ à été confirmée.
+
+    <div>
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Taille</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in commande.getLignesDeCommande %}
+                    <tr>
+                        <td>{{ ligne.article.libelle }}</td>
+                        <td>{{ ligne.taille.libelle }}</td>
+                        <td>{{ ligne.article.getPrixU }}$</td>
+                        <td>{{ ligne.qte}}</td>
+                        <td>{{ ligne.getMontant }}$</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">Sous total :</td>
+                    <td>{{ commande.getPrixTotal }}$</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-right">Frais de port :</td>
+                    <td>{{ commande.getFraisDePort }}$</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-right">Total :</td>
+                    <td>{{ commande.getPrixTotalWithShipping }}$</td>
+                </tr>
+            </tfoot>
+        <table>
+    </div>
+
+    Toute notre équipe vous remercie pour votre achat, à bientôt sur FiveSportsWear.
+{% endblock %}
+{% block javascripts %}<script src="/js/validationCommande.js"></script>{% endblock %}

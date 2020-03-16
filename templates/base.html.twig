@@ -6,11 +6,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/index.css"/>
     <!-- font awesome -->
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('/fontawesome/search-solid.svg') }}"/>
+        <link rel="stylesheet" href="/css/font-awesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="/css/font-awesome/css/solid.min.css">
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
 <header class="container-fluid">
     <div class="row">
         <!--- titre du site -->

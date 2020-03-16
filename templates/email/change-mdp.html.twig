@@ -1,0 +1,16 @@
+{% extends 'base-mail.html.twig' %}
+
+{% block title %}Hello CommandeController!{% endblock %}
+
+{% block body %}
+    <h3>Veuillez confirmer votre compte</h3>
+    Bonjour {{ prenom }},<br/>
+    Vous avez effectué une demmande de changement de mot de passe.<br/>
+    Vous pouvez le modifier en cliquant sur le lien suivant.<br/>
+    {% set domain = app.request.getSchemeAndHttpHost() %}
+    {# {% set filepath = path('reset_password', {token: token, email: (email|url_encode)|replace({'.': '%2E'})})%} #}
+    {% set filepath = path('reset_password', {token: token})%}
+    <a href="{{ domain ~ filepath }}">Changer de mot de passe<a/><br/>
+    L'équipe FiveSportsWear.
+{% endblock %}
+{% block javascripts %}<script src="/js/validationCommande.js"></script>{% endblock %}

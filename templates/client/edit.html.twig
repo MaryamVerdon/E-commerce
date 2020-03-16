@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/inscription.css') }}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('user-error') %}
+        <div class="flash-user-error">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+    {{ form_end(form) }}
+{% endblock %}

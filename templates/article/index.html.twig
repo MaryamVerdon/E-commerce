@@ -48,6 +48,7 @@
                         {% for categorie in categories %}
                             <label for="{{ "categorie-" ~ categorie.libelle }}">
                                 <input class="input-categorie" type="checkbox" name="categorie" value="{{ categorie.libelle }}" id="{{ "categorie-" ~ categorie.libelle }}">
+                    {# <input type="hidden" value="{{categorie.id}}"> #}
                                 {{ categorie.libelle }}
                             </label>
                         {% endfor %}
@@ -67,12 +68,15 @@
                 </button>
                 <div class="collapse" id="collapse-types">
                     <div class="style">
-                        {% for typeArticle in typesArticle %}
+                    {% for categorie in categories %}
+                        {% for typeArticle in categorie.typesArticles %}
                             <label for="{{ "type-" ~ typeArticle.libelle }}">
                                 <input class="input-type" type="checkbox" name="type-article" value="{{ typeArticle.libelle }}" id="{{ "type-" ~ typeArticle.libelle }}">
+                                {# <input type="hidden" value="{{categorie.id}}"> #}
                                 {{ typeArticle.libelle }}
                             </label>
                         {% endfor %}
+                    {% endfor %}
                     </div>
                 </div>
             </div>
@@ -123,7 +127,8 @@
 
         <div class="container-tri-articles">
             <div class="tri-articles">
-
+                <button id="btn-tri-articles" class="btn btn-primary" value="libelle.ASC">Nom<i class="fas fa-sort"></i></button>
+                <button id="btn-tri-articles" class="btn btn-primary" value="prix_u.ASC">Prix<i class="fas fa-sort"></i></button>
             </div>
             <div class="list-articles">
                 {% for article in articles %}
