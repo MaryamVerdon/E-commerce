@@ -5,7 +5,7 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
 
 {% block body %}
-{% include 'admin/panel.html' %}
+{% include '/admin/panel.html.twig' %}
 
 {{ form_start(form) }}
     {{ form_row(form.libelle) }}

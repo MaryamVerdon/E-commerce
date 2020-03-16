@@ -71,6 +71,20 @@ class AdminController extends AbstractController
             'client' => $client
         ]);
     }
+    
+    /**
+     * @Route("/admin/commande", name="admin_commandes")
+     */
+    public function indexCommande(){
+        $commande = $this->getDoctrine()
+        ->getRepository(Commande::class)
+        ->findAll();
+        //dd($commande);
+        return $this->render('admin/commande/index.html.twig',[
+            'commandes' => $commande
+        ]);
+    }
+
     /**
      * @Route("/admin/client/commande/{id}", name="admin_client_indexCommande", requirements={"id"="\d+"})
      */
@@ -79,10 +93,11 @@ class AdminController extends AbstractController
         ->getRepository(Commande::class)
         ->findByclient($id);
         //dd($commande);
-        return $this->render('admin/client/indexCommande.html.twig',[
+        return $this->render('admin/client/commande.html.twig',[
             'commandes' => $commande
         ]);
     }
+
     /**
      * @Route("/admin/client/commande/show/{id}", name="admin_client_showCommande", requirements={"id"="\d+"})
      */
@@ -91,7 +106,7 @@ class AdminController extends AbstractController
         ->getRepository(Commande::class)
         ->find($id);
         //dd($commande);
-        return $this->render('admin/client/Commande_show.html.twig',[
+        return $this->render('admin/commande/show.html.twig',[
             'controller_name'=> 'clientController',
             'commande' => $commande
         ]);
@@ -199,7 +214,7 @@ class AdminController extends AbstractController
             ->findAll();
             //dd($client);
     
-        return $this->render('admin/indexClient.html.twig',[
+        return $this->render('admin/client/index.html.twig',[
             'controller_name' => 'AdminController',
             'clients' => $client
         ]);

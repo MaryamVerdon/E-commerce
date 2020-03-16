@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/admin/client.css"/>{% endblock %}
+
+{% block body %}
+{% include '/admin/panel.html.twig' %}
+
+<h3>liste des clients</h3>
+<div class="clients">
+    {% for client in clients %}
+        <div class="client" onClick="{window.location='{{ path('admin_client_show', {id: client.id}) }}'}">
+            <div class="nom-client">Le {{ client.nom }}</div>
+            <div class="prenom-client">{{ client.prenom }}</div>
+            <div class="email-client">{{ client.email }}</div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+

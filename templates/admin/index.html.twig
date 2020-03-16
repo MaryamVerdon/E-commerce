@@ -3,6 +3,23 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html' %}
+{% include '/admin/panel.html.twig' %}
 
+<div>
+    <div>
+    <h3>Commandes</h3>
+
+    <a href="{#{ path('') }#}">Voir tout</a>
+    </div>
+    <div>
+    <h3>Clients</h3>
+
+    <a href="{#{ path('') }#}">Voir tout</a>
+    </div>
+    <div>
+    <h3>Articles</h3>
+
+    <a href="{#{ path('') }#}">Voir tout</a>
+    </div>
+</div>
 {% endblock %}
