@@ -14,3 +14,11 @@
     margin-top: 5px;
     background-color: rgb(197, 197, 197);
 }
+
+.show-commande {
+}
+
+.show-commande table{
+    width: 85%;
+    margin: auto;
+}
