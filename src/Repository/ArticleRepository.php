@@ -258,6 +258,15 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findTenLastArticles($nbArticles = 10)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id','a.libelle','a.description','a.prix_u','a.image')
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults($nbArticles)
+            ->getQuery()
+            ->getResult();
+    }
     
     // /**
     //  * @return Article[] Returns an array of Article objects
