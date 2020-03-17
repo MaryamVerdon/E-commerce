@@ -41,7 +41,15 @@ class CommandeRepository extends ServiceEntityRepository
             if(isset($parameters['tri_ordre'])){
                 $triOrdre = strtoupper($parameters['tri_ordre']);
             }
-            $qb->orderBy('c.' . $parameters['critere_tri'], $triOrdre);
+            if($parameters['critere_tri'] === 'nom'){
+                $qb->join("c.client", "cl")
+                    ->orderBy('cl.nom', $triOrdre);
+            }else if($parameters['critere_tri'] === 'statut'){
+                $qb->join("c.statut_commande", "s")
+                    ->orderBy('s.libelle', $triOrdre);
+            }else{
+                $qb->orderBy('c.' . $parameters['critere_tri'], $triOrdre);
+            }
         }
 
         $debut = ($page -1) * $nbMaxParPage;
