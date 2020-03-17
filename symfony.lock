@@ -112,8 +112,8 @@
         "version": "1.14.0"
     },
     "php": {
-        "version": "7.3"
-        },
+        "version": "7.2"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -310,6 +310,9 @@
     },
     "symfony/security-http": {
         "version": "v5.0.4"
+    },
+    "symfony/serializer": {
+        "version": "v5.0.5"
     },
     "symfony/service-contracts": {
         "version": "v2.0.1"

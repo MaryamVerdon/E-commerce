@@ -5,6 +5,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Serializer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Commande;
@@ -16,6 +19,10 @@ use App\Entity\QuantiteTaille;
 use App\Entity\LigneDeCommande;
 use App\Form\ArticleType;
 use App\Form\CommandeType;
+
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class AdminController extends AbstractController
 {
@@ -88,19 +95,21 @@ class AdminController extends AbstractController
      * @Route("/admin/commande", name="admin_commande")
      */
     public function indexCommande(){
+        /*
         $commande = $this->getDoctrine()
         ->getRepository(Commande::class)
         ->findAll();
+        */
         //dd($commande);
         return $this->render('admin/commande/index.html.twig',[
-            'commandes' => $commande
+            //'commandes' => $commande
         ]);
     }
 
     /**
      * @Route("/admin/commande/get", name="admin_commande_get")
      */
-    public function getCommande(){
+    public function getCommande(Request $request){
         $parameters = $request->query->all();
 
         $page = 1;
@@ -113,19 +122,35 @@ class AdminController extends AbstractController
             $nbMaxParPage = $parameters['nb_max_par_page'];
         }
 
-        $commandes = $this->getDoctrine()
-        ->getRepository(Commande::class)
-        ->findByParametersPagine($page, $nbMaxParPage, $parameters);
+        $paginator = $this->getDoctrine()
+            ->getRepository(Commande::class)
+            ->findByParametersPagine($page, $nbMaxParPage, $parameters);
         //dd($commande);
 
+        
+        $commandes = [];
+        // dd($paginator->getIterator()->getArrayCopy());
+        foreach($paginator->getIterator()->getArrayCopy() as $commande){
+            $commandes[] = [
+                "id" => $commande->getId(),
+                "date" => $commande->getDate(),
+                "client" => ($commande->getClient()->getNom() . " " . $commande->getClient()->getPrenom()),
+                "mode_paiement" => $commande->getModePaiement()->getLibelle(),
+                "statut_commande" => $commande->getStatutCommande()->getLibelle(),
+                "adresse" => ($commande->getAdresse()->getAdresse() . " " . $commande->getAdresse()->getCp() . " " . $commande->getAdresse()->getVille()),
+                "nb_articles" => $commande->getNbArticles(),
+                "total" => $commande->getPrixTotalWithShipping()
+            ];
+        }
         $result = [
             "commandes" => $commandes,
             "pagination" => [
                 "page" => $page,
-                "nbPages" => (ceil(count($articles) / $nbMaxParPage))
+                "nbPages" => (ceil(count($paginator) / $nbMaxParPage))
             ]
         ];
-        return new Response(json_encode($commandes));
+        // dd(json_encode($result));
+        return new JsonResponse($result);
     }
 
     /**

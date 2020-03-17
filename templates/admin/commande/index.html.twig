@@ -8,7 +8,7 @@
 {% include '/admin/panel.html.twig' %}
 <h3>liste des commandes</h3>
 <div>
-    <table class="tablee table-bordered table-hover">
+    <table id="table-commandes" class="tablee table-bordered table-hover">
         <thead>
             <tr class="table-active">
                 <th>N°</th>
@@ -19,8 +19,8 @@
                 <th>Montant</th>
             </tr>
         </thead>
-        <tbody>
-            {#
+        <tbody id="tbody-commandes">
+            {# 
             {% for commande in commandes %}
                 <tr onClick="{window.location='{{ path('admin_commande_show', {id: commande.id}) }}'}">
                     <td><div class="id-commande">{{ commande.id }}</div></td>
@@ -33,13 +33,18 @@
             {% endfor %}
             #}
         </tbody>
-        <tfoot>
+        <tfoot id="tfoot-commandes">
             <tr class="table-active">
-                <td colspan="6" class="text-center"><a href="{{ path('admin_commande') }}">Voir tout</a></td>
+                <td colspan="6" class="text-center">
+                    <button id="precedent">Précédent</button>
+                    <span id="page"></span>
+                    <button id="suivant">Suivant</button>
+                </td>
             </tr>
         </tfoot>
     </table>
 </div>
+{#
 <div class="commandes">
     {% for commande in commandes %}
         <div class="commande" onClick="{window.location='{{ path('admin_commande_show', {id: commande.id}) }}'}">
@@ -51,4 +56,7 @@
         </div>
     {% endfor %}
 </div>
+#}
 {% endblock %}
+{% block javascripts %}<script src="/js/admin/commande.js"></script>{% endblock %}
+
