@@ -35,15 +35,23 @@ class CommandeRepository extends ServiceEntityRepository
         
         $qb = $this->createQueryBuilder('c');
 
+        if(isset($parameters['client_id'])){
+            $qb->join("c.client", "cl")
+            ->andWhere('cl.id = :clid')
+            ->setParameter('clid', $parameters['client_id']);
+        }
 
         if(isset($parameters['critere_tri'])){
             $triOrdre = 'ASC';
             if(isset($parameters['tri_ordre'])){
                 $triOrdre = strtoupper($parameters['tri_ordre']);
             }
+            
             if($parameters['critere_tri'] === 'nom'){
-                $qb->join("c.client", "cl")
-                    ->orderBy('cl.nom', $triOrdre);
+                if(!in_array('cl', $qb->getAllAliases())){
+                    $qb->join("c.client", "cl");
+                }
+                    $qb->orderBy('cl.nom', $triOrdre);
             }else if($parameters['critere_tri'] === 'statut'){
                 $qb->join("c.statut_commande", "s")
                     ->orderBy('s.libelle', $triOrdre);

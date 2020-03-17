@@ -6,16 +6,32 @@
 
 {% block body %}
 {% include '/admin/panel.html.twig' %}
+<input id="client-id" type="hidden" value={{ clientId }}>
 <h3>liste des commandes</h3>
-<div class="commandes">
-    {% for commande in commandes %}
-        <div class="commande" onClick="{window.location='{{ path('admin_commande_show', {id: commande.id}) }}'}">
-            <div class="id-commande">N°{{ commande.id }}</div>
-            <div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div>
-            <div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div>
-            <div class="montant-commande">{{ commande.getPrixTotal }}$</div>
-            <div class="status-commande">{{ commande.statutCommande.libelle }}</div>
-        </div>
-    {% endfor %}
-</div>
+<div>
+    <table id="table-commandes" class="tablee table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th class="th-tri">N°<i class="fas fa-sort"></i><input type="hidden" value="id.ASC"></th>
+                <th class="th-tri">Date<i class="fas fa-sort"></i><input type="hidden" value="date.ASC"></th>
+                <th class="th-tri">Client<i class="fas fa-sort"></i><input type="hidden" value="nom.ASC"></th>
+                <th class="th-tri">Statut<i class="fas fa-sort"></i><input type="hidden" value="statut.ASC"></th>
+                <th>Nb articles</th>
+                <th>Montant</th>
+            </tr>
+        </thead>
+        <tbody id="tbody-commandes">
+        </tbody>
+        <tfoot id="tfoot-commandes">
+            <tr class="table-active">
+                <td colspan="6" class="text-center">
+                    <button id="precedent">Précédent</button>
+                    <span id="page"></span>
+                    <button id="suivant">Suivant</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div> 
 {% endblock %}
+{% block javascripts %}<script src="/js/admin/commande.js"></script>{% endblock %}

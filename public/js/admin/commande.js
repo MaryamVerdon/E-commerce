@@ -1,11 +1,14 @@
 var tbody, tfoot, pageElement, thsTri;
-var p=1, nbP, nbMax=15, parametres = [];
+var p=1, nbP, nbMax=15, parametres = [], clientId = null;
 
 window.addEventListener("load", e => {
     tbody = document.querySelector("#tbody-commandes");
     tfoot = document.querySelector("#tfoot-commandes");
     pageElement = document.querySelector("#page");
     thsTri = document.querySelectorAll(".th-tri");
+    if(document.querySelector("#client-id").value){
+        clientId = document.querySelector("#client-id").value;
+    }
     addOnClickButtonPagine();
     addOnClickTri();
     fetchCommandes(p,nbMax);
@@ -50,7 +53,7 @@ function fetchCommandes(page, nbMaxParPage, parametres = []){
     Object.keys(parametres).forEach(key => {
         param += ("&" + key + "=" + parametres[key]);
     });
-    fetch('/admin/commande/get?page=' + page + "&nb_max_par_page=" + nbMaxParPage + param)
+    fetch('/admin/commande/get?page=' + page + "&nb_max_par_page=" + nbMaxParPage + param + (clientId ? ("&client_id=" + clientId) : ""))
         .then(response => response.json())
         .then(data => {
             tbody.innerHTML = "";
@@ -72,7 +75,8 @@ function paginate(pagination){
     suivant.disabled = false;
     if(p <= 1){
         precedent.disabled = true;
-    }else if(p >= nbP){
+    }
+    if(p >= nbP){
         suivant.disabled = true;
     }
 }

@@ -192,12 +192,14 @@ class AdminController extends AbstractController
      * @Route("/admin/client/commande/{id}", name="admin_client_commande", requirements={"id"="\d+"})
      */
     public function indexCommandeClient($id){
+        /*
         $commande = $this->getDoctrine()
         ->getRepository(Commande::class)
         ->findByclient($id);
+        */
         //dd($commande);
         return $this->render('admin/client/commande.html.twig',[
-            'commandes' => $commande
+            'clientId' => $id
         ]);
     }
 
@@ -324,6 +326,7 @@ class AdminController extends AbstractController
     public function getClient(Request $request)
     { 
         $parameters = $request->query->all();
+
 
         $page = 1;
         if(isset($parameters['page'])){

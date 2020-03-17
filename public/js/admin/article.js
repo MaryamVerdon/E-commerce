@@ -73,7 +73,8 @@ function paginate(pagination){
     suivant.disabled = false;
     if(p <= 1){
         precedent.disabled = true;
-    }else if(p >= nbP){
+    }
+    if(p >= nbP){
         suivant.disabled = true;
     }
 }
