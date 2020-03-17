@@ -41,18 +41,53 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/article", name="admin_article")
      */
-    public function indexArticle(Request $request)
+    public function indexArticle()
     {
-        $parameters = $request->query->all();
-        $articles = $this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findByParameters($parameters);
         return $this->render('admin/article/index.html.twig', [
-            'controller_name' => 'ArticleController',
-            'articles' => $articles
         ]);
     }
+   
+    /**
+     * @Route("/admin/article/get", name="admin_article_get")
+     */
+    public function getArticle(Request $request){
+        $parameters = $request->query->all();
 
+        $page = 1;
+        if(isset($parameters['page'])){
+            $page = $parameters['page'];
+        }
+
+        $nbMaxParPage = 20;
+        if(isset($parameters['nb_max_par_page'])){
+            $nbMaxParPage = $parameters['nb_max_par_page'];
+        }
+
+        $paginator = $this->getDoctrine()
+        ->getRepository(Article::class)
+        ->findByParametersPagine($page, $nbMaxParPage, $parameters);
+        //dd($commande);
+
+        $articles = [];
+        // dd($paginator->getIterator()->getArrayCopy());
+        foreach($paginator->getIterator()->getArrayCopy() as $article){
+            $articles[] = [
+                "id" => $article->getId(),
+                "libelle" => $article->getLibelle(),
+                "image" => $article->getImage(),
+                "description" => $article->getDescription(),
+                "prix_u" => $article->getPrixU()
+            ];
+        }
+        $result = [
+            "articles" => $articles,
+            "pagination" => [
+                "page" => $page,
+                "nbPages" => (ceil(count($paginator) / $nbMaxParPage))
+            ]
+        ];
+        return new JsonResponse($result);
+    }
     /**
      * @Route("/admin/article/{id}", name="admin_article_show", requirements={"id"="\d+"})
      */

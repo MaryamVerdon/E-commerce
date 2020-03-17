@@ -7,21 +7,33 @@
 {% block body %}
 {% include '/admin/panel.html.twig' %}
 
-<div class="list-articles">
-    {% for article in articles %}
-        <div class="item-article">
-            <div class="item-article" onClick={window.location="{{ path('admin_article_show', {id: article.id}) }}"}>
-                <div class="libelle-article">{{ article.libelle }}</div>
-                <div class="image-article"><img src="{{ article.image }}"/></div>
-                <div class="description-article">{{ article.description }}</div>
-                <div class="prix-article">{{ article.prixU }}$</div>
-            </div>
-            <div class="buttons-article>">
-                <button class="modify-article" onClick={window.location="{{ path('admin_article_edit', {id: article.id}) }}"}>Modifier</button>
-                <button class="remove-article" onClick={window.location="{{ path('admin_article_remove', {id: article.id}) }}"}>Supprimer</button>
-            </div>
-        </div>
-    {% endfor %}
+<h3>liste des article</h3>
+<div>
+    <table id="table-article" class="tablee table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th class="th-tri">N°<i class="fas fa-sort"></i><input type="hidden" value="id.ASC"></th>
+                <th class="th-tri">libelle<i class="fas fa-sort"></i><input type="hidden" value="libelle.ASC"></th>
+                <th>image</th>
+                <th class="th-tri">description<i class="fas fa-sort"></i><input type="hidden" value="description.ASC"></th>
+                <th class="th-tri">prix_u<i class="fas fa-sort"></i><input type="hidden" value="prix_u.ASC"></th>
+                
+            </tr>
+        </thead>
+        <tbody id="tbody-article">
+            
+        </tbody>
+        <tfoot id="tfoot-article">
+            <tr class="table-active">
+                <td colspan="6" class="text-center">
+                    <button id="precedent">Précédent</button>
+                    <span id="page"></span>
+                    <button id="suivant">Suivant</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 {% endblock %}
-{% block javascripts %}{% endblock %}
+
+{% block javascripts %}<script src="/js/admin/article.js"></script>{% endblock %}
