@@ -59,7 +59,14 @@ class CommandeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
+    function findTenLastCommandes($nbResults = 10){
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->addOrderBy('c.date', 'DESC')
+            ->setMaxResults($nbResults)
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */

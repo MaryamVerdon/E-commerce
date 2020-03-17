@@ -11,6 +11,45 @@
         <div class="nom-client">{{ client.nom }}</div>
         <div class="prenom-client">{{ client.prenom }}</div>
         <div class="email-client">{{ client.email }}</div>
+    <h4>Mes Adresses</h4>
+    <table>
+        <thead>
+            <th>Adresses</th>
+            <th>code postale</th>
+            <th>ville</th>
+            <th>pays</th>
+            <th>tel</th>
+        </thead>
+        
+        <div class="adresses-client">
+            {% for adresse in client.adresses %}
+            <tr>
+                <div class="adresse">
+                    <td><div class="adresse">{{ adresse.adresse }}</div></td>
+                    <td><div class="cp">{{ adresse.cp }}</div></td>
+                    <td><div class="ville">{{ adresse.ville }}</div></td>
+                    <td><div class="pays">{{ adresse.pays }}</div></td>
+                    <td><div class="tel">{{ adresse.tel }}</div></td>
+                </div>
+            </tr>
+            {% endfor %}
+        </div>
+    <table>
+            <tr>
+                <th>10 derniere commandes</th>
+            </tr>
+            <div class="commandes">
+                {% for commande in commandes %}
+                    <tr>
+                        <td><div class="id-commande">N°{{ commande.id }}</div></td>
+                        <td><div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div></td>
+                        <td><div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div></td>
+                        <td><div class="montant-commande">{{ commande.getPrixTotal }}$</div></td>
+                        <td><div class="status-commande">{{ commande.statutCommande.libelle }}</div></td>
+                    </tr>
+                {% endfor %}
+            </div>
+        </table>
         <button class="commande-client" onClick={window.location="{{ path('admin_client_indexCommande', {id: client.id}) }}"}>acceder au commande</button>
 
     </div>  

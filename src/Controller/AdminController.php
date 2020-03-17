@@ -11,6 +11,7 @@ use App\Entity\Commande;
 use App\Entity\Article;
 use App\Entity\Client;
 use App\Entity\Taille;
+use App\Entity\Adresse;
 use App\Entity\QuantiteTaille;
 use App\Entity\LigneDeCommande;
 use App\Form\ArticleType;
@@ -66,9 +67,20 @@ class AdminController extends AbstractController
         $client = $this->getDoctrine()
             ->getRepository(Client::class)
             ->find($id);
+        $commandes = $this->getDoctrine()
+            ->getRepository(Commande::class)
+            ->findLastsByClient($client);
+        $adresses = $this->getDoctrine()
+            ->getRepository(Adresse::class)
+            ->findByClient($client);
+        //dd($commandes);
+        //dd($adresses);
+        
         return $this->render('admin/client/show.html.twig', [
             'controller_name' => 'ClientController',
-            'client' => $client
+            'client' => $client,
+            'commandes' => $commandes,
+            'adresse' => $adresses
         ]);
     }
     
@@ -265,4 +277,52 @@ class AdminController extends AbstractController
 
         ]);
     }
+
+     /**
+     * @Route("/admin", name="admin")
+     */
+    public function ten_last_commande()
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $commandes = $this->getDoctrine()
+            ->getRepository(Commande::class)
+            ->findTenLastCommandes();
+            
+        $clients = $this->getDoctrine()
+            ->getRepository(Client::class)
+            ->findTenLastClients();
+
+        $articles = $this->getDoctrine()
+        ->getRepository(Article::class)
+        ->findTenLastArticles();
+        
+        //dd($clients);
+        //dd($commandes);
+        //dd($articles);
+        return $this->render('admin/index.html.twig',[
+            'controller_name' => 'AdminController',
+            'commandes' => $commandes,
+            'clients' => $clients,
+            'articles' => $articles
+        ]);
+    }
+     
+    /**
+     * @Route("/admin", name="admin_client")
+     */
+    /*
+     public function ten_last_client()
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $clients = $this->getDoctrine()
+            ->getRepository(Client::class)
+            ->findTenLastClient();
+        
+        //dd($clients);
+    
+        return $this->render('admin/index.html.twig',[
+            'controller_name' => 'AdminController',
+            'clients' => $clients
+        ]);
+    }*/
 }

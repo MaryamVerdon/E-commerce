@@ -36,6 +36,16 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
         $this->_em->flush();
     }
 
+    public function findTenLastclients($nbClient = 10)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.id','c.nom','c.prenom','c.email')
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults($nbClient)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Client[] Returns an array of Client objects
     //  */

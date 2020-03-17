@@ -7,19 +7,62 @@
 
 <div>
     <div>
-    <h3>Commandes</h3>
-
-    <a href="{#{ path('') }#}">Voir tout</a>
+        <table>
+            <tr>
+                <th>10 derniere commandes</th>
+            </tr>
+            <div class="commandes">
+                {% for commande in commandes %}
+                    <tr>
+                        <td><div class="id-commande">N°{{ commande.id }}</div></td>
+                        <td><div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div></td>
+                        <td><div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div></td>
+                        <td><div class="montant-commande">{{ commande.getPrixTotal }}$</div></td>
+                        <td><div class="status-commande">{{ commande.statutCommande.libelle }}</div></td>
+                    </tr>
+                {% endfor %}
+            </div>
+        </table>
+        <a href="{#{ path('admin/commande') }#}">Voir tout</a>
     </div>
     <div>
-    <h3>Clients</h3>
-
-    <a href="{#{ path('') }#}">Voir tout</a>
+        <table>
+            <tr>
+                <th>10 derniere client</th>
+            </tr>
+            <div class="clients">
+                {% for client in clients %}
+                    <tr>
+                        <td><div class="client" onClick="{window.location='{{ path('admin_client_show', {id: client.id}) }}'}"></td>
+                        <td><div class="nom-client">Le {{ client.nom }}</div></td>
+                        <td><div class="prenom-client">{{ client.prenom }}</div></td>
+                        <td><div class="email-client">{{ client.email }}</div></td>
+                        </div>
+                    </tr>
+                {% endfor %}
+            </div>
+        </table>
+        <a href="{#{ path('admin/client') }#}">Voir tout</a>
     </div>
-    <div>
-    <h3>Articles</h3>
-
-    <a href="{#{ path('') }#}">Voir tout</a>
+        <table>
+            <tr>
+                <th>10 derniere article</th>
+            </tr>
+            <div class="list-articles">
+                {% for article in articles %}
+                    <tr>    
+                        <div class="item-article">
+                            <td><div class="item-article" onClick={window.location="{{ path('admin_article_show', {id: article.id}) }}"}></td>
+                            <td><div class="libelle-article">{{ article.libelle }}</div></td>
+                            <td><div class="description-article">{{ article.description }}</div></td>
+                            <td><div class="prix-article">{{ article.prix_u }}$</div></td>
+                            </div>
+                        </div>
+                    </tr>
+                {% endfor %}
+            </div>
+        </table>
+    <a href="{#{ path('admin/article') }#}">Voir tout</a>
     </div>
 </div>
 {% endblock %}

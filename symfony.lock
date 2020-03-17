@@ -112,12 +112,8 @@
         "version": "1.14.0"
     },
     "php": {
-<<<<<<< HEAD
         "version": "7.3"
-=======
-        "version": "7.2"
->>>>>>> master
-    },
+        },
     "psr/cache": {
         "version": "1.0.1"
     },
