@@ -144,7 +144,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/commande/get", name="admin_commande_get")
      */
-    public function getCommande(Request $request){
+    public function getCommande(Request $request){ 
         $parameters = $request->query->all();
 
         $page = 1;
@@ -312,15 +312,54 @@ class AdminController extends AbstractController
     public function indexClient()
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $client = $this->getDoctrine()
-            ->getRepository(Client::class)
-            ->findAll();
             //dd($client);
     
         return $this->render('admin/client/index.html.twig',[
-            'controller_name' => 'AdminController',
-            'clients' => $client
         ]);
+    }
+
+    /**
+     * @Route("admin/client/get", name="admin_client_get")
+     */
+    public function getClient(Request $request)
+    { 
+        $parameters = $request->query->all();
+
+        $page = 1;
+        if(isset($parameters['page'])){
+            $page = $parameters['page'];
+        }
+
+        $nbMaxParPage = 20;
+        if(isset($parameters['nb_max_par_page'])){
+            $nbMaxParPage = $parameters['nb_max_par_page'];
+        }
+
+        $paginator = $this->getDoctrine()
+            ->getRepository(Client::class)
+            ->findByParametersPagine($page, $nbMaxParPage, $parameters);
+        //dd($commande);
+
+        
+        $clients = [];
+        // dd($paginator->getIterator()->getArrayCopy());
+        foreach($paginator->getIterator()->getArrayCopy() as $client){
+            $clients[] = [
+                "id" => $client->getId(),
+                "nom" => $client->getNom(),
+                "prenom" => $client->getPrenom(),
+                "email" => $client->getEmail()
+            ];
+        }
+        $result = [
+            "clients" => $clients,
+            "pagination" => [
+                "page" => $page,
+                "nbPages" => (ceil(count($paginator) / $nbMaxParPage))
+            ]
+        ];
+        // dd(json_encode($result));
+        return new JsonResponse($result);
     }
 
     /**
