@@ -5,16 +5,24 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Serializer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Commande;
 use App\Entity\Article;
 use App\Entity\Client;
 use App\Entity\Taille;
+use App\Entity\Adresse;
 use App\Entity\QuantiteTaille;
 use App\Entity\LigneDeCommande;
 use App\Form\ArticleType;
 use App\Form\CommandeType;
+
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class AdminController extends AbstractController
 {
@@ -66,32 +74,107 @@ class AdminController extends AbstractController
         $client = $this->getDoctrine()
             ->getRepository(Client::class)
             ->find($id);
+        $commandes = $this->getDoctrine()
+            ->getRepository(Commande::class)
+            ->findLastsByClient($client);
+        $adresses = $this->getDoctrine()
+            ->getRepository(Adresse::class)
+            ->findByClient($client);
+        //dd($commandes);
+        //dd($adresses);
+        
         return $this->render('admin/client/show.html.twig', [
             'controller_name' => 'ClientController',
-            'client' => $client
+            'client' => $client,
+            'commandes' => $commandes,
+            'adresse' => $adresses
         ]);
     }
+    
     /**
-     * @Route("/admin/client/commande/{id}", name="admin_client_indexCommande", requirements={"id"="\d+"})
+     * @Route("/admin/commande", name="admin_commande")
+     */
+    public function indexCommande(){
+        /*
+        $commande = $this->getDoctrine()
+        ->getRepository(Commande::class)
+        ->findAll();
+        */
+        //dd($commande);
+        return $this->render('admin/commande/index.html.twig',[
+            //'commandes' => $commande
+        ]);
+    }
+
+    /**
+     * @Route("/admin/commande/get", name="admin_commande_get")
+     */
+    public function getCommande(Request $request){
+        $parameters = $request->query->all();
+
+        $page = 1;
+        if(isset($parameters['page'])){
+            $page = $parameters['page'];
+        }
+
+        $nbMaxParPage = 20;
+        if(isset($parameters['nb_max_par_page'])){
+            $nbMaxParPage = $parameters['nb_max_par_page'];
+        }
+
+        $paginator = $this->getDoctrine()
+            ->getRepository(Commande::class)
+            ->findByParametersPagine($page, $nbMaxParPage, $parameters);
+        //dd($commande);
+
+        
+        $commandes = [];
+        // dd($paginator->getIterator()->getArrayCopy());
+        foreach($paginator->getIterator()->getArrayCopy() as $commande){
+            $commandes[] = [
+                "id" => $commande->getId(),
+                "date" => $commande->getDate(),
+                "client" => ($commande->getClient()->getNom() . " " . $commande->getClient()->getPrenom()),
+                "mode_paiement" => $commande->getModePaiement()->getLibelle(),
+                "statut_commande" => $commande->getStatutCommande()->getLibelle(),
+                "adresse" => ($commande->getAdresse()->getAdresse() . " " . $commande->getAdresse()->getCp() . " " . $commande->getAdresse()->getVille()),
+                "nb_articles" => $commande->getNbArticles(),
+                "total" => $commande->getPrixTotalWithShipping()
+            ];
+        }
+        $result = [
+            "commandes" => $commandes,
+            "pagination" => [
+                "page" => $page,
+                "nbPages" => (ceil(count($paginator) / $nbMaxParPage))
+            ]
+        ];
+        // dd(json_encode($result));
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @Route("/admin/client/commande/{id}", name="admin_client_commande", requirements={"id"="\d+"})
      */
     public function indexCommandeClient($id){
         $commande = $this->getDoctrine()
         ->getRepository(Commande::class)
         ->findByclient($id);
         //dd($commande);
-        return $this->render('admin/client/indexCommande.html.twig',[
+        return $this->render('admin/client/commande.html.twig',[
             'commandes' => $commande
         ]);
     }
+
     /**
-     * @Route("/admin/client/commande/show/{id}", name="admin_client_showCommande", requirements={"id"="\d+"})
+     * @Route("/admin/commande/show/{id}", name="admin_commande_show", requirements={"id"="\d+"})
      */
     public function showCommandeClient($id){
         $commande = $this->getDoctrine()
         ->getRepository(Commande::class)
         ->find($id);
         //dd($commande);
-        return $this->render('admin/client/Commande_show.html.twig',[
+        return $this->render('admin/commande/show.html.twig',[
             'controller_name'=> 'clientController',
             'commande' => $commande
         ]);
@@ -189,7 +272,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("admin/client/", name="admin_index_client")
+     * @Route("admin/client", name="admin_client")
      */
     public function indexClient()
     {
@@ -199,7 +282,7 @@ class AdminController extends AbstractController
             ->findAll();
             //dd($client);
     
-        return $this->render('admin/indexClient.html.twig',[
+        return $this->render('admin/client/index.html.twig',[
             'controller_name' => 'AdminController',
             'clients' => $client
         ]);
@@ -250,4 +333,52 @@ class AdminController extends AbstractController
 
         ]);
     }
+
+     /**
+     * @Route("/admin", name="admin")
+     */
+    public function ten_last_commande()
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $commandes = $this->getDoctrine()
+            ->getRepository(Commande::class)
+            ->findTenLastCommandes();
+            
+        $clients = $this->getDoctrine()
+            ->getRepository(Client::class)
+            ->findTenLastClients();
+
+        $articles = $this->getDoctrine()
+        ->getRepository(Article::class)
+        ->findTenLastArticles();
+        
+        //dd($clients);
+        //dd($commandes);
+        //dd($articles);
+        return $this->render('admin/index.html.twig',[
+            'controller_name' => 'AdminController',
+            'commandes' => $commandes,
+            'clients' => $clients,
+            'articles' => $articles
+        ]);
+    }
+     
+    /**
+     * @Route("/admin", name="admin_client")
+     */
+    /*
+     public function ten_last_client()
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $clients = $this->getDoctrine()
+            ->getRepository(Client::class)
+            ->findTenLastClient();
+        
+        //dd($clients);
+    
+        return $this->render('admin/index.html.twig',[
+            'controller_name' => 'AdminController',
+            'clients' => $clients
+        ]);
+    }*/
 }

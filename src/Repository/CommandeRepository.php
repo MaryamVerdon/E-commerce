@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\Commande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use InvalidArgumentException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @method Commande|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +20,50 @@ class CommandeRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Commande::class);
+    }
+
+    function findByParametersPagine($page, $nbMaxParPage = 20, $parameters = []){
+        if(!is_numeric($page)){
+            throw new InvalidArgumentException('La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').');
+        }
+        if($page < 1){
+            throw new InvalidArgumentException('La page demandé n\'existe pas.');
+        }
+        if(!is_numeric($nbMaxParPage) || $nbMaxParPage < 1){
+            throw new InvalidArgumentException('La valeur de l\'argument $nbMaxParPage est incorrecte (valeur : ' . $nbMaxParPage . ').');
+        }
+        
+        $qb = $this->createQueryBuilder('c');
+
+
+        if(isset($parameters['critere_tri'])){
+            $triOrdre = 'ASC';
+            if(isset($parameters['tri_ordre'])){
+                $triOrdre = strtoupper($parameters['tri_ordre']);
+            }
+            if($parameters['critere_tri'] === 'nom'){
+                $qb->join("c.client", "cl")
+                    ->orderBy('cl.nom', $triOrdre);
+            }else if($parameters['critere_tri'] === 'statut'){
+                $qb->join("c.statut_commande", "s")
+                    ->orderBy('s.libelle', $triOrdre);
+            }else{
+                $qb->orderBy('c.' . $parameters['critere_tri'], $triOrdre);
+            }
+        }
+
+        $debut = ($page -1) * $nbMaxParPage;
+        $query = $qb->getQuery();
+        $query->setFirstResult($debut)
+            ->setMaxResults($nbMaxParPage);
+
+        $paginator = new Paginator($query);
+
+        if($paginator->count() <= $debut && $page != 1){
+            throw new NotFoundHttpException('La page demandée n\'existe pas.');
+        }
+
+        return $paginator;
     }
 
     function findByClient($client){
@@ -59,7 +106,14 @@ class CommandeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
+    function findTenLastCommandes($nbResults = 10){
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->addOrderBy('c.date', 'DESC')
+            ->setMaxResults($nbResults)
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */

@@ -1,5 +1,6 @@
 .container-articles {
     display: flex;
+
 }
 
 .container-tri-articles {
@@ -7,9 +8,62 @@
     flex-direction: column;
 }
 
-.filtres-Articles {
-    
+/*------------------Menu filtre--------------------*/
+
+.filtres-articles {
+    border-color: black;
+    font-size: 12px;
+    font-family: var(--merri);
+
 }
+
+
+
+.style{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+#section-Homme {
+    margin-top: 10px;
+}
+
+/*-------design checkbox----------*/
+input[type="checkbox"]{
+    display: none;
+    transition: 10s;
+}
+
+label {
+    position: relative;
+    cursor: pointer;
+}
+
+label::before{
+    content: "";
+    border-radius: 100%;
+    border: .02em solid black;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    margin-left: -10px;
+    margin-top: 5px;
+
+
+
+}
+
+label:hover::before {
+    background-color: black;
+
+}
+
+
+input:checked[type="checkbox"] + label::before{
+
+}
+/*-------------------------------------------------*/
+
 
 .list-articles {
     display: flex;

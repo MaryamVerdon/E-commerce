@@ -10,7 +10,7 @@ class TailleFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        
+        /*
         $tailles = [
             "S",
             "M",
@@ -26,5 +26,6 @@ class TailleFixtures extends Fixture
         }
 
         $manager->flush();
+        */
     }
 }

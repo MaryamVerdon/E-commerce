@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
+
+{% block body %}
+{% include '/admin/panel.html.twig' %}
+<h3>liste des commandes</h3>
+<div class="commandes">
+    {% for commande in commandes %}
+        <div class="commande" onClick="{window.location='{{ path('admin_commande_show', {id: commande.id}) }}'}">
+            <div class="id-commande">N°{{ commande.id }}</div>
+            <div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div>
+            <div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div>
+            <div class="montant-commande">{{ commande.getPrixTotal }}$</div>
+            <div class="status-commande">{{ commande.statutCommande.libelle }}</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

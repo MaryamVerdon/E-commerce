@@ -5,169 +5,180 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
 
 {% block body %}
-<div class="container-articles">
-    <div class="filtres-articles">
-        <div class="filtre-sections">
-            {#
-            {% for section in sections %}
-                <input type="checkbox" name="sections" value="{{ section.libelle }}" id="{{ "section-" ~ section.libelle }}">
-                <label for="{{ "section-" ~ section.libelle }}">{{ section.libelle }}</label>
-            {% endfor %}
-            #}
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-section" aria-expanded="false" aria-controls="collapse-section">
-            Sections
-            </button>
-            <div class="collapse" id="collapse-section">
+    <div class="container-articles">
+        <div class="filtres-articles border-right">
+            <div class="filtre-sections border-bottom">
+                {#
                 {% for section in sections %}
-                    <label class="btn btn-secondary active">
-                        <input class="input-section" type="checkbox" name="sections" value="{{ section.libelle }}" id="{{ "section-" ~ section.libelle }}">
-                        {{ section.libelle }}
-                    </label>
+                    <input type="checkbox" name="sections" value="{{ section.libelle }}" id="{{ "section-" ~ section.libelle }}">
+                    <label for="{{ "section-" ~ section.libelle }}">{{ section.libelle }}</label>
                 {% endfor %}
+                #}
+
+
+                <button class="btn " type="button" data-toggle="collapse" data-target="#collapse-section" aria-expanded="false" aria-controls="collapse-section">
+                    Sections
+                </button>
+
+
+                <div class="collapse" id="collapse-section">
+                    <div class="style">
+                        {% for section in sections %}
+                            <label for="{{ "section-" ~ section.libelle }}">
+                                <input class="round input-section" type="checkbox" name="sections" value="{{ section.libelle }}" id="{{ "section-" ~ section.libelle }}">
+                                {{ section.libelle }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-
-
-        </div>
-        <div class="filtre-categories">
-            {#
-            {% for categorie in categories %}
-                <input type="checkbox" name="categorie" value="{{ categorie.libelle }}" id="{{ "categorie-" ~ categorie.libelle }}">
-                <label for="{{ "categorie-" ~ categorie.libelle }}">{{ categorie.libelle }}</label>
-            {% endfor %}
-            #}
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-categories" aria-expanded="false" aria-controls="collapse-categories">
-            Categories
-            </button>
-            <div class="collapse" id="collapse-categories">
+            <div class="filtre-categories border-bottom">
+                {#
                 {% for categorie in categories %}
-                    <label class="btn btn-secondary active">
-                    <input class="input-categorie" type="checkbox" name="categorie" value="{{ categorie.libelle }}" id="{{ "categorie-" ~ categorie.libelle }}">
+                    <input type="checkbox" name="categorie" value="{{ categorie.libelle }}" id="{{ "categorie-" ~ categorie.libelle }}">
+                    <label for="{{ "categorie-" ~ categorie.libelle }}">{{ categorie.libelle }}</label>
+                {% endfor %}
+                #}
+                <button class="btn" type="button" data-toggle="collapse" data-target="#collapse-categories" aria-expanded="false" aria-controls="collapse-categories">
+                    Categories
+                </button>
+
+                <div class="collapse" id="collapse-categories">
+                    <div class="style">
+                        {% for categorie in categories %}
+                            <label for="{{ "categorie-" ~ categorie.libelle }}">
+                                <input class="input-categorie" type="checkbox" name="categorie" value="{{ categorie.libelle }}" id="{{ "categorie-" ~ categorie.libelle }}">
                     {# <input type="hidden" value="{{categorie.id}}"> #}
-                    {{ categorie.libelle }}
-                    </label>
-                {% endfor %}
+                                {{ categorie.libelle }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="filtre-types">
-            {#
-            {% for typeArticle in typesArticle %}
-                <input type="checkbox" name="type-article" value="{{ typeArticle.libelle }}" id="{{ "type-article-" ~ typeArticle.libelle }}">
-                <label for="{{ "type-article-" ~ typeArticle.libelle }}">{{ typeArticle.libelle }}</label>
-            {% endfor %}
-            #}
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-types" aria-expanded="false" aria-controls="collapse-types">
-            Types
-            </button>
-            <div class="collapse" id="collapse-types">
-                {% for categorie in categories %}
-                    {% for typeArticle in categorie.typesArticles %}
-                        <label class="btn btn-secondary active">
-                        <input class="input-type" type="checkbox" name="type-article" value="{{ typeArticle.libelle }}" id="{{ "type-" ~ typeArticle.libelle }}">
-                        {# <input type="hidden" value="{{categorie.id}}"> #}
-                        {{ typeArticle.libelle }}
-                        </label>
+
+            <div class="filtre-types border-bottom">
+                {#
+                {% for typeArticle in typesArticle %}
+                    <input type="checkbox" name="type-article" value="{{ typeArticle.libelle }}" id="{{ "type-article-" ~ typeArticle.libelle }}">
+                    <label for="{{ "type-article-" ~ typeArticle.libelle }}">{{ typeArticle.libelle }}</label>
+                {% endfor %}
+                #}
+                <button class="btn"  type="button" data-toggle="collapse" data-target="#collapse-types" aria-expanded="false" aria-controls="collapse-types">
+                    Types
+                </button>
+                <div class="collapse" id="collapse-types">
+                    <div class="style">
+                    {% for categorie in categories %}
+                        {% for typeArticle in categorie.typesArticles %}
+                            <label for="{{ "type-" ~ typeArticle.libelle }}">
+                                <input class="input-type" type="checkbox" name="type-article" value="{{ typeArticle.libelle }}" id="{{ "type-" ~ typeArticle.libelle }}">
+                                {# <input type="hidden" value="{{categorie.id}}"> #}
+                                {{ typeArticle.libelle }}
+                            </label>
+                        {% endfor %}
                     {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="filtre-tailles border-bottom">
+                {#
+                {% for taille in tailles %}
+                    <input type="checkbox" name="tailles" value="{{ taille.libelle }}" id="{{ "taille-" ~ taille.libelle }}">
+                    <label for="{{ "taille-" ~ taille.libelle }}">{{ taille.libelle }}</label>
+                {% endfor %}
+                #}
+                <button class="btn" type="button" data-toggle="collapse" data-target="#collapse-tailles" aria-expanded="false" aria-controls="collapse-tailles">
+                    Tailles
+                </button>
+                <div class="collapse" id="collapse-tailles">
+                    <div class="style">
+                        {% for taille in tailles %}
+                            <label for="{{ "taille-" ~ taille.libelle }}">
+                                <input class="input-taille" type="checkbox" name="tailles" value="{{ taille.libelle }}" id="{{ "taille-" ~ taille.libelle }}">
+                                {{ taille.libelle }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="filtre-prix border-bottom">
+                <button class="btn" type="button" data-toggle="collapse" data-target="#collapse-prix" aria-expanded="false" aria-controls="collapse-prix">
+                    Prix
+                </button>
+                <div class="collapse" id="collapse-prix">
+                    Prix entre :
+                    <div class="input-group">
+                        <input type="number" class="form-control" name="prix" step="5" min="0" max="200" value="" placeholder="min" id="input-prix-min">
+                        <div class="input-group-append">
+                            <span class="input-group-text">$</span>
+                        </div>
+                    </div>
+                    et
+                    <div class="input-group">
+                        <input type="number" class="form-control" name="prix" step="5" min="0" max="200" value="" placeholder="max" id="input-prix-max">
+                        <div class="input-group-append">
+                            <span class="input-group-text">$</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-tri-articles">
+            <div class="tri-articles">
+                <button id="btn-tri-articles" class="btn btn-primary" value="libelle.ASC">Nom<i class="fas fa-sort"></i></button>
+                <button id="btn-tri-articles" class="btn btn-primary" value="prix_u.ASC">Prix<i class="fas fa-sort"></i></button>
+            </div>
+            <div class="list-articles">
+                {% for article in articles %}
+                    <div class="item-article">
+                        <div class="body-article"  onClick={window.location="{{ path('article_show', {id: article.id}) }}"}>
+                            <div class="libelle-article">{{ article.libelle }}</div>
+                            <div class="image-article"><img src="{{ article.image }}"/></div>
+                            <div class="description-article">{{ article.description }}</div>
+                            <div class="prix-article">{{ article.prixU }}$</div>
+                        </div>
+                        <div class="button-article">
+                            <select name="taille" id="taille-article">
+                                {% for quantiteTaille in article.getQuantiteTailles %}
+                                    {% if quantiteTaille.qte > 0 %}
+                                        <option value="{{ quantiteTaille.taille.id }}">{{ quantiteTaille.taille.libelle }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <button class="add-article-panier">Ajouter</button>
+                        </div>
+                        <input type="hidden" value="{{ article.id }}" id="id-article">
+                    </div>
                 {% endfor %}
             </div>
-        </div>
-        <div class="filtre-tailles">
-            {#
-            {% for taille in tailles %}
-                <input type="checkbox" name="tailles" value="{{ taille.libelle }}" id="{{ "taille-" ~ taille.libelle }}">
-                <label for="{{ "taille-" ~ taille.libelle }}">{{ taille.libelle }}</label>
-            {% endfor %}
-            #}
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-tailles" aria-expanded="false" aria-controls="collapse-tailles">
-            Tailles
-            </button>
-            <div class="collapse" id="collapse-tailles">
-            {% for taille in tailles %}
-                <label class="btn btn-secondary active">
-                <input class="input-taille" type="checkbox" name="tailles" value="{{ taille.libelle }}" id="{{ "taille-" ~ taille.libelle }}">
-                {{ taille.libelle }}
-                </label>
-            {% endfor %}
-            </div>
-        </div>
-        <div class="filtre-prix">
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-prix" aria-expanded="false" aria-controls="collapse-prix">
-            Prix
-            </button>
-            <div class="collapse" id="collapse-prix">
-                Prix entre :
-                <div class="input-group">
-                    <input type="number" class="form-control" name="prix" step="5" min="0" max="200" value="" placeholder="min" id="input-prix-min">
-                    <div class="input-group-append">
-                        <span class="input-group-text">$</span>
-                    </div>
-                </div>
-                et
-                <div class="input-group">
-                    <input type="number" class="form-control" name="prix" step="5" min="0" max="200" value="" placeholder="max" id="input-prix-max">
-                    <div class="input-group-append">
-                        <span class="input-group-text">$</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="container-tri-articles">
-        <div class="tri-articles">
-            <button id="btn-tri-articles" class="btn btn-primary" value="libelle.ASC">Nom<i class="fas fa-sort"></i></button>
-            <button id="btn-tri-articles" class="btn btn-primary" value="prix_u.ASC">Prix<i class="fas fa-sort"></i></button>
-        </div>
-        <div class="list-articles">
-            {% for article in articles %}
-                <div class="item-article">
-                    <div class="body-article"  onClick={window.location="{{ path('article_show', {id: article.id}) }}"}>
-                        <div class="libelle-article">{{ article.libelle }}</div>
-                        <div class="image-article"><img src="{{ article.image }}"/></div>
-                        <div class="description-article">{{ article.description }}</div>
-                        <div class="prix-article">{{ article.prixU }}$</div>
-                    </div>
-                    <div class="button-article">
-                        <select name="taille" id="taille-article">
-                            {% for quantiteTaille in article.getQuantiteTailles %}
-                                {% if quantiteTaille.qte > 0 %}
-                                    <option value="{{ quantiteTaille.taille.id }}">{{ quantiteTaille.taille.libelle }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                        <button class="add-article-panier">Ajouter</button>
-                    </div>
-                    <input type="hidden" value="{{ article.id }}" id="id-article">
-                </div>
-            {% endfor %}
-        </div>
-        <div class="pagination-articles">
-        <nav aria-label="...">
-            <ul class="pagination">
-                <li class="{{ ('page-item' ~ (pagination.page > 1 ? ' active' : ' disabled'))}}">
-                <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=1" }}">Debut</a>
-                </li>
-                <li class="{{ ('page-item' ~ (pagination.page > 1 ? ' active' : ' disabled'))}}">
-                <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.page - 1)  }}">Precedent</a>
-                </li>
-                <li class="page-item active" aria-current="page">
+            <div class="pagination-articles">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="{{ ('page-item' ~ (pagination.page > 1 ? ' active' : ' disabled'))}}">
+                            <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=1" }}">Debut</a>
+                        </li>
+                        <li class="{{ ('page-item' ~ (pagination.page > 1 ? ' active' : ' disabled'))}}">
+                            <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.page - 1)  }}">Precedent</a>
+                        </li>
+                        <li class="page-item active" aria-current="page">
                 <span class="page-link">
                     {{ pagination.page }}
                     <span class="sr-only">(current)</span>
                 </span>
-                </li>
-                <li class="{{ ('page-item' ~ (pagination.page < pagination.nbPages ? ' active' : ' disabled'))}}">
-                <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.page + 1) }}">Suivant</a>
-                </li>
-                <li class="{{ ('page-item' ~ (pagination.page < pagination.nbPages ? ' active' : ' disabled'))}}">
-                <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.nbPages) }}">Fin</a>
-                </li>
-            </ul>
-        </nav>
+                        </li>
+                        <li class="{{ ('page-item' ~ (pagination.page < pagination.nbPages ? ' active' : ' disabled'))}}">
+                            <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.page + 1) }}">Suivant</a>
+                        </li>
+                        <li class="{{ ('page-item' ~ (pagination.page < pagination.nbPages ? ' active' : ' disabled'))}}">
+                            <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.nbPages) }}">Fin</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
- 
+
 {% endblock %}
 {% block javascripts %}<script src="/js/article.js"></script>{% endblock %}
-

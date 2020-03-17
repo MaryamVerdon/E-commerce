@@ -1,7 +1,59 @@
+/* import font*/
+@import url('https://fonts.googleapis.com/css?family=Anton|Gugi|Muli|Lato|Merriweather+Sans|Roboto|Sofia&display=swap');
+
+
 #button-panier {
     display: flex;
     flex-direction: row;
 }
+<<<<<<< HEAD
+
+:root{
+    --light-gray: #2b3032a1;
+    --primary-color: white;
+    --border: #2b303218;
+    --text-color: #ff686b;
+    --roboto: "Roboto", sans-serif;
+    --merri: "Merriweather Sans", sans-serif;
+    --sofia: "Sofia", cursive;
+}
+
+/* header*/
+
+header{
+    background-color: var(--primary-color);
+    font-family: var(--roboto);
+
+}
+
+header .site-title {
+    font-family: var(--merri);
+    text-decoration: none;
+    color: black;
+    font-size: 2em;
+}
+
+.header-links a {
+    color: black;
+    font-size: 0.9em;
+    text-decoration: none;
+
+}
+
+/* navbar*/
+
+.navbar {
+    padding: 0.8em 0em;
+    background-color: white ;
+    color: black;
+    border-color: black;
+}
+
+.nav-item .nav-link {
+    color: black;
+    font-size: 1em;
+    font-family: 'Muli', sans-serif;
+=======
 .carousel-item{
     background-image: url(https://www.azutura.com/media/catalog/product/cache/49/image/650x/040ec09b1e35df139433887a97daa66f/W/S/WS-47352_WP.jpg) ;
 }
@@ -31,4 +83,5 @@
 
 .presentoir-4 .card{
     width: 22.5%;
+>>>>>>> master
 }
