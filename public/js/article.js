@@ -27,7 +27,7 @@ function addOnClickToPanier(){
                 });
         });
     });
-}
+} 
 
 function updatePanierSize(size){
     let sizePanier = document.querySelector(".size-panier")

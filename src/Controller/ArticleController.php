@@ -19,7 +19,7 @@ class ArticleController extends AbstractController
      * @Route("/article", name="article")
      */
     public function index(Request $request)
-    {
+    { 
         $parameters = $request->query->all();
 
         $page = 1;
@@ -112,5 +112,41 @@ class ArticleController extends AbstractController
             'controller_name' => 'ArticleController',
             'article' => $article
         ]);
+    }
+
+    
+    /**
+     * @Route("/test", name="test")
+     */
+    public function test()
+    {
+        $articles = json_decode(file_get_contents(__DIR__.'/../../articles.json'));
+
+        $categories = [];
+        $typeArticles = [];
+        $sections = [];
+        $tailles = [];
+
+        foreach($articles->articles as $article){
+            $art = get_object_vars($article);
+            $categories[] = $art["categorie"];
+            //$typeArticles[] = [$art["categorie"] => $art["type-article"]];
+            $typeArticles[] = $art["categorie"].".".$art["type-article"];
+            foreach($art["sections"] as $section){
+                $sections[] = $section;
+            }
+            foreach($art["tailles"] as $taille){
+                $tailles[] = $taille;
+            }
+        }
+        
+        $categories = array_unique($categories);
+        $typeArticles = array_unique($typeArticles);
+        $sections = array_unique($sections);
+        $tailles = array_unique($tailles);
+
+
+
+        dd([$articles,$categories,$typeArticles,$sections,$tailles]);
     }
 }

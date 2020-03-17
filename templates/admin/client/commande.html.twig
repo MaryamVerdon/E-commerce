@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
+
+{% block body %}
+{% include '/admin/panel.html.twig' %}
+<input id="client-id" type="hidden" value={{ clientId }}>
+<h3>liste des commandes</h3>
+<div>
+    <table id="table-commandes" class="tablee table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th class="th-tri">N°<i class="fas fa-sort"></i><input type="hidden" value="id.ASC"></th>
+                <th class="th-tri">Date<i class="fas fa-sort"></i><input type="hidden" value="date.ASC"></th>
+                <th class="th-tri">Client<i class="fas fa-sort"></i><input type="hidden" value="nom.ASC"></th>
+                <th class="th-tri">Statut<i class="fas fa-sort"></i><input type="hidden" value="statut.ASC"></th>
+                <th>Nb articles</th>
+                <th>Montant</th>
+            </tr>
+        </thead>
+        <tbody id="tbody-commandes">
+        </tbody>
+        <tfoot id="tfoot-commandes">
+            <tr class="table-active">
+                <td colspan="6" class="text-center">
+                    <button id="precedent">Précédent</button>
+                    <span id="page"></span>
+                    <button id="suivant">Suivant</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div> 
+{% endblock %}
+{% block javascripts %}<script src="/js/admin/commande.js"></script>{% endblock %}

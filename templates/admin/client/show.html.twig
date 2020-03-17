@@ -5,14 +5,66 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/client.css"/>{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html' %}
+{% include '/admin/panel.html.twig' %}
 
     <div class="item-client">
-        <div class="nom-client">{{ client.nom }}</div>
-        <div class="prenom-client">{{ client.prenom }}</div>
-        <div class="email-client">{{ client.email }}</div>
-        <button class="commande-client" onClick={window.location="{{ path('admin_client_indexCommande', {id: client.id}) }}"}>acceder au commande</button>
-
+        <h4>Infos</h4>
+        <div class="nom-client">Nom : {{ client.nom }}</div>
+        <div class="prenom-client">Prenom : {{ client.prenom }}</div>
+        <div class="email-client">Email : {{ client.email }}</div>
+    </div>
+    <div class="adresses-client">
+        <h4>Adresses</h4>
+        <table>
+            <thead>
+                <th>Adresses</th>
+                <th>code postale</th>
+                <th>ville</th>
+                <th>pays</th>
+                <th>tel</th>
+            </thead>
+            <tbody>
+                {% for adresse in client.adresses %}
+                <tr>
+                        <td><div class="adresse">{{ adresse.adresse }}</div></td>
+                        <td><div class="cp">{{ adresse.cp }}</div></td>
+                        <td><div class="ville">{{ adresse.ville }}</div></td>
+                        <td><div class="pays">{{ adresse.pays }}</div></td>
+                        <td><div class="tel">{{ adresse.tel }}</div></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="commandes-client">
+        <h4>Dernieres commandes</h4>
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr class="table-active">
+                    <th>N°</th>
+                    <th>Date</th>
+                    <th>Statut</th>
+                    <th>Nb articles</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commande in commandes %}
+                    <tr onClick="{window.location='{{ path('admin_commande_show', {id: commande.id}) }}'}">
+                        <td><div class="id-commande">{{ commande.id }}</div></td>
+                        <td><div class="date-commande">{{ commande.date|date('d/m/Y') }}</div></td>
+                        <td><div class="status-commande">{{ commande.statutCommande.libelle }}</div></td>
+                        <td><div class="articles-commande">{{ commande.getNbArticles }}</div></td>
+                        <td><div class="montant-commande">{{ commande.getPrixTotal }}$</div></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="table-active">
+                    <td colspan="5" class="text-center"><a href="{{ path('admin_client_commande', {id: client.id}) }}">Voir tout</a></td>
+                </tr>
+            </tfoot>
+        </table>
     </div>  
 
 {% endblock %}

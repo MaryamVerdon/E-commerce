@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
+
+{% block body %}
+{% include '/admin/panel.html.twig' %}
+<h3>liste des commandes</h3>
+<div>
+    <table id="table-commandes" class="tablee table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th class="th-tri">N°<i class="fas fa-sort"></i><input type="hidden" value="id.ASC"></th>
+                <th class="th-tri">Date<i class="fas fa-sort"></i><input type="hidden" value="date.ASC"></th>
+                <th class="th-tri">Client<i class="fas fa-sort"></i><input type="hidden" value="nom.ASC"></th>
+                <th class="th-tri">Statut<i class="fas fa-sort"></i><input type="hidden" value="statut.ASC"></th>
+                <th>Nb articles</th>
+                <th>Montant</th>
+            </tr>
+        </thead>
+        <tbody id="tbody-commandes">
+            {# 
+            {% for commande in commandes %}
+                <tr onClick="{window.location='{{ path('admin_commande_show', {id: commande.id}) }}'}">
+                    <td><div class="id-commande">{{ commande.id }}</div></td>
+                    <td><div class="date-commande">{{ commande.date|date('d/m/Y') }}</div></td>
+                    <td><div class="client-commande">{{ commande.getClient.nom ~ " " ~ commande.getClient.prenom }}</div></td>
+                    <td><div class="status-commande">{{ commande.statutCommande.libelle }}</div></td>
+                    <td><div class="articles-commande">{{ commande.getNbArticles }}</div></td>
+                    <td><div class="montant-commande">{{ commande.getPrixTotal }}$</div></td>
+                </tr>
+            {% endfor %}
+            #}
+        </tbody>
+        <tfoot id="tfoot-commandes">
+            <tr class="table-active">
+                <td colspan="6" class="text-center">
+                    <button id="precedent">Précédent</button>
+                    <span id="page"></span>
+                    <button id="suivant">Suivant</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div> 
+{#
+<div class="commandes">
+    {% for commande in commandes %}
+        <div class="commande" onClick="{window.location='{{ path('admin_commande_show', {id: commande.id}) }}'}">
+            <div class="id-commande">N°{{ commande.id }}</div>
+            <div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div>
+            <div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div>
+            <div class="montant-commande">{{ commande.getPrixTotal }}$</div>
+            <div class="status-commande">{{ commande.statutCommande.libelle }}</div>
+        </div>
+    {% endfor %}
+</div>
+#}
+{% endblock %}
+{% block javascripts %}<script src="/js/admin/commande.js"></script>{% endblock %}
+

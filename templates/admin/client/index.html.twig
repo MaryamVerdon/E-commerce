@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/admin/client.css"/>{% endblock %}
+
+{% block body %}
+{% include '/admin/panel.html.twig' %}
+
+<h3>liste des clients</h3>
+<div>
+    <table id="table-clients" class="tablee table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th class="th-tri">N°<i class="fas fa-sort"></i><input type="hidden" value="id.ASC"></th>
+                <th class="th-tri">Nom<i class="fas fa-sort"></i><input type="hidden" value="nom.ASC"></th>
+                <th class="th-tri">Prenom<i class="fas fa-sort"></i><input type="hidden" value="prenom.ASC"></th>
+                <th class="th-tri">Email<i class="fas fa-sort"></i><input type="hidden" value="email.ASC"></th>
+            </tr>
+        </thead>
+        <tbody id="tbody-clients">
+        </tbody>
+        <tfoot id="tfoot-clients">
+            <tr class="table-active">
+                <td colspan="4" class="text-center">
+                    <button id="precedent">Précédent</button>
+                    <span id="page"></span>
+                    <button id="suivant">Suivant</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+{% endblock %}
+{% block javascripts %}<script src="/js/admin/client.js"></script>{% endblock %}
+
