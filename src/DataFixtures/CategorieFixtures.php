@@ -11,6 +11,7 @@ class CategorieFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        /*
         $categories = [
             "Vetement",
             "Chaussure",
@@ -24,5 +25,6 @@ class CategorieFixtures extends Fixture
         }
 
         $manager->flush();
+        */
     }
 }
