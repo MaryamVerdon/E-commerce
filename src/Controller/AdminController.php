@@ -85,7 +85,7 @@ class AdminController extends AbstractController
     }
     
     /**
-     * @Route("/admin/commande", name="admin_commandes")
+     * @Route("/admin/commande", name="admin_commande")
      */
     public function indexCommande(){
         $commande = $this->getDoctrine()
@@ -98,7 +98,38 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/client/commande/{id}", name="admin_client_indexCommande", requirements={"id"="\d+"})
+     * @Route("/admin/commande/get", name="admin_commande_get")
+     */
+    public function getCommande(){
+        $parameters = $request->query->all();
+
+        $page = 1;
+        if(isset($parameters['page'])){
+            $page = $parameters['page'];
+        }
+
+        $nbMaxParPage = 20;
+        if(isset($parameters['nb_max_par_page'])){
+            $nbMaxParPage = $parameters['nb_max_par_page'];
+        }
+
+        $commandes = $this->getDoctrine()
+        ->getRepository(Commande::class)
+        ->findByParametersPagine($page, $nbMaxParPage, $parameters);
+        //dd($commande);
+
+        $result = [
+            "commandes" => $commandes,
+            "pagination" => [
+                "page" => $page,
+                "nbPages" => (ceil(count($articles) / $nbMaxParPage))
+            ]
+        ];
+        return new Response(json_encode($commandes));
+    }
+
+    /**
+     * @Route("/admin/client/commande/{id}", name="admin_client_commande", requirements={"id"="\d+"})
      */
     public function indexCommandeClient($id){
         $commande = $this->getDoctrine()
@@ -111,7 +142,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/client/commande/show/{id}", name="admin_client_showCommande", requirements={"id"="\d+"})
+     * @Route("/admin/commande/show/{id}", name="admin_commande_show", requirements={"id"="\d+"})
      */
     public function showCommandeClient($id){
         $commande = $this->getDoctrine()
@@ -216,7 +247,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("admin/client/", name="admin_index_client")
+     * @Route("admin/client", name="admin_client")
      */
     public function indexClient()
     {

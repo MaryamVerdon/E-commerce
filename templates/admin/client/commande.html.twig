@@ -9,7 +9,7 @@
 <h3>liste des commandes</h3>
 <div class="commandes">
     {% for commande in commandes %}
-        <div class="commande" onClick="{window.location='{{ path('admin_client_showCommande', {id: commande.id}) }}'}">
+        <div class="commande" onClick="{window.location='{{ path('admin_commande_show', {id: commande.id}) }}'}">
             <div class="id-commande">N°{{ commande.id }}</div>
             <div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div>
             <div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div>
