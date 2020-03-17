@@ -1,14 +1,17 @@
-var tbody, tfoot, pageElement, p=1, nbP, nbMax=15, parametres = [];
+var tbody, tfoot, pageElement, thsTri;
+var p=1, nbP, nbMax=15, parametres = [];
 
 window.addEventListener("load", e => {
     tbody = document.querySelector("#tbody-commandes");
     tfoot = document.querySelector("#tfoot-commandes");
     pageElement = document.querySelector("#page");
-    addOnClickButton();
+    thsTri = document.querySelectorAll(".th-tri");
+    addOnClickButtonPagine();
+    addOnClickTri();
     fetchCommandes(p,nbMax);
 });
 
-function addOnClickButton(){
+function addOnClickButtonPagine(){
     let precedent = document.querySelector("#precedent");
     let suivant = document.querySelector("#suivant");
     precedent.addEventListener("click", e => {
@@ -19,8 +22,35 @@ function addOnClickButton(){
     });
 }
 
+function addOnClickTri(){
+    thsTri.forEach(thTri => {
+        thTri.addEventListener("click", e => {
+            let input = thTri.querySelector("input");
+            let icon = thTri.querySelector("i");
+            let tabTri = input.value.split(".");
+            if(parametres["critere_tri"] === tabTri[0]){
+                tabTri[1] = (tabTri[1] === "ASC" ? "DESC" : "ASC");
+                input.value = tabTri[0] + "." + tabTri[1];
+            }else{
+                thsTri.forEach(thT => {
+                    thT.querySelector("i").className = "fas fa-sort";
+                    thT.querySelector("input").value = thT.querySelector("input").value.split(".")[0] + ".ASC";
+                });
+            }
+            icon.className = "fas fa-sort-" + (tabTri[1] === "ASC" ? "up" : "down");
+            parametres["critere_tri"] = tabTri[0];
+            parametres["tri_ordre"] = tabTri[1];
+            fetchCommandes(1,nbMax,parametres);
+        });
+    });
+}
+
 function fetchCommandes(page, nbMaxParPage, parametres = []){
-    fetch('/admin/commande/get?page=' + page + "&nb_max_par_page=" + nbMaxParPage)
+    let param = "";
+    Object.keys(parametres).forEach(key => {
+        param += ("&" + key + "=" + parametres[key]);
+    });
+    fetch('/admin/commande/get?page=' + page + "&nb_max_par_page=" + nbMaxParPage + param)
         .then(response => response.json())
         .then(data => {
             console.log(data);
