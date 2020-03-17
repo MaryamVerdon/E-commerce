@@ -6,7 +6,6 @@
     display: flex;
     flex-direction: row;
 }
-<<<<<<< HEAD
 
 :root{
     --light-gray: #2b3032a1;
@@ -53,7 +52,8 @@ header .site-title {
     color: black;
     font-size: 1em;
     font-family: 'Muli', sans-serif;
-=======
+}
+
 .carousel-item{
     background-image: url(https://www.azutura.com/media/catalog/product/cache/49/image/650x/040ec09b1e35df139433887a97daa66f/W/S/WS-47352_WP.jpg) ;
 }
@@ -83,5 +83,4 @@ header .site-title {
 
 .presentoir-4 .card{
     width: 22.5%;
->>>>>>> master
 }
