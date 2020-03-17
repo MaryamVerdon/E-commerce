@@ -21,6 +21,7 @@ class TypeArticleFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        /*
         $categories = $this->entityManager
             ->getRepository(Categorie::class)
             ->findAll();
@@ -64,8 +65,10 @@ class TypeArticleFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
+        */
     }
 
+        /*
     private function createListAccessoires($tabTypeA, $categorie)
     {
         $list = [];
@@ -77,6 +80,7 @@ class TypeArticleFixtures extends Fixture implements DependentFixtureInterface
         }
         return $list;
     }
+        */
 
     public function getDependencies()
     {

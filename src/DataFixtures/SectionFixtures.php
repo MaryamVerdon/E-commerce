@@ -10,6 +10,7 @@ class SectionFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        /*
         $sections = [
             "Homme",
             "Femme",
@@ -23,5 +24,6 @@ class SectionFixtures extends Fixture
         }
 
         $manager->flush();
+        */
     }
 }

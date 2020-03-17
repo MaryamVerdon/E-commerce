@@ -53,7 +53,6 @@ function fetchCommandes(page, nbMaxParPage, parametres = []){
     fetch('/admin/commande/get?page=' + page + "&nb_max_par_page=" + nbMaxParPage + param)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             tbody.innerHTML = "";
             data["commandes"].forEach(commande => {
                 tbody.appendChild(createTrCommande(commande));
