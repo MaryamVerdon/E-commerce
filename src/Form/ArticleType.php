@@ -32,8 +32,13 @@ class ArticleType extends AbstractType
         ])
         ->add('prix_u', NumberType::class, [
           'attr' => [
+            "min"  => 0.01,
+            'precision' => 2,
+            'max' => 999,
+            'step' => 0.01,
             'placeholder' => 19.99,
-          ]
+          ],
+          'html5' => true,
         ])
         ->add('image', TextType::class, [
           'attr' => [

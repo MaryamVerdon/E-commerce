@@ -136,7 +136,7 @@
                         <div class="body-article"  onClick={window.location="{{ path('article_show', {id: article.id}) }}"}>
                             <div class="libelle-article">{{ article.libelle }}</div>
                             <div class="image-article"><img src="{{ article.image }}"/></div>
-                            <div class="description-article">{{ article.description }}</div>
+                            <div class="description-article">{{ article.description|slice(0, 25) ~ "..." }}</div>
                             <div class="prix-article">{{ article.prixU }}$</div>
                         </div>
                         <div class="button-article">
