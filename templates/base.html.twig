@@ -19,10 +19,10 @@
 <header class="container-fluid">
     <div class="row">
         <!--- titre du site -->
-        <div class="col-md-10 col-12 text-center mt-2">
+        <div class="col-md-9 col-12 text-center mt-2">
             <a href="/" class="my-md-3 site-title">FiveSportsWear</a>
         </div>
-        <div class="col-md-2 col-12 text-right">
+        <div class="col-md-3 col-12 text-right">
                 {% if app.user %}
             <div class="my-md-4 header-links header-row">
                     {% if is_granted('ROLE_ADMIN') %}
@@ -92,7 +92,7 @@
             </button>
         </form>
         <form class="form-inline mr-0 pr-0">
-            <button class="btn btn-cart btn-outline-dark my-2 my-sm-0" onclick="{window.location=''}">
+            <button type="button" class="btn btn-cart btn-outline-dark my-2 my-sm-0" onclick="window.location.href='/panier';">
                 <i class="fas fa-shopping-basket"></i><div class="size-panier"></div>
             </button>    
         </form>
