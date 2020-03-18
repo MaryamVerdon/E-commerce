@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello PanierController!{% endblock %}
+{% block stylesheets %} <link rel="stylesheet" href="/css/panier.css"/>{% endblock %}
 
 {% block body %}
-<div class="panier">
-    {% if panier|length > 0 %}
-        <table class="table">
-            <thead>
+    <h1 class="h1">PANIER D'ACHATS</h1>
+    <div class="panier container">
+
+        {% if panier|length > 0 %}
+            <table class="table">
+                <thead>
                 <tr>
                     <th>Article</th>
                     <th>Taille</th>
@@ -14,14 +17,14 @@
                     <th>Quantité</th>
                     <th>Total</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 {% for ligne in panier %}
                     <tr>
-                        <td>{{ ligne.article.libelle }}</td>
-                        <td>{{ ligne.taille.libelle }}</td>
-                        <td>{{ ligne.article.getPrixU }}$</td>
-                        <td>
+                        <td><img src={{ ligne.article.getImage }} alt="article">{{ ligne.article.libelle }}</td>
+                        <td class="align-middle">{{ ligne.taille.libelle }}</td>
+                        <td class="align-middle">{{ ligne.article.getPrixU }}$</td>
+                        <td class="align-middle">
                             <select class="qte-article">
                                 {% for quantiteTaille in ligne.article.quantiteTailles %}
                                     {% if quantiteTaille.taille.id == ligne.taille.id %}
@@ -36,24 +39,24 @@
                                 {% endfor %}
                             </select>
                         </td>
-                        <td>{{ ligne.article.getPrixU * ligne.quantite }}$</td>
-                        <td>
+                        <td class="align-middle">{{ ligne.article.getPrixU * ligne.quantite }}$</td>
+                        <td class="align-middle">
                             <a href="{{ path('panier_remove', {id: ligne.article.id, taille: ligne.taille.id}) }}">Supprimer</a>
                             <input type="hidden" value="{{ ligne.article.id }}" id="id-article"/>
                             <input type="hidden" value="{{ ligne.taille.id }}" id="id-taille"/>
                         </td>
                     </tr>
                 {% endfor %}
-            </tbody>
-            <tfoot>
+                </tbody>
+                <tfoot>
                 <td colspan="4" class="text-right">Total :</td>
                 <td>{{ total }}$</td>
-                <td><button onclick="window.location.href='/commande'">passer la commande</button></td>
-            </tfoot>
-        </table>
-    {% else %}
-        Panier Vide !
-    {% endif %}
-</div>
+                <td><button class="btn btn-outline-dark" onclick="window.location.href='/commande'">passer la commande</button></td>
+                </tfoot>
+            </table>
+        {% else %}
+            Panier Vide !
+        {% endif %}
+    </div>
 {% endblock %}
 {% block javascripts %}<script src="/js/panier.js"></script>{% endblock %}

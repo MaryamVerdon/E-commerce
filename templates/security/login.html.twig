@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
+{% block stylesheets %} <link rel="stylesheet" href="/css/login.css"/>{% endblock %}
 
 {% block body %}
     {% for message in app.flashes('user-error') %}
@@ -8,7 +9,7 @@
             {{ message }}
         </div>
     {% endfor %}
-    <form method="post">
+    <form class="form-container col-md-6 col-sm-12 col-6" method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') ~ ' ' }} {{error.messageData["resend"] is defined ? ("<a href='" ~ path('send_new_confirmation_token', {email: (error.messageData["resend"]|url_encode)|replace({'.': '%2E'})}) ~ "'>Renvoyer</a>")|raw : ""}}</div>
         {% endif %}
@@ -26,7 +27,7 @@
         <input type="password" name="password" id="inputPassword" class="form-control" required>
 
         <input type="hidden" name="_csrf_token"
-            value="{{ csrf_token('authenticate') }}"
+               value="{{ csrf_token('authenticate') }}"
         >
 
         <div class="checkbox mb-3">
@@ -35,9 +36,10 @@
             </label>
         </div>
 
-        <button class="btn btn-lg btn-primary" type="submit">
+        <button class="btn btn-lg btn-dark btn-block" type="submit">
             Sign in
         </button>
+        <a href="{{path('forgotten_password')}}">Mot de passe oublié</a>
     </form>
-    <a href="{{path('forgotten_password')}}">Mot de passe oublié</a>
+
 {% endblock %}
