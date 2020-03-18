@@ -34,10 +34,11 @@ header{
 }
 
 header .site-title {
-    font-family: var(--merri);
-    text-decoration: none;
-    color: black;
-    font-size: 2em;
+    height: 4em;
+    background-image: url('/img/logo.png');
+    background-repeat: no-repeat;
+    background-size: auto 4em;
+    margin: auto;
 }
 
 .header-links {
