@@ -6,7 +6,7 @@ window.addEventListener("load", e => {
     tfoot = document.querySelector("#tfoot-commandes");
     pageElement = document.querySelector("#page");
     thsTri = document.querySelectorAll(".th-tri");
-    if(document.querySelector("#client-id").value){
+    if(document.querySelector("#client-id")){
         clientId = document.querySelector("#client-id").value;
     }
     addOnClickButtonPagine();

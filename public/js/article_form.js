@@ -4,7 +4,7 @@ var index = 0;
 
 window.onload = () => {
     let addTailleButton = document.createElement("button");
-    addTailleButton.className = "add_taille_link";
+    addTailleButton.className = "add_taille_link btn btn-primary";
     addTailleButton.textContent = "Ajouter une taille";
     
     let newLinkLi = document.createElement("li");
@@ -44,12 +44,14 @@ function addTailleForm(collectionHolder, newLinkLi){
 }
 
 function addTailleFormDeleteLink(tailleFormLi){
+    console.log(tailleFormLi);
     let removeFormButton = document.createElement("button");
+    removeFormButton.className = "btn btn-primary";
     removeFormButton.textContent = "Remove";
 
     removeFormButton.addEventListener("click", e => {
         tailleFormLi.remove();
     });
 
-    tailleFormLi.appendChild(removeFormButton);
+    tailleFormLi.querySelector("div").appendChild(removeFormButton);
 }

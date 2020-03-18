@@ -51,7 +51,7 @@
                     <tr onClick="{window.location='{{ path("admin_article_show", {id: article.id}) }}'}">    
                         <td><div class="id-article">{{ article.id }}</div></td>
                         <td><div class="libelle-article">{{ article.libelle }}</div></td>
-                        <td><div class="description-article">{{ article.description }}</div></td>
+                        <td><div class="description-article">{{ article.description|slice(0, 35) ~ "..." }}</div></td>
                         <td><div class="prix-article">{{ article.prix_u }}$</div></td>
                     </tr>
                 {% endfor %}

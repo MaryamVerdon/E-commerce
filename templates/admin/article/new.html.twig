@@ -2,26 +2,127 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="/css/admin/article.css"/>{% endblock %}
 
 {% block body %}
 {% include '/admin/panel.html.twig' %}
 
 {{ form_start(form) }}
-    {{ form_row(form.libelle) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.prix_u) }}
-    {{ form_row(form.image) }}
-    {{ form_row(form.type_article) }}
-    {{ form_row(form.sections) }}
 
+    <div class="form-group row">
+            {{ form_label(form.libelle,null,{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="col-md-10 row">
+            {{ form_widget(form.libelle,{'attr': {'class': 'form-control'}}) }}
+        </div>
+        <small>{{ form_help(form.libelle) }}</small>
+        <div class="form-error">
+            {{ form_errors(form.libelle) }}
+        </div>
+    </div>
+    <div class="form-group row">
+            {{ form_label(form.description,null,{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="col-md-10 row">
+            {{ form_widget(form.description,{'attr': {'class': 'form-control'}}) }}
+        </div>
+        <small>{{ form_help(form.description) }}</small>
+        <div class="form-error">
+            {{ form_errors(form.description) }}
+        </div>
+    </div>
+    <div class="form-group row">
+            {{ form_label(form.prix_u,null,{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="col-md-10 row">
+            {{ form_widget(form.prix_u,{'attr': {'class': 'form-control','type':'number'}}) }}
+        </div>
+        <small>{{ form_help(form.prix_u) }}</small>
+        <div class="form-error">
+            {{ form_errors(form.prix_u) }}
+        </div>
+    </div>
+    <div class="form-group row">
+            {{ form_label(form.image,null,{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="col-md-10 row">
+            {{ form_widget(form.image,{'attr': {'class': 'form-control','type':'number'}}) }}
+        </div>
+        <small>{{ form_help(form.image) }}</small>
+        <div class="form-error">
+            {{ form_errors(form.image) }}
+        </div>
+    </div>
+    <div class="form-group row">
+            {{ form_label(form.type_article,null,{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="col-md-10 row">
+            {{ form_widget(form.type_article,{'attr': {'class': 'form-control','type':'number'}}) }}
+        </div>
+        <small>{{ form_help(form.type_article) }}</small>
+        <div class="form-error">
+            {{ form_errors(form.type_article) }}
+        </div>
+    </div>
+    <div class="form-group row">
+            {{ form_label(form.sections,null,{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="col-md-10 row">
+            {{ form_widget(form.sections,{'attr': {'class': 'form-control','type':'number'}}) }}
+        </div>
+        <small>{{ form_help(form.sections) }}</small>
+        <div class="form-error">
+            {{ form_errors(form.sections) }}
+        </div>
+    </div>
 
-    <h3>Quantite</h3>
-    <ul class="qte-taille" data-prototype="{{ form_widget(form.quantite_tailles.vars.prototype)|e('html_attr') }}">
+{% set data_prototype_quantite_taille %}
+    <div class="form-row align-items-center">
+        {{ form_label(form.quantite_tailles.vars.prototype.qte,null,{'label_attr': {'class': 'col-auto my-1'}}) }}
+        <div class="col-auto">
+            {{ form_widget(form.quantite_tailles.vars.prototype.qte,{'attr': {'class': 'form-control','type':'number'}}) }}
+        </div>
+        {{ form_label(form.quantite_tailles.vars.prototype.taille,null,{'label_attr': {'class': 'col-auto my-1'}}) }}
+        <div class="col-auto">
+            {{ form_widget(form.quantite_tailles.vars.prototype.taille,{'attr': {'class': 'form-control','type':'number'}}) }}
+        </div>
+        <small>{{ form_help(form.quantite_tailles.vars.prototype.qte) }}</small>
+        <div class="form-error">
+            {{ form_errors(form.quantite_tailles.vars.prototype.qte) }}
+        </div>
+        <small>{{ form_help(form.quantite_tailles.vars.prototype.taille) }}</small>
+        <div class="form-error">
+            {{ form_errors(form.quantite_tailles.vars.prototype.taille) }}
+        </div>
+    </div>
+{% endset %}
+
+    <h3>Quantites</h3>
+    {#<ul class="qte-taille" data-prototype="{{ form_widget(form.quantite_tailles.vars.prototype)|e('html_attr') }}">#}
+    <ul class="qte-taille" data-prototype="{{ data_prototype_quantite_taille|e('html_attr') }}">
         {% for quantite_taille in form.quantite_tailles %}
-            <li>{{ form_row(quantite_taille.qte) }} {{ form_row(quantite_taille.taille) }}</li>
+            {#<li>{{ form_row(quantite_taille.qte) }} {{ form_row(quantite_taille.taille) }}</li>#}
+            <li>
+                <div class="form-row align-items-center">
+                    {{ form_label(quantite_taille.qte,null,{'label_attr': {'class': 'col-auto my-1'}}) }}
+                    <div class="col-auto">
+                        {{ form_widget(quantite_taille.qte,{'attr': {'class': 'form-control','type':'number'}}) }}
+                    </div>
+                    {{ form_label(quantite_taille.taille,null,{'label_attr': {'class': 'col-auto my-1'}}) }}
+                    <div class="col-auto">
+                        {{ form_widget(quantite_taille.taille,{'attr': {'class': 'form-control','type':'number'}}) }}
+                    </div>
+                    <small>{{ form_help(quantite_taille.qte) }}</small>
+                    <div class="form-error">
+                        {{ form_errors(quantite_taille.qte) }}
+                    </div>
+                    <small>{{ form_help(quantite_taille.taille) }}</small>
+                    <div class="form-error">
+                        {{ form_errors(quantite_taille.taille) }}
+                    </div>
+                </div>
+            </li>
         {% endfor %}
     </ul>
+    
+
+    <div class="form-group row">
+        {{ form_widget(form.save,{'label': 'Enregistrer','attr': {'class': 'btn btn-primary mb-2'}}) }}
+    </div>
 {{ form_end(form) }}
 
 {% endblock %}
