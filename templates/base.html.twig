@@ -58,9 +58,10 @@
                         Homme
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Voir tout</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme&categories[]=vetement">Vetements</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme&categories[]=chaussure">Chaussures</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme&categories[]=accessoire">Accessoires</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme">Voir tout</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -68,9 +69,10 @@
                         Femme
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Voir tout</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme&categories[]=vetement">Vetements</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme&categories[]=chaussure">Chaussures</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme&categories[]=accessoire">Accessoires</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme">Voir tout</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -78,16 +80,17 @@
                         Enfant
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Voir tout</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant&categories[]=vetement">Vetements</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant&categories[]=chaussure">Chaussures</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant&categories[]=accessoire">Accessoires</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant">Voir tout</a>
                     </div>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="navbar-right">
-        <form class="form-inline mr-0 pr-0 nav-search-bar">
+        <form action="/article" class="form-inline mr-0 pr-0 nav-search-bar">
             <input class="form-control mr-0 pr-0" type="search" placeholder="Rechercher" aria-label="Search" name="libelle">
             <button class="btn  my-2 my-sm-0" type="submit">
                 <i class="fas fa-search"></i>
