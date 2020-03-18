@@ -32,20 +32,43 @@ header .site-title {
     font-size: 2em;
 }
 
+.header-links {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+
 .header-links a {
     color: black;
     font-size: 0.9em;
     text-decoration: none;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
 
+.header-links a i{
+    padding-right: 0.2em;
 }
 
 /* navbar*/
 
-.navbar {
+.navbar-bar {
     padding: 0.8em 0em;
     background-color: white ;
     color: black;
     border-color: black;
+    display: flex;
+    align-items: flex-start;
+}
+
+.navbar{
+    flex: 1;
+}
+
+.navbar-toggler{
+    color: black;
+    font-size: 2.5em;
 }
 
 .nav-item .nav-link {
@@ -53,6 +76,31 @@ header .site-title {
     font-size: 1em;
     font-family: 'Muli', sans-serif;
 }
+
+.navbar-right{
+    display: flex;
+    margin-right: 0.5em;
+    flex-wrap: wrap;
+}
+
+
+.nav-search-bar{
+    flex-wrap: nowrap;
+}
+
+.nav-search-bar i{
+    font-size: 1.5em;
+}
+
+.btn-cart{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.btn-cart i{
+    font-size: 2em;
+}
+
+/* accueil*/
 
 .carousel-item{
     background-image: url(https://www.azutura.com/media/catalog/product/cache/49/image/650x/040ec09b1e35df139433887a97daa66f/W/S/WS-47352_WP.jpg) ;
