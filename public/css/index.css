@@ -1,6 +1,14 @@
 /* import font*/
 @import url('https://fonts.googleapis.com/css?family=Anton|Gugi|Muli|Lato|Merriweather+Sans|Roboto|Sofia&display=swap');
 
+body{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 #button-panier {
     display: flex;
@@ -109,7 +117,44 @@ header .site-title {
 /* accueil*/
 
 .carousel-item{
-    background-image: url(https://www.azutura.com/media/catalog/product/cache/49/image/650x/040ec09b1e35df139433887a97daa66f/W/S/WS-47352_WP.jpg) ;
+    /* background-image: url(https://www.azutura.com/media/catalog/product/cache/49/image/650x/040ec09b1e35df139433887a97daa66f/W/S/WS-47352_WP.jpg) ;*/
+}
+
+.carousel a{
+    z-index: 1000;
+}
+
+.carousel-indicators li{
+    background-color: grey;
+}
+
+.carousel-voile{
+    position: absolute;
+    z-index: 499;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+
+.carousel-voile:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: 0.5s;
+}
+
+.carousel-item img{
+    margin: auto;
+    width: 500px;
+}
+
+.carousel-caption{
+    z-index: 999;
+    color: transparent;
+    pointer-events:none;
+}
+
+.carousel-voile:hover + .carousel-caption{
+    color: white;
 }
 
 .presentoir-all {
@@ -122,21 +167,21 @@ header .site-title {
 }
 
 /* scrollbar*/
-.presentoir-all::-webkit-scrollbar{
+::-webkit-scrollbar{
     width: 10px;
 }
 
-.presentoir-all::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: white;
 }
 
-.presentoir-all::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #f1f1f1;
     border-radius: 1em;
     box-shadow: inset 0 0 5px grey;
 }
 
-.presentoir-all::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #888;
     box-shadow: inset 0 0 5px black;
 }
