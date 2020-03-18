@@ -74,6 +74,18 @@ class CommandeRepository extends ServiceEntityRepository
         return $paginator;
     }
 
+    function findByAdresse($adresse){
+        $qb = $this->createQueryBuilder('ccl');
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->leftJoin('c.adresse', 'a')
+            ->addSelect('a')
+            ->add('where', $qb->expr()->in('a', ':a') )
+            ->setParameter('a', $adresse)
+            ->getQuery()
+            ->getResult();
+    }
+
     function findByClient($client){
         $qb = $this->createQueryBuilder('ccl');
         return $this->createQueryBuilder('c')

@@ -78,6 +78,7 @@ class CommandeController extends AbstractController
             return $this->redirectToRoute('commande');
         }
 
+        // dd($p->getPanier());
 
         //dd($adresse);
         return $this->render('commande/index.html.twig' , [

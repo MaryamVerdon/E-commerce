@@ -184,10 +184,18 @@ class ClientController extends AbstractController
                 ->getManager();
             $adresse = $em->getRepository(Adresse::class)
                 ->find($id);
+            
+            $commande = $em->getRepository(Commande::class)
+                ->findByAdresse($adresse);
                 
             if($adresse->getClient() == $client){
 
-                $em->remove($adresse);
+                if(empty($commande)){
+                    $em->remove($adresse);
+                }else{
+                    $adresse->setClient(null);
+                    $em->persist($adresse);
+                }
                 $em->flush();
 
                 return $this->redirectToRoute('compte');

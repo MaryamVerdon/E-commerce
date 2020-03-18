@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/index.css"/>
     <!-- font awesome -->
-        <link rel="stylesheet" href="/css/font-awesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="/css/font-awesome/css/solid.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/solid.min.css">
+    <link rel="shortcut icon" href="/img/favicon.ico" />
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
@@ -19,21 +20,23 @@
 <header class="container-fluid">
     <div class="row">
         <!--- titre du site -->
-        <div class="col-md-10 col-12 text-center mt-2">
-            <a href="/" class="my-md-3 site-title">FiveSportsWear</a>
+        <div class="col-md-9 col-12 text-center mt-2">
+            <a href="/" ><div class="my-md-3 site-title"></div></a>
+            {#<a href="/" class="my-md-3 site-title">FiveSportsWear</a>#}
         </div>
-        <div class="col-md-2 col-12 text-right">
-            <div class="my-md-4 header-links">
+        <div class="col-md-3 col-12 text-right">
                 {% if app.user %}
+            <div class="my-md-4 header-links header-row">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="/admin" class="px-2">Admin</a>
+                        <a href="/admin">Admin</a>
                     {% elseif is_granted('ROLE_USER') %}
-                        <a class="px-2" href="{{ path('compte') }}"><i class="fas fa-user"></i> {{ app.user.prenom }}</a>
-                {% endif %}
+                        <a href="{{ path('compte') }}"><i class="fas fa-user"></i> {{ app.user.prenom }}</a>
+                    {% endif %}
                     <a href="/logout" class="px-2"><i class="fas fa-sign-out-alt"></i> Deconnexion</a>
                 {% else %}
-                    <a class="px-2" href="/login"><i class="fas fa-sign-in-alt"></i> Connexion</a>
-                    <a class="px-1" href="/register"><i class="fas fa-user-plus"></i> Inscription</a>
+            <div class="my-md-4 header-links">
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+                    <a href="/register"><i class="fas fa-user-plus"></i> Inscription</a>
                 {% endif %}
             </div>
         </div>
@@ -55,9 +58,10 @@
                         Homme
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Voir tout</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme&categories[]=vetement">Vetements</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme&categories[]=chaussure">Chaussures</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme&categories[]=accessoire">Accessoires</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme">Voir tout</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -65,9 +69,10 @@
                         Femme
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Voir tout</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme&categories[]=vetement">Vetements</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme&categories[]=chaussure">Chaussures</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme&categories[]=accessoire">Accessoires</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme">Voir tout</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -75,23 +80,24 @@
                         Enfant
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Voir tout</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant&categories[]=vetement">Vetements</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant&categories[]=chaussure">Chaussures</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant&categories[]=accessoire">Accessoires</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant">Voir tout</a>
                     </div>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="navbar-right">
-        <form class="form-inline mr-0 pr-0 nav-search-bar">
+        <form action="/article" class="form-inline mr-0 pr-0 nav-search-bar">
             <input class="form-control mr-0 pr-0" type="search" placeholder="Rechercher" aria-label="Search" name="libelle">
             <button class="btn  my-2 my-sm-0" type="submit">
                 <i class="fas fa-search"></i>
             </button>
         </form>
         <form class="form-inline mr-0 pr-0">
-            <button class="btn btn-cart btn-outline-dark my-2 my-sm-0" onclick="{window.location=''}">
+            <button type="button" class="btn btn-cart btn-outline-dark my-2 my-sm-0" onclick="window.location.href='/panier';">
                 <i class="fas fa-shopping-basket"></i><div class="size-panier"></div>
             </button>    
         </form>

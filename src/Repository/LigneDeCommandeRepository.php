@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\LigneDeCommande;
+use App\Entity\Section;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -31,6 +32,7 @@ class LigneDeCommandeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /*
     public function findMostSoldArticlesSections()
     {
         return $this->createQueryBuilder("l")
@@ -41,6 +43,32 @@ class LigneDeCommandeRepository extends ServiceEntityRepository
             ->orderBy('sum(l.qte)','DESC')
             ->getQuery()
             ->getResult();
+    }
+    */
+
+    public function findMostSoldArticlesSections()
+    {
+        $sections = $this->getEntityManager()
+            ->getRepository(Section::class)
+            ->findAll();
+
+        $articlesSections = [];
+
+        foreach($sections as $section){
+            $qb = $this->createQueryBuilder("ls");
+            $articlesSections[] = $this->createQueryBuilder("l")
+                ->select('a.image','s.libelle')
+                ->join('l.article', 'a')
+                ->join('a.sections', 's')
+                ->add('where', $qb->expr()->in('s', ':s'))
+                ->setParameter('s',$section)
+                ->orderBy('sum(l.qte)','DESC')
+                ->groupBy('s.libelle', 'a.image')
+                ->getQuery()
+                ->getResult()[0];
+        }
+
+        return $articlesSections;
     }
 
     // /**
