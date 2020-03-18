@@ -12,8 +12,8 @@
             {{ message }}
         </div>
     {% endfor %}
-    {{ form_start(form) }}
-        {{ form_row(form.plain_password.first) }}
-        {{ form_row(form.plain_password.second) }}
+    {{ form_start(form , {'attr': {'class': 'form-container col-md-6 col-sm-12 col-6'}}) }}
+        {{ form_row(form.plain_password.first, {'attr': {'class': 'form-group form-control'}}) }}
+        {{ form_row(form.plain_password.second, {'attr': {'class': 'form-group form-control'}}) }}
     {{ form_end(form) }}
 {% endblock %}

@@ -6,15 +6,18 @@
 
 {% block body %}
 
-<div class="commandes">
-    {% for commande in commandes %}
-        <div class="commande" onClick={window.location="{{ path('compte_commande_show', {id: commande.id}) }}"}>
-            <div class="id-commande">N°{{ commande.id }}</div>
-            <div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div>
-            <div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div>
-            <div class="montant-commande">{{ commande.getPrixTotal }}$</div>
-            <div class="status-commande">{{ commande.statutCommande.libelle }}</div>
-        </div>
-    {% endfor %}
-</div>
+    <table class="table table-striped">
+        <tbody>
+        {% for commande in commandes %}
+            <tr class="commande" onClick={window.location="{{ path('compte_commande_show', {id: commande.id}) }}"}>
+                <td class="id-commande">N°{{ commande.id }}</td>
+                <td class="date-commande">Le {{ commande.date|date('d/m/Y') }}</td>
+                <td class="articles-commande">{{ commande.getNbArticles }} Article(s)</td>
+                <td class="montant-commande">{{ commande.getPrixTotal }}$</td>
+                <td class="status-commande">{{ commande.statutCommande.libelle }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
+

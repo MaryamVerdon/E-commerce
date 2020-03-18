@@ -1,20 +1,21 @@
-.commandes {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    margin: auto;
+/*---------commandes---------*/
+
+.table th{
+    font-weight: normal;
+    font-family: var(--merri);
+    font-size: 15px;
+}
+.table tbody td{
+    font-family: var(--merri);
+    font-size: 12px;
+    border-bottom: 1px solid #dfdfdf;
 }
 
-.commande {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border: 1px solid gray;
-    border-radius: 2px;
-    margin-top: 5px;
-    background-color: rgb(197, 197, 197);
+.table {
+    margin-bottom: 40px;
 }
 
+/*---------show---------*/
 .show-commande {
 }
 

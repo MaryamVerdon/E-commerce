@@ -20,7 +20,7 @@
     font-size: 15px;
 }
 
-#client_registration_enregistrer {
+#client_registration_enregistrer, #edit_client_enregistrer, #edit_pwd_client_enregistrer, #adresse_Ajouter {
     border-radius: 7px;
     border: 1px solid black;
     display: block;
