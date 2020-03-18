@@ -2,14 +2,16 @@
 
 {% block title %}Hello CommandeController!{% endblock %}
 
+{% block stylesheets %} <link rel="stylesheet" href="/css/adresse.css"/>{% endblock %}
+
 {% block body %}
 
     <div class="commande">
         <div>
-        <div>Montant Total : {{prixTot}}</div>
+        <div class="alert alert-success" role="alert">Montant Total : {{prixTot}} $</div>
         </div>
         <div>
-            <h1 style='font-size:30px;'>Adresse de livraison</h1>
+            <h1>Adresse de livraison</h1>
             <select id='adresse'>
                 {% for adresse in adresses %}
                     <option value={{adresse.id}}>{{adresse.adresse}} {{adresse.cp}} {{adresse.ville}} {{adresse.pays}}</option>
@@ -20,7 +22,8 @@
         <div class="form-new-adresse" style="display: none;">
             {{ form(form) }}
         </div>
-        <div><button id='valide' >Valider la commande</button></div>
+        <div><button class="btn btn-outline-dark" id='valide'>Valider la commande</button></div>
 </div>
+
 {% endblock %}
 {% block javascripts %}<script src="/js/validationCommande.js"></script>{% endblock %}

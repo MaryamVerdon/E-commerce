@@ -15,27 +15,12 @@ input {
     height: 10px;
 }
 
-#registration_form_adresses_pays {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    display: block;
-    width: 60%;
-    padding: 7px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    background: transparent;
-    margin: 10px;
-    font: 16px Arial, Helvetica, sans-serif;
-    height: 55px;
-}
-
 button {
-    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    background-color: #2CBBBB;
-    border: 1px solid #27A0A0;
+    -moz-box-shadow: inset 0px 1px 0px 0px black;
+    -webkit-box-shadow: inset 0px 1px 0px 0px black;
+    box-shadow: inset 0px 1px 0px 0px black;
+    background-color: black;
+    border: 1px solid black;
     display: inline-block;
     cursor: pointer;
     color: #FFFFFF;

@@ -1,0 +1,65 @@
+/* import font*/
+@import url('https://fonts.googleapis.com/css?family=Anton|Gugi|Muli|Lato|Merriweather+Sans|Roboto|Sofia&display=swap');
+
+:root{
+    --light-gray: #2b3032a1;
+    --primary-color: white;
+    --border: #2b303218;
+    --text-color: #ff686b;
+    --roboto: "Roboto", sans-serif;
+    --merri: "Merriweather Sans", sans-serif;
+    --sofia: "Sofia", cursive;
+}
+
+td img {
+    width: 80px;
+    margin-right: 20px ;
+}
+
+.h1 {
+    border-bottom : 2px solid black !important;
+    font-size: 20px;
+    font-family: var(--merri);
+    font-weight: bold;
+    padding-left: 15%;
+    margin-top: 15px;
+}
+
+/*-----------Supression bordures table-----------*/
+.table th {
+    border-top: none !important;
+    border-left: none !important;
+}
+.fixed-table-container {
+    border:0px;
+}
+.table th {
+    border-bottom: none !important;
+}
+/*------------------------------------------------*/
+
+.table th, .table td {
+    font-size: 13px;
+    font-weight: bold;
+    font-family: var(--merri);
+}
+
+td a {
+    text-decoration: black underline;
+    color: black;
+    font-family: var(--merri);
+    font-weight: normal;
+}
+
+.qte-article {
+    padding: 10px;
+    border: none;
+}
+
+.btn {
+    font-weight: normal !important;
+    border-radius: 25px;
+    font-family: var(--merri);
+    font-size: 13px;
+}
+

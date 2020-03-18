@@ -1,0 +1,60 @@
+/* import font*/
+@import url('https://fonts.googleapis.com/css?family=Anton|Gugi|Muli|Lato|Merriweather+Sans|Roboto|Sofia&display=swap');
+
+:root{
+    --light-gray: #2b3032a1;
+    --primary-color: white;
+    --border: #2b303218;
+    --text-color: #ff686b;
+    --roboto: "Roboto", sans-serif;
+    --merri: "Merriweather Sans", sans-serif;
+    --sofia: "Sofia", cursive;
+}
+
+.alert {
+    font-family: var(--merri);
+}
+
+h1 {
+    font-size: 30px;
+    font-family: var(--merri);
+
+}
+
+input {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 60%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 10px;
+}
+
+#adresse_Ajouter{
+    background-color: black;
+    border: 1px solid black;
+    color: #FFFFFF;
+    font-family: var(--merri);
+    font-size: 14px;
+    padding: 8px 18px;
+    margin: 20px;
+}
+
+#valide {
+    font-weight: normal !important;
+    border-radius: 25px;
+    font-family: var(--merri);
+    font-size: 13px;
+    margin: 20px;
+}
+
+form {
+    margin-left: 45px;
+}
