@@ -103,6 +103,11 @@ class PanierService {
         return $panier;
     }
 
+    public function overwritePanierDBFromSession(){
+        $p = $this->session->get('panier', []);
+        $this->storePanierDb($p);
+    }
+
     public function getTotal(){
         $panier = $this->getPanier();
         $total = 0;

@@ -93,8 +93,9 @@ class CommandeController extends AbstractController
     /**
      * @Route("/commande/new", name="commande_new")
      */
-    public function newCommande(Request $request, MailerService $mailerService){
+    public function newCommande(Request $request, MailerService $mailerService, PanierService $panierService){
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $panierService->overwritePanierDBFromSession();
         $client = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $adresse = $request->query->get('adresse');
