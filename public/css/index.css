@@ -36,6 +36,11 @@ header .site-title {
     display: flex;
     flex-direction: column;
     width: auto;
+    align-items: flex-end;
+}
+
+.header-links.header-row{
+    flex-direction: row;
 }
 
 .header-links a {
