@@ -1,7 +1,19 @@
+var navbar = document.querySelector(".navbar-bar");
+var sticky = navbar.offsetTop;
+
 window.addEventListener('load', e => {
     updatePanierSizeIndex();
     addMouseMovePresentoir();
 });
+
+window.addEventListener("scroll", e => {
+    if(window.pageYOffset >= sticky){
+        navbar.classList.add("sticky");
+    }else{
+        navbar.classList.remove("sticky");
+    }
+})
+
 
 
 function updatePanierSizeIndex(){
