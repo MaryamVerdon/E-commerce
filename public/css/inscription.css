@@ -1,53 +1,34 @@
 
-input {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    outline: none;
+/* import font*/
+@import url('https://fonts.googleapis.com/css?family=Anton|Gugi|Muli|Lato|Merriweather+Sans|Roboto|Sofia&display=swap');
+
+:root{
+    --light-gray: #2b3032a1;
+    --primary-color: white;
+    --border: #2b303218;
+    --text-color: #ff686b;
+    --roboto: "Roboto", sans-serif;
+    --merri: "Merriweather Sans", sans-serif;
+    --sofia: "Sofia", cursive;
+}
+
+.form-container {
+    padding: 50px 60px;
+    margin:  25px auto;
+    border: 1px solid black;
+    font-family: var(--merri);
+    font-size: 15px;
+}
+
+#client_registration_enregistrer {
+    border-radius: 7px;
+    border: 1px solid black;
     display: block;
-    width: 60%;
-    padding: 7px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    background: transparent;
-    margin: 10px;
-    font: 16px Arial, Helvetica, sans-serif;
-    height: 10px;
-}
-
-#registration_form_adresses_pays {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    display: block;
-    width: 60%;
-    padding: 7px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    background: transparent;
-    margin: 10px;
-    font: 16px Arial, Helvetica, sans-serif;
-    height: 55px;
-}
-
-button {
-    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    background-color: #2CBBBB;
-    border: 1px solid #27A0A0;
-    display: inline-block;
-    cursor: pointer;
-    color: #FFFFFF;
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 14px;
-    padding: 8px 18px;
-    text-decoration: none;
-    text-transform: uppercase;
-
-}
-
-form {
-    margin-left: 45px;
+    background: black;
+    width: 100%;
+    height: 40px;
+    color: white;
+    margin: 20px auto;
+    font-family: var(--merri);
 }
 
