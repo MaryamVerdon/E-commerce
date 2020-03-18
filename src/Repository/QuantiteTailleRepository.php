@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\QuantiteTaille;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use App\Entity\Taille;
 
 /**
  * @method QuantiteTaille|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +20,16 @@ class QuantiteTailleRepository extends ServiceEntityRepository
         parent::__construct($registry, QuantiteTaille::class);
     }
 
+    public function findTaillesArticle($articleId) {
+        return $this->createQueryBuilder("q")
+            ->select("t.libelle")
+            ->join("q.taille","t")
+            ->where('q.article = :a')
+            ->setParameter('a',$articleId)
+            ->orderBy("t.libelle")
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return QuantiteTaille[] Returns an array of QuantiteTaille objects
     //  */
@@ -59,4 +70,5 @@ class QuantiteTailleRepository extends ServiceEntityRepository
         ->getOneOrNullResult()
     ;
 }
+
 }
