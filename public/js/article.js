@@ -1,10 +1,52 @@
 window.addEventListener('load', e => {
+    checkHiddenFilter();
     addOnClickToPanier();
     setFiltersByParameters(getUrlParameters());
     addOnChangeToFilters();
     setSortingByParameters(getUrlParameters());
     addOnClickToParameters();
 });
+
+function checkHiddenFilter(){
+    let hidden = window.localStorage.getItem("filter-hidden");
+    let filterBox = document.querySelector(".filtres-articles");
+    if(hidden){
+        if(hidden === "yes"){
+            filterBox.classList.add('hidden');
+            filterBox.classList.add('size-hidden');
+            document.querySelector(".btn-filtres-articles button span").textContent = "Afficher les tri";
+        }
+    }else{
+        window.localStorage.setItem("filter-hidden","no");
+    }
+    addOnClickHiddeFilter();
+}
+
+function addOnClickHiddeFilter(){
+    let button = document.querySelector(".btn-filtres-articles button");
+    let filterBox = document.querySelector(".filtres-articles");
+    button.addEventListener("click", e => {
+        if(filterBox.classList.contains('hidden')){
+            filterBox.classList.remove('hidden');
+            setTimeout(() => {
+                filterBox.classList.remove('size-hidden');
+                button.querySelector("span").textContent = "Cacher les tri";
+                window.localStorage.setItem("filter-hidden","no");
+            },20);
+        }else{
+            filterBox.classList.add('size-hidden');
+            filterBox.addEventListener('transitionend', e => {
+                filterBox.classList.add('hidden');
+                button.querySelector("span").textContent = "Afficher les tri";
+                window.localStorage.setItem("filter-hidden","yes");
+            }, {
+                capture: false,
+                once: true,
+                passive: false,
+            });
+        }
+    }, false);
+}
 
 function addOnClickToPanier(){
     let articles = document.querySelectorAll(".item-article");

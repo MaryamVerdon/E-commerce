@@ -82,6 +82,10 @@ header .site-title {
     flex: 1;
 }
 
+.navbar .dropdown-menu{
+    z-index: 9999999;
+}
+
 .navbar-toggler{
     color: black;
     font-size: 2.5em;
@@ -245,4 +249,12 @@ header .site-title {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+}
+
+.card-title{
+    cursor: pointer;
+}
+
+.carousel-voile{
+    cursor: pointer;
 }
