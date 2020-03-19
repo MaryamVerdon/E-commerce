@@ -80,10 +80,10 @@ class PaymentService {
             ->setPayerId($payerId);
             // ->addTransaction($transaction);
         try{
-            $payment->execute($execution, $this->apiContext);
-            return true;
+            $result = $payment->execute($execution, $this->apiContext);
+            return [true, $result];
         }catch (PayPalConnectionException $e){
-            return $e->getMessage();
+            return [false, $e->getMessage()];
         }
     }
 
