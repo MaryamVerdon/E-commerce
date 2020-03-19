@@ -2,10 +2,13 @@
 
 {% block title %}Hello ClientController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
+
+{% block body_top %}
+{{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html.twig' %}
 
 <div class="show-commande">
     <div class="id-commande">Commande N°{{ commande.id }}</div>

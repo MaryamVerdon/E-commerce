@@ -2,12 +2,15 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/admin/article.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/admin/article.css"/>{% endblock %}
+
+{% block body_top %}
+{{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html.twig' %}
 
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'id': 'form_article'}}) }}
 
     <div class="form-group row">
             {{ form_label(form.libelle,null,{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}

@@ -2,9 +2,13 @@
 
 {% block title %}Hello AdminController!{% endblock %}
 
-{% block body %}
-{% include '/admin/panel.html.twig' %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/admin/index.css"/>{% endblock %}
 
+{% block body_top %}
+{{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
+
+{% block body %}
 <div>
     <div>
         <h4>Derniers clients</h4>

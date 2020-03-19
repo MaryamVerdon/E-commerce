@@ -75,10 +75,15 @@ header .site-title {
     border-color: black;
     display: flex;
     align-items: flex-start;
+    z-index: 99999;
 }
 
 .navbar{
     flex: 1;
+}
+
+.navbar .dropdown-menu{
+    z-index: 9999999;
 }
 
 .navbar-toggler{
@@ -113,6 +118,16 @@ header .site-title {
 }
 .btn-cart i{
     font-size: 2em;
+}
+
+.sticky{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 83.59px;
 }
 
 /* accueil*/
@@ -167,6 +182,19 @@ header .site-title {
     -webkit-overflow-scrolling: touch;
 }
 
+
+.presentoir-all img{
+    width: 286px;
+    height: 286px;
+}
+
+.presentoir-all p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 /* scrollbar*/
 ::-webkit-scrollbar{
     width: 10px;
@@ -189,6 +217,8 @@ header .site-title {
 
 .presentoir-all .card{
     flex: 0 0 auto;
+    overflow: hidden;
+    width: 18rem;
 }
 
 .presentoir-2, .presentoir-4 {
@@ -197,10 +227,34 @@ header .site-title {
     margin: auto;
 }
 
+
+.presentoir-2 p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 .presentoir-2 .card{
-    width: 45%;
+    width: 25rem;
 }
 
 .presentoir-4 .card{
-    width: 22.5%;
+    width: 25rem;
+    align-items: center;
+}
+
+.presentoir-4 .card .card-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.card-title{
+    cursor: pointer;
+}
+
+.carousel-voile{
+    cursor: pointer;
 }

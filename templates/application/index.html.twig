@@ -14,7 +14,7 @@
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="{{ lastArticles[0].image }}" class="d-block" alt="...">
-      <div class="carousel-voile"></div>
+      <div class="carousel-voile" onclick="{window.location='{{ path("article_show",{id: lastArticles[0].id})}}'}"></div>
       <div class="carousel-caption d-none d-md-block">
         <h5>Nouveau</h5>
         <h6>{{ lastArticles[0].libelle }}</h6>
@@ -23,18 +23,18 @@
     </div>
     <div class="carousel-item">
       <img src="{{ mostSoldArticles[0].image }}" class="d-block" alt="...">
-      <div class="carousel-voile"></div>
+      <div class="carousel-voile" onclick="{window.location='{{ path("article_show",{id: mostSoldArticles[0].id})}}'}"></div>
       <div class="carousel-caption d-none d-md-block">
-        <h5>Nouveau</h5>
+        <h5>En vedette</h5>
         <h6>{{ mostSoldArticles[0].libelle }}</h6>
         <p>{{ mostSoldArticles[0].description }}</p>
       </div>
     </div>
     <div class="carousel-item">
       <img src="{{ lessArticlesStocked[0].image }}" class="d-block" alt="...">
-      <div class="carousel-voile"></div>
+      <div class="carousel-voile" onclick="{window.location='{{ path("article_show",{id: lessArticlesStocked[0].id})}}'}"></div>
       <div class="carousel-caption d-none d-md-block">
-        <h5>Nouveau</h5>
+        <h5>A découvrir</h5>
         <h6>{{ lessArticlesStocked[0].libelle }}</h6>
         <p>{{ lessArticlesStocked[0].description }}</p>
       </div>
@@ -53,10 +53,10 @@
 <h4>Nouveautés</h4>
 <div class="presentoir-all">
   {% for la in lastArticles %}
-    <div class="card" style="width: 18rem;">
+    <div class="card">
       <img src={{ la.image }} class="card-img-top" alt="..." draggable="false">
       <div class="card-body">
-        <h5 class="card-title">{{ la.libelle }}</h5>
+        <h5 class="card-title" onclick="{window.location='{{ path("article_show",{id: la.id})}}'}">{{ la.libelle }}</h5>
         <p class="card-text">{{ la.description }}</p>
         {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
       </div>
@@ -67,10 +67,10 @@
 
 <div class="presentoir-2">
   {% for mas in mostArticlesStocked %}
-    <div class="card" style="width: 18rem;">
+    <div class="card">
       <img src={{ mas.image }} class="card-img-top" alt="..." draggable="false">
       <div class="card-body">
-        <h5 class="card-title">{{ mas.libelle }}</h5>
+        <h5 class="card-title" onclick="{window.location='{{ path("article_show",{id: mas.id})}}'}">{{ mas.libelle }}</h5>
         <p class="card-text">{{ mas.description }}</p>
         {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
       </div>
@@ -81,10 +81,10 @@
 <h4>En vedette</h4>
 <div class="presentoir-all">
   {% for ms in mostSoldArticles %}
-    <div class="card" style="width: 18rem;">
+    <div class="card">
       <img src={{ ms.image }} class="card-img-top" alt="..." draggable="false">
       <div class="card-body">
-        <h5 class="card-title">{{ ms.libelle }}</h5>
+        <h5 class="card-title" onclick="{window.location='{{ path("article_show",{id: ms.id})}}'}">{{ ms.libelle }}</h5>
         <p class="card-text">{{ ms.description }}</p>
         {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
       </div>
@@ -95,11 +95,10 @@
 <h4>Sections</h4>
 <div class="presentoir-4">
   {% for ca in sectionsArcicles %}
-    <div class="card" style="width: 18rem;">
+    <div class="card">
       <img src={{ ca.image }} class="card-img-top" alt="..." draggable="false">
       <div class="card-body">
-        <h5 class="card-title">{{ ca.libelle|capitalize }}</h5>
-        <a href={{"/article?sections[]=" ~ ca.libelle}} class="btn btn-primary">Aller</a>
+        <a href={{"/article?sections[]=" ~ ca.libelle}} class="btn btn-primary">{{ ca.libelle|capitalize }}</a>
       </div>
     </div>
   {% endfor %}

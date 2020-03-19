@@ -2,10 +2,13 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/client.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/client.css"/>{% endblock %}
+
+{% block body_top %}
+{{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html.twig' %}
 
     <div class="item-client">
         <h4>Infos</h4>

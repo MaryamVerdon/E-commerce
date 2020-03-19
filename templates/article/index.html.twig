@@ -126,10 +126,47 @@
         </div>
 
         <div class="container-tri-articles">
-            <div class="tri-articles">
-                <button id="btn-tri-articles" class="btn btn-primary" value="libelle.ASC">Nom<i class="fas fa-sort"></i></button>
-                <button id="btn-tri-articles" class="btn btn-primary" value="prix_u.ASC">Prix<i class="fas fa-sort"></i></button>
+            <div class="container-tri-top">
+                <div class="tri-articles">
+                    <button id="btn-tri-articles" class="btn btn-outline-dark" value="libelle.ASC">Nom<i class="fas fa-sort"></i></button>
+                    <button id="btn-tri-articles" class="btn btn-outline-dark" value="prix_u.ASC">Prix<i class="fas fa-sort"></i></button>
+                </div>
+                <div class="btn-filtres-articles">
+                    <button class="btn btn-outline-dark"><span>Cacher les tri</span><i class="fas fa-filter"></i></button>
+                </div>
             </div>
+
+
+            <div class="row row-cols-2 row-cols-md-3 list-articles">
+                {% for article in articles %}
+                    <div class="col mb-4">
+                        <div class="card item-article h-100">
+                            <img src="{{ article.image }}" class="card-img-top" alt="...">
+                            <div class="card-body body-article">
+                                <div class="card-body-top">
+                                    <p class="card-title libelle-article" onClick={window.location="{{ path('article_show', {id: article.id}) }}"}>{{ article.libelle }}</p>
+                                    <p class="card-price prix-article">{{ article.prixU }}€</p>
+                                </div>
+                                <p class="card-text description-article">{{ article.description ~ "..." }}</p>
+                                <div class="card-cart">
+                                    <select class="custom-select" name="taille" id="taille-article">
+                                        {% for quantiteTaille in article.getQuantiteTailles %}
+                                            {% if quantiteTaille.qte > 0 %}
+                                                <option value="{{ quantiteTaille.taille.id }}">{{ quantiteTaille.taille.libelle }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <button class="btn btn-cart btn-outline-dark add-article-panier">Ajouter</button>
+                                </div>
+                            </div>
+                            <input type="hidden" value="{{ article.id }}" id="id-article">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            {#
             <div class="list-articles">
                 {% for article in articles %}
                     <div class="item-article">
@@ -153,8 +190,9 @@
                     </div>
                 {% endfor %}
             </div>
+            #}
             <div class="pagination-articles">
-                <nav aria-label="...">
+                <nav aria-label="Pagination">
                     <ul class="pagination">
                         <li class="{{ ('page-item' ~ (pagination.page > 1 ? ' active' : ' disabled'))}}">
                             <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=1" }}">Debut</a>
@@ -163,10 +201,10 @@
                             <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.page - 1)  }}">Precedent</a>
                         </li>
                         <li class="page-item active" aria-current="page">
-                <span class="page-link">
-                    {{ pagination.page }}
-                    <span class="sr-only">(current)</span>
-                </span>
+                            <span class="page-link">
+                                {{ pagination.page }}
+                                <span class="sr-only">(current)</span>
+                            </span>
                         </li>
                         <li class="{{ ('page-item' ~ (pagination.page < pagination.nbPages ? ' active' : ' disabled'))}}">
                             <a class="page-link" href="{{ "/article" ~ (pagination.params != "" ? pagination.params : "?") ~ "&page=" ~ (pagination.page + 1) }}">Suivant</a>
