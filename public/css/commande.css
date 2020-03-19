@@ -15,3 +15,23 @@
     margin-bottom: 40px;
 }
 
+h3 {
+    font-size: 25px;
+    font-family: var(--merri);
+    margin: 0 auto;
+}
+
+/*--------admin liste commandes---------*/
+
+#tbody-commandes tr:hover {
+    background: #fffecb;
+}
+
+.commande-head , #tfoot-commandes{
+    background: #ffff6b;
+}
+
+.container .table, .container tr, .container td, .container th{
+    border: 1px solid #ffff6b !important;
+    text-align: center;
+}
