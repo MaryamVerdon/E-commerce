@@ -26,12 +26,13 @@ class PaymentController extends AbstractController
         $commande = $this->getDoctrine()
             ->getRepository(Commande::class)
             ->find($commandeId);
+
         if($commande && $commande->getClient() == $client){
 
             $paymentUrl = $paymentService->newPayment($commande);
 
             if(isset($paymentUrl['message'])){
-                dd($paymentUrl['message']);
+                dd($paymentUrl);
                 // Exception
             }
 
