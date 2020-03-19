@@ -63,8 +63,3 @@ td a {
     font-size: 13px;
 }
 
-p{
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}

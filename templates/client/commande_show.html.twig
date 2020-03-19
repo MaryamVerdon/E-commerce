@@ -7,40 +7,35 @@
 {% block body %}
 
     <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>N° de commande</th>
-                    <th>commande</th>
-                    <th>commande effectuée le</th>
-                    <th>livraison</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                {% for ligneDeCommande in commande.getLignesDeCommande %}
+        <div class="row">
+                <div class="lignes_commandes row">
+                    {% for ligneDeCommande in commande.getLignesDeCommande %}
 
-                        <td class="id-commande">N°{{ commande.id }}</td>
-                        <td class="libelle-article-ligne-de-commande">{{ ligneDeCommande.article.libelle }}<br>
-                        {{ ligneDeCommande.taille.libelle }}<br>
-                        x{{ ligneDeCommande.qte }}<br>
-                        {{ ligneDeCommande.getMontant }}€</td>
+                        <div class="id-commande col">N°{{ commande.id }}</div>
+                        <div class="libelle-article-ligne-de-commande col">{{ ligneDeCommande.article.libelle }}</div>
+                        <div class="col">{{ ligneDeCommande.taille.libelle }}</div>
+                        <div class="col">x{{ ligneDeCommande.qte }}</div>
+                        <div class="col">{{ ligneDeCommande.getMontant }}$</div>
+                        <div class="w-100"></div>
 
-                {% endfor %}
-                <td class="date-commande">Le {{ commande.date|date('d/m/Y') }}</td>
-                <td class="adresse-commande">{{ commande.adresse.adresse ~ " " ~ commande.adresse.cp ~ " " ~ commande.adresse.ville}}</td>
-            </tr>
+                    {% endfor %}
 
-            <tr id="tr">
-                <td class="montant-commande">Total: {{ commande.getPrixTotal }}€</td>
-                <td class="statut-commande">{{ commande.statutCommande.libelle }}</td>
-                <td></td><td></td>
-            </tr>
-            </tbody>
-        </table>
-        {% if commande.statutCommande.code == 1 or commande.statutCommande.code == 9 %}
-            <button class="show-btn btn btn-dark">Payer</button>
-        {% endif %}
+                    <div class="date-commande col ">Le {{ commande.date|date('d/m/Y') }}</div>
+                    <div class="adresse-commande col-6">{{ commande.adresse.adresse ~ " " ~ commande.adresse.cp ~ " " ~ commande.adresse.ville}}</div>
+                    <div class="articles-commande col">{{ commande.getNbArticles }} Article(s)</div>
+
+                    <div class="w-100"></div>
+                    <div class="montant-commande col offset-9">Total: {{ commande.getPrixTotal }}$</div>
+                    <div class="w-100"></div>
+                    <div class="status-commande col offset-9">{{ commande.statutCommande.libelle }}</div>
+
+                </div>
+
+
+            {% if commande.statutCommande.code == 1 or commande.statutCommande.code == 9 %}
+                <button class="btn-payer btn btn-dark">Payer</button>
+            {% endif %}
+        </div>
     </div>
 
 
