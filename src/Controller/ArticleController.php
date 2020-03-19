@@ -108,11 +108,18 @@ class ArticleController extends AbstractController
         $article = $this->getDoctrine()
             ->getRepository(Article::class)
             ->find($id);
+       // dd($article->getSections());
+        $articlesSimilaire = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBySameArticles($article);
+       
         return $this->render('article/show.html.twig', [
             'controller_name' => 'ArticleController',
-            'article' => $article
+            'article' => $article,
+            'articlesSimilaire' => $articlesSimilaire
         ]);
     }
+
 
     
     /**

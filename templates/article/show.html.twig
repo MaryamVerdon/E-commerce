@@ -11,5 +11,30 @@
         <div class="image-article"><img src="{{ article.image }}"/></div>
         <div class="description-article">{{ article.description }}</div>
         <div class="prix-article">{{ article.prixU }}$</div>
+        <select class="custom-select" name="taille" id="taille-article">
+            {% for quantiteTaille in article.getQuantiteTailles %}
+                {% if quantiteTaille.qte > 0 %}
+                    <option value="{{ quantiteTaille.taille.id }}">{{ quantiteTaille.taille.libelle }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button class="btn btn-cart btn-outline-dark add-article-panier2">Ajouter</button>
+        <input type="hidden" value="{{ article.id }}" id="id-article">
     </div>
+
+    <div class='container-articleSim'>
+        {% for articleSimilaire in articlesSimilaire %}
+        
+            <div class='column col-md-2 col-xs-1 m-3' onClick={window.location="{{ path('article_show', {id: articleSimilaire.id}) }}"}>
+                <div class="libelle-articleSim">{{ articleSimilaire.libelle }}</div>
+                <div class="image-articleSim"><img src="{{ articleSimilaire.image }}"/></div>
+                <div class="description-articleSim">{{ articleSimilaire.description }}</div>
+                <div class="prix-articleSim">{{ articleSimilaire.prixU }}$</div>
+            </div>
+        
+        {% endfor %}
+    </div>
+
 {% endblock %}
+{% block javascripts %}<script src="/js/article_show.js"></script>{% endblock %}
+
