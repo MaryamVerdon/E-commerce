@@ -279,7 +279,8 @@ class ArticleRepository extends ServiceEntityRepository
            // ->andWhere('a.id' != $article->getId())
             ->addSelect("s")
             ->where($qb->expr()->in('s',':s'))
-            
+            ->andWhere($qb->expr()->notIn('a', ':a'))
+            ->setParameter('a',$article)
             ->setParameter('s', array_values(array($article->getSections())))
             ->addSelect('a')
             ->leftJoin('a.type_article','ta')

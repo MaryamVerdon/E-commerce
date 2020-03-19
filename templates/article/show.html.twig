@@ -39,6 +39,7 @@
                             </label>
                         {% endfor %}
                         </div>
+                        <input type="hidden" value="{{ article.id }}" id="id-article">
                     </div>
             </div>
           </div>
@@ -52,7 +53,7 @@
     </div>
 </section>
 
-    <div class="item-article">
+    {#<div class="item-article">
         <div class="libelle-article">{{ article.libelle }}</div>
         <div class="image-article"><img src="{{ article.image }}"/></div>
         <div class="description-article">{{ article.description }}</div>
@@ -66,7 +67,7 @@
         </select>
         <button class="btn btn-cart btn-outline-dark add-article-panier2">Ajouter</button>
         <input type="hidden" value="{{ article.id }}" id="id-article">
-    </div>
+    </div>#}
 
     {#<div class='container-articleSim'>#}
     <div class="presentoir-all">
