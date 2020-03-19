@@ -2,14 +2,14 @@
 
 {% block title %}Hello CommandeController!{% endblock %}
 
-{% block stylesheets %} <link rel="stylesheet" href="/css/adresse.css"/>{% endblock %}
+{% block stylesheets %} <link rel="stylesheet" href="/css/inscription.css"/>{% endblock %}
 
 {% block body %}
 
 
     <div class="commande">
         <h3>Recapitulatif de commande</h3>
-        <table>
+        <table class="container">
             <thead>
                 <tr>
                     <th>Article</th>
@@ -45,12 +45,11 @@
                 </tr>
             </tfoot>
         </table>
-        <div>
-            <div class="alert alert-success" role="alert">Montant Total : {{prixTot+2.99}} $</div>
-        </div>
+
         <div>
             <h3>Adresse de livraison</h3>
-            <select id='adresse'>
+            <h1 class="m-3">Vos adresses</h1>
+            <select id='adresse' class="form-control col-6 m-3">
                 {% for adresse in adresses %}
                     <option value={{adresse.id}}>{{adresse.adresse}} {{adresse.cp}} {{adresse.ville}} {{adresse.pays}}</option>
                 {% endfor %}
@@ -58,9 +57,15 @@
             </select>
         </div>
         <div class="form-new-adresse" style="display: none;">
-            {{ form(form) }}
+            {{ form_start(form , {'attr': {'class': 'form-container col-md-6 col-sm-12 col-6'}}) }}
+            {{ form_row(form.adresse, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_row(form.ville, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_row(form.cp, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_row(form.pays, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_row(form.tel, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_end(form) }}
         </div>
-        <div><button class="btn btn-outline-dark" id='valide'>Valider la commande</button></div>
+        <div><button class="btn btn-outline-dark m-3" id='valide'>Valider la commande</button></div>
     </div>
 
 {% endblock %}
