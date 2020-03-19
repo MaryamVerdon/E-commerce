@@ -267,6 +267,29 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+     /**
+     * Trouve des article de la même section
+     */
+    function  findBySameArticles($article, $nbArticles = 5){
+        $qb = $this->createQueryBuilder("aa");
+        return $this->createQueryBuilder("a")
+            ->select("a")
+            ->leftJoin('a.sections','s')
+           // ->andWhere('a.id' != $article->getId())
+            ->addSelect("s")
+            ->where($qb->expr()->in('s',':s'))
+            
+            ->setParameter('s', array_values(array($article->getSections())))
+            ->addSelect('a')
+            ->leftJoin('a.type_article','ta')
+            ->addSelect("ta")
+            ->andWhere($qb->expr()->in('ta',':ta'))
+            ->setParameter('ta', $article->getTypeArticle())
+            ->setMaxResults($nbArticles)
+            ->getQuery()
+            ->getResult();
+    }
     
     // /**
     //  * @return Article[] Returns an array of Article objects

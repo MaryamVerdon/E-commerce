@@ -33,7 +33,7 @@
 
 
             {% if commande.statutCommande.code == 1 or commande.statutCommande.code == 9 %}
-                <button class="btn-payer btn btn-dark">Payer</button>
+                <button class="btn-payer btn btn-dark" onclick="{window.location='{{ path("payment",{commandeId: commande.id}) }}'}">Payer</button>
             {% endif %}
         </div>
     </div>
