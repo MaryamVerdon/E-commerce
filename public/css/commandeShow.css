@@ -11,60 +11,46 @@
     --sofia: "Sofia", cursive;
 }
 
-td img {
-    width: 80px;
-    margin-right: 20px ;
-}
-
-.h1 {
-    border-bottom : 2px solid black !important;
-    font-size: 20px;
-    font-family: var(--merri);
-    font-weight: bold;
-    padding-left: 15%;
-    margin-top: 15px;
-}
-
 /*-----------Supression bordures table-----------*/
-.table th {
+
+.table th, .table td, .table tr {
     border-top: none !important;
     border-left: none !important;
 }
 .fixed-table-container {
     border:0px;
 }
-.table th {
+
+thead tr, thead th{
     border-bottom: none !important;
 }
-/*------------------------------------------------*/
 
-.table th, .table td {
-    font-size: 13px;
-    font-weight: bold;
+th {
+    text-transform: uppercase;
     font-family: var(--merri);
+    font-size: 15px;
 }
 
-td a {
-    text-decoration: black underline;
-    color: black;
+.table {
+    text-align: center;
+    margin: 0 auto;
+    border : 1px solid black;
+    background: #DAEBF3;
     font-family: var(--merri);
-    font-weight: normal;
+    font-size: 12px;
 }
 
-.qte-article {
-    padding: 10px;
-    border: none;
+
+
+.container {
+    margin-top: 50px;
 }
 
-.btn {
+.show-btn {
     font-weight: normal !important;
-    border-radius: 25px;
+    border-radius: unset;
     font-family: var(--merri);
     font-size: 13px;
-}
-
-p{
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    width: 15%;
+    margin-top: 20px;
 }
