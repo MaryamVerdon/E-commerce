@@ -5,11 +5,61 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
 
 {% block body %}
+    <div class="container my-5 py-5 z-depth-1">
 
-    <div class="item-article">
-        <div class="libelle-article">{{ article.libelle }}</div>
-        <div class="image-article"><img src="{{ article.image }}"/></div>
-        <div class="description-article">{{ article.description }}</div>
-        <div class="prix-article">{{ article.prixU }}$</div>
+
+  <!--Section: Content-->
+  <section class="text-center">
+
+    <!-- Section heading -->
+    <h3 class="mb-5">Détails</h3>
+
+    <div class="row">
+
+        <div class="col-lg-6">
+            <img class="img-fluid" src="{{ article.image }}"/>
+        </div>
+
+      <div class="col-lg-5 text-center text-md-left">
+
+        <h2 class="h2-responsive text-md-left product-name dark-grey-text mb-1 ml-xl-0 ml-4">
+          {{ article.libelle }}
+        </h2>
+        <h3 class="h3-responsive text-center text-md-left mb-3 ml-xl-0 ml-4">
+            <strong>{{ article.prixU }} €</strong>
+          </span>
+        </h3>
+         <h3 class="h3-responsive text-center text-md-left mb-2 ml-xl-0 ml-4">Description</h3>
+         <p class="text-muted font-weight-light ml-3 mb-5">{{ article.description }}</p>
+
+      <section class="taille">
+          <div class="mt-5">
+            <p class="text-muted">Choissisez la taille</p>
+            <div class="row text-center text-md-left">
+              {% for t in tailles %}
+              <div class="col-md-4 col-12">
+                <div class="form-group">
+                  <input class="form-check-input" type="radio" value="{{ t.id }}">
+                  <label for={{ 'taille' ~ loop.index }} >{{ t.libelle }}</label>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+      </section>
+      <div class="row mt-3">
+              <div class="col-md-12 text-center text-md-left text-md-right">
+                <button class="btn btn-dark btn-rounded add-article-panier">
+                  <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Ajouter au panier</button>
+              </div>
+        </div>
+      <input type="hidden" value="{{ article.id }}" id="id-article">
     </div>
+
+      
+    </div>
+  </section>
+
+
+</div>
 {% endblock %}

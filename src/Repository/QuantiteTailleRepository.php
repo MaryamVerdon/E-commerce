@@ -22,14 +22,15 @@ class QuantiteTailleRepository extends ServiceEntityRepository
 
     public function findTaillesArticle($articleId) {
         return $this->createQueryBuilder("q")
-            ->select("t.libelle")
+            ->select("t.id","t.libelle")
             ->join("q.taille","t")
             ->where('q.article = :a')
             ->setParameter('a',$articleId)
-            ->orderBy("t.libelle")
+            ->orderBy("t.id")
             ->getQuery()
             ->getResult();
     }
+
     // /**
     //  * @return QuantiteTaille[] Returns an array of QuantiteTaille objects
     //  */

@@ -12,6 +12,7 @@ use App\Entity\Categorie;
 use App\Entity\Section;
 use App\Entity\QuantiteTaille;
 use App\Form\ArticleType;
+use App\Repository\QuantiteTailleRepository;
 
 class ArticleController extends AbstractController
 {
@@ -108,9 +109,12 @@ class ArticleController extends AbstractController
         $article = $this->getDoctrine()
             ->getRepository(Article::class)
             ->find($id);
+        $repositoryQuantiteTailles = $this->getDoctrine()->getRepository(QuantiteTaille::class);
+        $tailles = $repositoryQuantiteTailles->findTaillesArticle($id);
         return $this->render('article/show.html.twig', [
             'controller_name' => 'ArticleController',
-            'article' => $article
+            'article' => $article,
+            "tailles" => $tailles
         ]);
     }
 }
