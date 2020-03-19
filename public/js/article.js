@@ -71,6 +71,7 @@ function addOnClickToPanier(){
     });
 } 
 
+
 function updatePanierSize(size){
     let sizePanier = document.querySelector(".size-panier")
     sizePanier.textContent = size > 0 ? size : "";
