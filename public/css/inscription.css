@@ -41,10 +41,11 @@
 h3 {
     font-family: var(--merri);
     font-size: 20px;
-    border-bottom: 3px solid black !important;
+    border-bottom: 2px dotted #4682B4 !important;
     padding-left: 15%;
     margin-top: 30px;
     margin-bottom: 30px;
+    color: #4682B4;
 }
 
 h1 {
@@ -52,5 +53,22 @@ h1 {
     font-size: 18px;
     margin-top: 30px;
     margin-bottom: 30px;
+}
 
+.container {
+    font-family: var(--merri);
+    font-size: 12px;
+    text-align: center;
+}
+
+
+
+tbody {
+    text-align: center;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 2px solid black;
+}
+
+tbody td {
+    padding: 15px 0;
 }
