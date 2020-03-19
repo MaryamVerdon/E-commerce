@@ -2,9 +2,55 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="/css/article_show.css"/>{% endblock %}
 
 {% block body %}
+    <section class="text-center">
+
+    <!-- Section heading -->
+    <h3 class="mb-5">Détails</h3>
+
+    <div class="row">
+
+        <div class="col-lg-6">
+            <img class="img-fluid" src="{{ article.image }}"/>
+        </div>
+
+      <div class="col-lg-5 text-center text-md-left">
+
+        <h2 class="h2-responsive text-md-left product-name dark-grey-text mb-1 ml-xl-0 ml-4">
+          {{ article.libelle }}
+        </h2>
+        <h3 class="h3-responsive text-center text-md-left mb-3 ml-xl-0 ml-4">
+            <strong>{{ article.prixU }} €</strong>
+          </span>
+        </h3>
+         <h3 class="h3-responsive text-center text-md-left mb-2 ml-xl-0 ml-4">Description</h3>
+         <p class="text-muted font-weight-light ml-3 mb-5">{{ article.description }}</p>
+
+      <section class="taille">
+          <div class="mt-5">
+            <p class="text-muted">Choissisez la taille</p>
+            <div class="row text-center text-md-left">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        {% for q in article.getQuantiteTailles %}
+                            <label class="btn btn-outline-dark {{q.qte > 0 ? "" : "disabled"}}">
+                                <input type="radio" value="{{ q.taille.id }}" name="taille"><strong>{{ q.taille.libelle }}</strong>
+                            </label>
+                        {% endfor %}
+                        </div>
+                    </div>
+            </div>
+          </div>
+        </section>
+        <div class="row mt-3">
+              <div class="col-md-12 text-center text-md-left text-md-right">
+                <button class="btn btn-outline-dark btn-rounded add-article-panier">
+                  <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Ajouter au panier</button>
+              </div>
+        </div>
+    </div>
+</section>
 
     <div class="item-article">
         <div class="libelle-article">{{ article.libelle }}</div>
@@ -22,16 +68,25 @@
         <input type="hidden" value="{{ article.id }}" id="id-article">
     </div>
 
-    <div class='container-articleSim'>
+    {#<div class='container-articleSim'>#}
+    <div class="presentoir-all">
         {% for articleSimilaire in articlesSimilaire %}
-        
+            <div class="card">
+              <img src={{ articleSimilaire.image }} class="card-img-top" alt="..." draggable="false">
+              <div class="card-body">
+                <h5 class="card-title" onclick="{window.location='{{ path("article_show",{id: articleSimilaire.id})}}'}">{{ articleSimilaire.libelle }}</h5>
+                <p class="card-text">{{ articleSimilaire.description }}</p>
+                {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+              </div>
+            </div>
+        {#
             <div class='column col-md-2 col-xs-1 m-3' onClick={window.location="{{ path('article_show', {id: articleSimilaire.id}) }}"}>
                 <div class="libelle-articleSim">{{ articleSimilaire.libelle }}</div>
                 <div class="image-articleSim"><img src="{{ articleSimilaire.image }}"/></div>
                 <div class="description-articleSim">{{ articleSimilaire.description }}</div>
                 <div class="prix-articleSim">{{ articleSimilaire.prixU }}$</div>
             </div>
-        
+        #}
         {% endfor %}
     </div>
 

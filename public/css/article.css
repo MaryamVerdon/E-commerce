@@ -186,27 +186,3 @@ input:checked[type="checkbox"] + label::before{
     background-color: black !Important;
     border: solid 1px black !Important;
 }
-
-
-.image-article img {
-    justify-content: center;
-    margin-left: 25%;
-    width: 50%;
-}
-
-.image-articleSim img {
-
-    width: 90%;
-}
-
-.container-articleSim {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    
-}
-.column{
-    display: flex;
-    flex-direction: column;
-    
-}
