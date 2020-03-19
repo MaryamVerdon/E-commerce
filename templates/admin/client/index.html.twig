@@ -2,10 +2,10 @@
 
 {% block title %}Hello AdminController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/admin/client.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/admin/client.css"/>{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html.twig' %}
+{{ block("panel", "/admin/panel.html.twig") }}
 
 <h3>liste des clients</h3>
 <div>
