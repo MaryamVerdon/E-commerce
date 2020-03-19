@@ -1,18 +1,26 @@
-var navbar = document.querySelector(".navbar-bar");
-var sticky = navbar.offsetTop;
-
 window.addEventListener('load', e => {
     updatePanierSizeIndex();
     addMouseMovePresentoir();
+    addStickyOnScroll();
 });
 
-window.addEventListener("scroll", e => {
-    if(window.pageYOffset >= sticky){
-        navbar.classList.add("sticky");
+function addStickyOnScroll(){
+    let element;
+    if(window.location.href.includes("/admin")){
+        element = document.querySelector(".panel");
     }else{
-        navbar.classList.remove("sticky");
+        element = document.querySelector(".navbar-bar");
     }
-})
+    var sticky = element.offsetTop;
+    window.addEventListener("scroll", e => {
+        if(window.pageYOffset >= sticky){
+            element.classList.add("sticky");
+        }else{
+            element.classList.remove("sticky");
+        }
+    })
+}
+
 
 
 

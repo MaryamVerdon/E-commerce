@@ -4,9 +4,11 @@
 
 {% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/admin/index.css"/>{% endblock %}
 
-{% block body %}
+{% block body_top %}
 {{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
 
+{% block body %}
 <div>
     <div>
         <h4>Derniers clients</h4>
