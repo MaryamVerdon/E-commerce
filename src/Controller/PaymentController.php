@@ -104,6 +104,7 @@ class PaymentController extends AbstractController
                     return $this->render('payment/index.html.twig', [
                         'controller_name' => 'PaymentController',
                         'payment' => $resPayment,
+                        'commande' => $commande,
                     ]);
                 }
                 throw $this->createNotFoundException('Erreur dans la requette');
