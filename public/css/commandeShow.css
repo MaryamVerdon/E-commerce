@@ -42,3 +42,55 @@
     margin-top: 20px;
     width: 15%;
 }
+
+/*------------admin show commande-------------*/
+
+h5 {
+    font-family: var(--merri);
+    font-size: 20px;
+    border-bottom: 1px dotted #e9383f;
+    color: #e9383f;
+    margin-bottom: 40px;
+    margin-top: 80px;
+    padding-left: 15%;
+}
+
+table {
+    text-align: center;
+}
+
+/*-----------Supression bordures table-----------*/
+.table th, .table td, .table tr {
+    border-top: none !important;
+    border-left: none !important;
+}
+.fixed-table-container {
+    border:0px;
+}
+.table th {
+    border-bottom: none !important;
+}
+
+thead {
+    border-bottom: 2px solid black;
+}
+
+tbody, tfoot {
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.bouton {
+   margin-left : 30px;
+    margin-bottom: 30px;
+}
+
+.table {
+    margin-top: 30px;
+    font-family: var(--merri);
+    font-size: 13px ;
+
+}
+
+.t thead, .t tbody{
+    border: none !important;
+}
