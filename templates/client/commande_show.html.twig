@@ -2,27 +2,44 @@
 
 {% block title %}Hello ClientController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="/css/commandeShow.css"/>{% endblock %}
 
 {% block body %}
 
-<div class="commande">
-    <div class="id-commande">N°{{ commande.id }}</div>
-    <div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div>
-    <div class="adresse-commande">{{ commande.adresse.adresse ~ " " ~ commande.adresse.cp ~ " " ~ commande.adresse.ville}}</div>
-    <div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div>
-    {% for ligneDeCommande in commande.getLignesDeCommande %}
-        <div class="ligne-de-commande">
-            <div class="libelle-article-ligne-de-commande">{{ ligneDeCommande.article.libelle }}</div>
-            <div class="taille-article-ligne-de-commande">{{ ligneDeCommande.taille.libelle }}</div>
-            <div class="qte-article-ligne-de-commande">x{{ ligneDeCommande.qte }}</div>
-            <div class="montant--article-ligne-de-commande">{{ ligneDeCommande.getMontant }}$</div>
+    <div class="container">
+        <div class="row">
+                <div class="lignes_commandes row">
+                    {% for ligneDeCommande in commande.getLignesDeCommande %}
+
+                        <div class="id-commande col">N°{{ commande.id }}</div>
+                        <div class="libelle-article-ligne-de-commande col">{{ ligneDeCommande.article.libelle }}</div>
+                        <div class="col">{{ ligneDeCommande.taille.libelle }}</div>
+                        <div class="col">x{{ ligneDeCommande.qte }}</div>
+                        <div class="col">{{ ligneDeCommande.getMontant }}$</div>
+                        <div class="w-100"></div>
+
+                    {% endfor %}
+
+                    <div class="date-commande col ">Le {{ commande.date|date('d/m/Y') }}</div>
+                    <div class="adresse-commande col-6">{{ commande.adresse.adresse ~ " " ~ commande.adresse.cp ~ " " ~ commande.adresse.ville}}</div>
+                    <div class="articles-commande col">{{ commande.getNbArticles }} Article(s)</div>
+
+                    <div class="w-100"></div>
+                    <div class="montant-commande col offset-9">Total: {{ commande.getPrixTotal }}$</div>
+                    <div class="w-100"></div>
+                    <div class="status-commande col offset-9">{{ commande.statutCommande.libelle }}</div>
+
+                </div>
+
+
+            {% if commande.statutCommande.code == 1 or commande.statutCommande.code == 9 %}
+                <button class="btn-payer btn btn-dark">Payer</button>
+            {% endif %}
         </div>
-    {% endfor %}
-    <div class="montant-commande">Total: {{ commande.getPrixTotal }}$</div>
-    <div class="statut-commande">{{ commande.statutCommande.libelle }}</div>
-    {% if commande.statutCommande.code == 1 or commande.statutCommande.code == 9 %}
-        <button>Payer</button>
-    {% endif %}
-</div>
+    </div>
+
+
+
+
+
 {% endblock %}

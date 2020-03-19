@@ -9,12 +9,19 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/jonathan/Documents/prog/projetS4/e-commerce/src/Controller/PaymentController.php'|file_link(0) }}">src/Controller/PaymentController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/jonathan/Documents/prog/projetS4/e-commerce/templates/payment/index.html.twig'|file_link(0) }}">templates/payment/index.html.twig</a></code></li>
-    </ul>
+    <h3>Merci de votre achat</h3>
+    {{ payment.paymentId }}
+    {{ payment.paymentMode }}
+    {{ payment.state }}
+    {{ payment.address.line1 }}
+    {{ payment.address.city }}
+    {{ payment.address.state }}
+    {{ payment.address.postal_code }}
+    {{ payment.address.country_code }}
+    {{ payment.price }}
+    {{ payment.description }}
+    {{ payment.user }}
+
 </div>
 {% endblock %}

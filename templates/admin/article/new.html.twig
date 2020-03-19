@@ -4,8 +4,11 @@
 
 {% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/admin/article.css"/>{% endblock %}
 
-{% block body %}
+{% block body_top %}
 {{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
+
+{% block body %}
 
 {{ form_start(form, {'attr': {'id': 'form_article'}}) }}
 

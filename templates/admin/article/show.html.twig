@@ -4,8 +4,11 @@
 
 {% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
 
-{% block body %}
+{% block body_top %}
 {{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
+
+{% block body %}
 
     <div class="item-article">
         <div class="libelle-article">{{ article.libelle }}</div>

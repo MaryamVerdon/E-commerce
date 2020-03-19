@@ -4,8 +4,11 @@
 
 {% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
 
-{% block body %}
+{% block body_top %}
 {{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
+
+{% block body %}
 <h3>liste des commandes</h3>
 <div>
     <table id="table-commandes" class="tablee table-bordered table-hover">
