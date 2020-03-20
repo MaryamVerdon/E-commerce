@@ -277,5 +277,10 @@ header .site-title {
 h4 {
     font-size: 25px;
     font-family: var(--merri);
-    margin: 0 auto;
+    margin: auto;
+
+}
+
+.table{
+    margin-bottom: 15%;
 }
