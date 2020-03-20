@@ -5,8 +5,7 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/article_show.css"/>{% endblock %}
 
 {% block body %}
-<div class="container">
-  <h3 class="mb-5">Détails</h3>
+<div class="container text-center mt-5">
   <div class="row">
       <div class="col-lg-7">
           <img class="img-fluid" src="{{ article.image }}"/>
@@ -33,8 +32,8 @@
         </div>
       <input type="hidden" value="{{ article.id }}" id="id-article">
       </div>
-      <div class="text-right">
-        <button class="btn btn-outline-dark btn-rounded add-article-panier disabled">
+      <div class="bottom">
+        <button class="mb-1 btn btn-outline-dark btn-rounded add-article-panier disabled">
           <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Ajouter au panier</button>
       </div>
   </div>
