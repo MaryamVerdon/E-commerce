@@ -17,27 +17,31 @@
         <div class="email-client">Email : {{ client.email }}</div>
     </div>
     <div class="adresses-client">
-        <h4>Adresses</h4>
-        <table>
-            <thead>
-                <th>Adresses</th>
-                <th>code postale</th>
-                <th>ville</th>
-                <th>pays</th>
-                <th>tel</th>
-            </thead>
-            <tbody>
-                {% for adresse in client.adresses %}
-                <tr>
-                        <td><div class="adresse">{{ adresse.adresse }}</div></td>
-                        <td><div class="cp">{{ adresse.cp }}</div></td>
-                        <td><div class="ville">{{ adresse.ville }}</div></td>
-                        <td><div class="pays">{{ adresse.pays }}</div></td>
-                        <td><div class="tel">{{ adresse.tel }}</div></td>
+        <h3>Mes Adresses</h3>
+    <table class="table table-striped adresses-client">
+        <thead>
+        <tr class="table-active">
+        <th>adresse</th>
+        <th>code postal</th>
+        <th>ville</th>
+        <th>pays</th>
+        <th>telephone</th>
+        </tr>
+        </thead>
+        <tbody class='adresse'>
+            {% for adresse in client.adresses %}
+                <tr >
+                    <td class="adresse-adresse">{{ adresse.adresse }}</td>
+                    <td class="cp-adresse">{{ adresse.cp }}</td>
+                    <td class="ville-adresse">{{ adresse.ville }}</td>
+                    <td class="pays-adresse">{{ adresse.pays }}</td>
+                    <td class="tel-adresse">{{ adresse.tel }}</td>
                 </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
     </div>
     <div class="commandes-client">
         <h4>Dernieres commandes</h4>

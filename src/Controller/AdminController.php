@@ -75,7 +75,7 @@ class AdminController extends AbstractController
                 "id" => $article->getId(),
                 "libelle" => $article->getLibelle(),
                 "image" => $article->getImage(),
-                "description" => $article->getDescription(),
+                "description" => substr($article->getDescription(),0,80).'...',
                 "prix_u" => $article->getPrixU()
             ];
         }

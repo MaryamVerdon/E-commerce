@@ -25,8 +25,8 @@
                     <td class="ville-adresse">{{ adresse.ville }}</td>
                     <td class="pays-adresse">{{ adresse.pays }}</td>
                     <td class="tel-adresse">{{ adresse.tel }}</td>
-                    <td><a href="{{ path('compte_adresse_remove', {id: adresse.id}) }}">Supprimer</a></td>
-                    <td><a href="{{ path('compte_adresse_edit', {id: adresse.id}) }}">Modifier</a></td>
+                    <td><a href="{{ path('compte_adresse_remove', {id: adresse.id}) }}"><i class="fas fa-trash-alt"></i></a></td>
+                    <td><a href="{{ path('compte_adresse_edit', {id: adresse.id}) }}"><i class="fas fa-edit"></i></a></td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -37,7 +37,7 @@
 
 
     <h3>Mes commandes</h3>
-    <table class="table table-striped commandes-client">
+    <table class="table table-striped commandes-client table-hover">
        <tbody>
             {% for commande in commandes %}
                 <tr class="commande" onClick={window.location="{{ path('compte_commande_show', {id: commande.id}) }}"}>

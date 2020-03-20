@@ -2,6 +2,18 @@ function addOnpanier(){
     let button = document.querySelector(".add-article-panier");
         console.log(button);
     let tailles = document.querySelectorAll("input[name=taille]");
+    tailles.forEach(taille => {
+        taille.addEventListener('click', e => {
+            tailles.forEach(t => { 
+                button.classList.remove('disabled');
+                if(t !== taille){
+                    t.parentElement.classList.remove("active");
+                }
+            });
+        });
+    });
+       
+    
     let id = document.querySelector("#id-article").value;
         button.addEventListener("click", e => {
             tailles.forEach(taille => {

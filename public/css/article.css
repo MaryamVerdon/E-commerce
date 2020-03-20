@@ -71,10 +71,7 @@ label::before{
 
 }
 
-label:hover::before {
-    background-color: black;
 
-}
 
 
 input:checked[type="checkbox"] + label::before{
@@ -183,6 +180,34 @@ input:checked[type="checkbox"] + label::before{
 .pagination > .active > a:hover
 {
     color: white !Important;
-    background-color: black !Important;
+    
     border: solid 1px black !Important;
+}
+
+/* admin article */
+
+h3 {
+    font-size: 25px;
+    font-family: var(--merri);
+    margin: 0 auto;
+}
+
+#tbody-article tr:hover {
+    background: #fffecb;
+}
+
+.article-head , #tfoot-article{
+    color: white;
+    background: black;
+    border:1px solid black !important;
+}
+
+.table, tr, td, th{
+    border: 1px solid black !important;
+    text-align: center;
+}
+
+
+#table-article{
+    margin: auto;
 }
