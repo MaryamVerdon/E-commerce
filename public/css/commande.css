@@ -28,7 +28,7 @@ h3 {
     background: #dfdfdf;
 }
 
-.commande-head , #tfoot-commandes, .clients-head, #tfoot-clients{
+.commande-head , #tfoot-commandes, .clients-head, #tfoot-clients, .cli{
     background: black;
     color: white;
 }
