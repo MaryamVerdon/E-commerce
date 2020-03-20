@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\QuantiteTaille;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -34,7 +35,16 @@ class ArticleRepository extends ServiceEntityRepository
             throw new InvalidArgumentException('La valeur de l\'argument $nbMaxParPage est incorrecte (valeur : ' . $nbMaxParPage . ').');
         }
         
-        $qb = $this->createQueryBuilder('a');
+        $em = $this->getEntityManager();
+        $req = $em->getRepository(QuantiteTaille::class)
+            ->createQueryBuilder('qt')
+            ->select('SUM(qt.qte)')
+            ->where('qt.article = a')
+            ->groupBy('qt.article');
+        $qb = $this->createQueryBuilder('aq');
+        $qb = $this->createQueryBuilder('a')
+            ->select('a')
+            ->andWhere($qb->expr()->gt("(".$req.")",'0'));
  
         if(isset($parameters['libelle'])){
             $qb->andWhere('UPPER(a.libelle) LIKE :str')
