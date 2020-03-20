@@ -20,3 +20,16 @@
     flex-direction: column;
     
 }
+
+@media (max-width: 960px) {
+    section .taille {
+        text-align: center;
+    }
+    div .btn-group {
+        width: 100%
+    }
+    button .btn.btn-outline-dark.btn-rounded.add-article-panier {
+        text-align: center;
+        width: 100%
+    }
+}

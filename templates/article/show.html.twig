@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArticleController!{% endblock %}
+{% block title %}{{ article.libelle }}{% endblock %}
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/article_show.css"/>{% endblock %}
 
@@ -31,7 +31,7 @@
       <section class="taille">
           <div class="mt-5">
             <p class="text-muted">Choissisez la taille</p>
-            <div class="row text-center text-md-left">
+            <div class="row text-md-left text-center">
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         {% for q in article.getQuantiteTailles %}
                             <label class="btn btn-outline-dark {{q.qte > 0 ? "" : "disabled"}}">
@@ -45,13 +45,14 @@
           </div>
         </section>
         <div class="row mt-3">
-              <div class="col-md-12 text-center text-md-left text-md-right">
+              <div class="col-md-12 text-center">
                 <button class="btn btn-outline-dark btn-rounded add-article-panier">
                   <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Ajouter au panier</button>
               </div>
         </div>
     </div>
 </section>
+<br>
 
     {#<div class="item-article">
         <div class="libelle-article">{{ article.libelle }}</div>
