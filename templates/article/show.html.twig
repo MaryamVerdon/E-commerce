@@ -34,7 +34,7 @@
       <section class="taille">
 
             <p class="text-muted">Choissisez la taille</p>
-            <div class="row text-md-left text-center d-flex flex-wrap ">
+            <div class="row d-flex flex-wrap div-tailles">
                         <div id="btns_tailles" class="btn-group btn-group-toggle btns-taille" data-toggle="buttons">
                         {% for q in article.getQuantiteTailles %}
                             <label id="btn_taille" class="p-2 btn btn-outline-dark {{q.qte > 0 ? "" : "disabled"}}">

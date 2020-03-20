@@ -211,3 +211,9 @@ h3 {
 #table-article{
     margin: auto;
 }
+
+.container-articles {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
