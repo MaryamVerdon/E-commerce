@@ -2,7 +2,7 @@
 
 {% block title %}Hello AdminController!{% endblock %}
 
-{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/admin/client.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
 
 {% block body_top %}
 {{ block("panel", "/admin/panel.html.twig") }}
@@ -10,11 +10,11 @@
 
 {% block body %}
 
-<h3>liste des clients</h3>
+<h3 class="col-3 text-center border border-dark mb-4 mt-4 p-1">Liste des clients</h3>
 <div>
-    <table id="table-clients" class="tablee table-bordered table-hover">
-        <thead>
-            <tr class="table-active">
+    <table id="table-clients" class="container table table-hover">
+        <thead class="clients-head">
+            <tr>
                 <th class="th-tri">N°<i class="fas fa-sort"></i><input type="hidden" value="id.ASC"></th>
                 <th class="th-tri">Nom<i class="fas fa-sort"></i><input type="hidden" value="nom.ASC"></th>
                 <th class="th-tri">Prenom<i class="fas fa-sort"></i><input type="hidden" value="prenom.ASC"></th>
@@ -24,11 +24,11 @@
         <tbody id="tbody-clients">
         </tbody>
         <tfoot id="tfoot-clients">
-            <tr class="table-active">
+            <tr>
                 <td colspan="4" class="text-center">
-                    <button id="precedent">Précédent</button>
+                    <button class="btn btn-light" id="precedent">Précédent</button>
                     <span id="page"></span>
-                    <button id="suivant">Suivant</button>
+                    <button class="btn btn-light" id="suivant">Suivant</button>
                 </td>
             </tr>
         </tfoot>
