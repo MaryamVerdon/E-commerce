@@ -5,10 +5,42 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/article_show.css"/>{% endblock %}
 
 {% block body %}
-<div class="container my-4">
-    <section class="text-center">
-
+<div class="container">
+  <h3 class="mb-5">Détails</h3>
+  <div class="row">
+      <div class="col-lg-7">
+          <img class="img-fluid" src="{{ article.image }}"/>
+      </div>
+    <div class="col-lg-5">
+      <h2 class="h2-responsive mb-1">{{ article.libelle }}</h2>
+      <h3 class="h3-responsive text-right mb-3 mr-3"><strong>{{ article.prixU }} €</strong></h3>
+      <div id="description mb-5">
+        <h3 class="h3-responsive mb-2">Description</h3>
+        <p class="text-muted font-weight-light ml-2">{{ article.description }}</p>
+      </div>
+      <p>Choissisez la taille</p>
+      <div class="d-flex align-items-center flex-column div-tailles mb-5">
+        <div id="btns_tailles" class="col-lg-6 col-sm-6 col-6 btn-group btn-group-toggle btns-taille mb-1" data-toggle="buttons">
+          {% for q in article.getQuantiteTailles %}
+              <label id="btn_taille" class="col-lg-4 col-sm-4 col-4 p-2 btn btn-outline-dark {{q.qte > 0 ? "" : "disabled"}}">
+                  <input type="radio" value="{{ q.taille.id }}" name="taille"><strong>{{ q.taille.libelle }}</strong>
+              </label>
+              {% if (loop.index)%3 == 0 %}
+                </div>
+                <div id="btns_taille" class="col-lg-6 col-sm-6 col-6 btn-group btn-group-toggle btns-taille mb-1" data-toggle="buttons">
+              {% endif %}
+          {% endfor %}
+        </div>
+      <input type="hidden" value="{{ article.id }}" id="id-article">
+      </div>
+      <div class="text-right">
+        <button class="btn btn-outline-dark btn-rounded add-article-panier disabled">
+          <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Ajouter au panier</button>
+      </div>
+  </div>
+</div>
     <!-- Section heading -->
+    {#
     <h3 class="mb-5">Détails</h3>
 
     <div class="row">
@@ -60,6 +92,7 @@
     </div>
 </section>
 </div>
+#}
 <br>
 
     {#<div class="item-article">
