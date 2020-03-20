@@ -16,11 +16,20 @@
     {{ form_row(form.mode_paiement, {'attr': {'class': 'form-group form-control'}}) }}
     {{ form_row(form.statut_commande, {'attr': {'class': 'form-group form-control'}}) }}
 
+{% set data_prototype_ligne_de_commande %}
+    {{ form_row(form.lignes_de_commande.vars.prototype.article, {'attr': {'class': 'form-group form-control'}}) }}
+    {{ form_row(form.lignes_de_commande.vars.prototype.taille, {'attr': {'class': 'form-group form-control'}}) }}
+    {{ form_row(form.lignes_de_commande.vars.prototype.qte, {'attr': {'class': 'form-group form-control'}}) }}
+{% endset %}
 
     <h3 class="pb-2">Lignes</h3>
-    <ul class="lignes-de-commande" data-prototype="{{ form_widget(form.lignes_de_commande.vars.prototype)|e('html_attr') }}">
+    <ul class="lignes-de-commande" data-prototype="{{ data_prototype_ligne_de_commande|e('html_attr') }}">
         {% for ligne_de_commande in form.lignes_de_commande %}
-            <li>{{ form_row(ligne_de_commande.article, {'attr': {'class': 'form-group form-control'}}) }} {{ form_row(ligne_de_commande.taille, {'attr': {'class': 'form-group form-control'}}) }} {{ form_row(ligne_de_commande.qte, {'attr': {'class': 'form-group form-control'}}) }}</li>
+            <li>
+                {{ form_row(ligne_de_commande.article, {'attr': {'class': 'form-group form-control'}}) }}
+                {{ form_row(ligne_de_commande.taille, {'attr': {'class': 'form-group form-control'}}) }}
+                {{ form_row(ligne_de_commande.qte, {'attr': {'class': 'form-group form-control'}}) }}
+            </li>
         {% endfor %}
     </ul>
 

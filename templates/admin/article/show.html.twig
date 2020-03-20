@@ -2,18 +2,34 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/article_show.css"/>{% endblock %}
 
 {% block body_top %}
 {{ block("panel", "/admin/panel.html.twig") }}
 {% endblock %}
 
 {% block body %}
-
-    <div class="item-article">
-        <div class="libelle-article">{{ article.libelle }}</div>
-        <div class="image-article"><img src="{{ article.image }}"/></div>
-        <div class="description-article">{{ article.description }}</div>
-        <div class="prix-article">{{ article.prixU }}$</div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-7">
+      <img class="img-fluid" src="{{ article.image }}"/>
     </div>
+  <div class="col-lg-5">
+    <h2 class="h2-responsive mb-1">{{ article.libelle }}</h2>
+    <h3 class="h3-responsive text-right mb-3 mr-3"><strong>{{ article.prixU }} €</strong></h3>
+    <div id="description mb-5">
+      <h3 class="h3-responsive mb-2">Description</h3>
+      <p class="text-muted font-weight-light ml-2">{{ article.description }}</p>
+    </div>
+  <div class="bottom">
+    <button class="mb-1 btn btn-outline-dark btn-rounded add-article-panier disabled" onclick="{window.location='{{ path("admin_article_remove",{id: article.id}) }}'}">
+      <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Supprimer
+    </button>
+    <button class="mb-1 btn btn-outline-dark btn-rounded add-article-panier disabled" onclick="{window.location='{{ path("admin_article_edit",{id: article.id}) }}'}">
+      <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Modifier
+    </button>
+  </div>
+</div>
+</div>
+</div>
 {% endblock %}
