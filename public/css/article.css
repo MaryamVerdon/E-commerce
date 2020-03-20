@@ -47,6 +47,7 @@
 }
 
 /*-------design checkbox----------*/
+
 input[type="checkbox"]{
     display: none;
     transition: 10s;
@@ -66,17 +67,29 @@ label::before{
     position: absolute;
     margin-left: -10px;
     margin-top: 5px;
-
-
-
+    background-color: white;
 }
 
-
-
-
-input:checked[type="checkbox"] + label::before{
-
+label:hover::before {
+    background-color: black;
 }
+
+input:checked + label:hover::before {
+    background-color: white;
+}
+
+input:checked + label::before{
+    content: "";
+    border-radius: 100%;
+    border: .02em solid black;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    margin-left: -10px;
+    margin-top: 5px;
+    background-color: black;
+}
+
 /*-------------------------------------------------*/
 
 .container-articles {

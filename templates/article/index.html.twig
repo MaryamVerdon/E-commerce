@@ -24,8 +24,8 @@
                 <div class="collapse" id="collapse-section">
                     <div class="style">
                         {% for section in sections %}
+                            <input class="round input-section" type="checkbox" name="sections" value="{{ section.libelle }}" id="{{ "section-" ~ section.libelle }}">
                             <label for="{{ "section-" ~ section.libelle }}">
-                                <input class="round input-section" type="checkbox" name="sections" value="{{ section.libelle }}" id="{{ "section-" ~ section.libelle }}">
                                 {{ section.libelle }}
                             </label>
                         {% endfor %}
@@ -46,9 +46,9 @@
                 <div class="collapse" id="collapse-categories">
                     <div class="style">
                         {% for categorie in categories %}
-                            <label for="{{ "categorie-" ~ categorie.libelle }}">
                                 <input class="input-categorie" type="checkbox" name="categorie" value="{{ categorie.libelle }}" id="{{ "categorie-" ~ categorie.libelle }}">
                     {# <input type="hidden" value="{{categorie.id}}"> #}
+                            <label for="{{ "categorie-" ~ categorie.libelle }}">
                                 {{ categorie.libelle }}
                             </label>
                         {% endfor %}
@@ -70,9 +70,9 @@
                     <div class="style">
                     {% for categorie in categories %}
                         {% for typeArticle in categorie.typesArticles %}
-                            <label for="{{ "type-" ~ typeArticle.libelle }}">
                                 <input class="input-type" type="checkbox" name="type-article" value="{{ typeArticle.libelle }}" id="{{ "type-" ~ typeArticle.libelle }}">
                                 {# <input type="hidden" value="{{categorie.id}}"> #}
+                            <label for="{{ "type-" ~ typeArticle.libelle }}">
                                 {{ typeArticle.libelle }}
                             </label>
                         {% endfor %}
@@ -94,8 +94,8 @@
                 <div class="collapse" id="collapse-tailles">
                     <div class="style">
                         {% for taille in tailles %}
-                            <label for="{{ "taille-" ~ taille.libelle }}">
                                 <input class="input-taille" type="checkbox" name="tailles" value="{{ taille.libelle }}" id="{{ "taille-" ~ taille.libelle }}">
+                            <label for="{{ "taille-" ~ taille.libelle }}">
                                 {{ taille.libelle }}
                             </label>
                         {% endfor %}
