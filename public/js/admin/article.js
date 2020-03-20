@@ -90,6 +90,7 @@ function createTrArticle(article){
     let td2 = document.createElement("td");
     let td3 = document.createElement("td");
     let td4 = document.createElement("td");
+    td4.id = 'description';
     let td5 = document.createElement("td");
     let td6 = document.createElement("td");
     
