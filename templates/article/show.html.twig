@@ -31,12 +31,16 @@
       <section class="taille">
           <div class="mt-5">
             <p class="text-muted">Choissisez la taille</p>
-            <div class="row text-md-left text-center">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <div class="row text-md-left text-center d-flex flex-wrap ">
+                        <div class="btn-group btn-group-toggle btns-taille" data-toggle="buttons">
                         {% for q in article.getQuantiteTailles %}
-                            <label class="btn btn-outline-dark {{q.qte > 0 ? "" : "disabled"}}">
+                            <label class="p-2 btn btn-outline-dark {{q.qte > 0 ? "" : "disabled"}}">
                                 <input type="radio" value="{{ q.taille.id }}" name="taille"><strong>{{ q.taille.libelle }}</strong>
                             </label>
+                            {% if (loop.index)%3 == 0 %}
+                              </div>
+                              <div class="btn-group btn-group-toggle btns-taille" data-toggle="buttons">
+                            {% endif %}
                         {% endfor %}
                         </div>
                         <input type="hidden" value="{{ article.id }}" id="id-article">

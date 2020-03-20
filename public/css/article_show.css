@@ -25,11 +25,16 @@
     section .taille {
         text-align: center;
     }
-    div .btn-group {
-        width: 100%
-    }
-    button .btn.btn-outline-dark.btn-rounded.add-article-panier {
-        text-align: center;
-        width: 100%
-    }
+}
+
+.btns-taille{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.btns-taille label{
+    flex: none !important;
+    width: 15%;
 }
