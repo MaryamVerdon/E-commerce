@@ -82,6 +82,7 @@ function addOnChangeToFilters(){
     let categories = document.querySelectorAll(".input-categorie");
     let types = document.querySelectorAll(".input-type");
     let tailles = document.querySelectorAll(".input-taille");
+    let prix = document.querySelector("#filtre-prix-btn");
     sections.forEach(section => {
         section.addEventListener("change", e => {
             window.location = "/article" + getFiltersToUrl();
@@ -101,6 +102,9 @@ function addOnChangeToFilters(){
         taille.addEventListener("change", e => {
             window.location = "/article" + getFiltersToUrl();
         });
+    });
+    prix.addEventListener("click", e => {
+        window.location = "/article" + getFiltersToUrl();
     });
 }
 
@@ -169,7 +173,7 @@ function getFiltersToUrl(){
         }
     }else{
         if(prixMax.value && prixMax.value != ""){
-            prix =  "999_" + prixMax.value;
+            prix =  "0_" + prixMax.value;
         }else{
             prix = null;
         }
@@ -187,26 +191,40 @@ function setFiltersByParameters(parameters){
     let categories = document.querySelector(".filtre-categories");
     let types = document.querySelector(".filtre-types");
     let tailles = document.querySelector(".filtre-tailles");
+    let prix = document.querySelector(".filtre-prix");
+    let prixMin = document.querySelector("#input-prix-min");
+    let prixMax = document.querySelector("#input-prix-max");
     
     if(parameters['sections']){
         parameters['sections'].forEach(s => {
             sections.querySelector("#section-" + s).checked = true;
-        })
+        });
+        sections.children[0].click();
     }
     if(parameters['categories']){
         parameters['categories'].forEach(s => {
             categories.querySelector("#categorie-" + s).checked = true;
         })
+        categories.children[0].click();
     }
     if(parameters['types']){
         parameters['types'].forEach(s => {
             types.querySelector("#type-" + s).checked = true;
         })
+        types.children[0].click();
     }
     if(parameters['tailles']){
         parameters['tailles'].forEach(s => {
             tailles.querySelector("#taille-" + s).checked = true;
         })
+        tailles.children[0].click();
+    }
+
+    if(parameters['prix_entre']){
+        let tabPrix = parameters['prix_entre'].split("_");
+        prixMin.value = tabPrix[0];
+        prixMax.value = tabPrix[1];
+        prix.children[0].click();
     }
 }
 
