@@ -1,23 +1,25 @@
 function addOnpanier(){
-    let button = document.querySelector(".add-article-panier2");
+    let button = document.querySelector(".add-article-panier");
         console.log(button);
-        let id = document.querySelector("#id-article").value;
-        console.log(id);
-        let selectTaille = document.querySelector("#taille-article");
-        console.log(selectTaille);
+    let tailles = document.querySelectorAll("input[name=taille]");
+    let id = document.querySelector("#id-article").value;
         button.addEventListener("click", e => {
-            idTaille = selectTaille.options[selectTaille.selectedIndex].value;
-            fetch("/panier/add/" + id + "?taille=" + idTaille)
-                .then(response => {
-                    if(response.status === 282){
-                        alert("Pas assez de quantité pour l'article");
-                        return;
-                    }
-                    return response.json()
-                })
-                .then(data => {
-                    if(data)updatePanierSize(data['size'])
-                });
+            tailles.forEach(taille => {
+                //console.log(taille.value);
+                if(taille.checked == true){
+                    fetch("/panier/add/" + id + "?taille=" + taille.value)
+                    .then(response => {
+                        if(response.status === 282){
+                            alert("Pas assez de quantité pour l'article");
+                            return;
+                        }
+                        return response.json()
+                    })
+                    .then(data => {
+                        if(data)updatePanierSize(data['size'])
+                    });
+                }
+            });
         });
 }
 

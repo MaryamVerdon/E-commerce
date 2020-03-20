@@ -20,3 +20,21 @@
     flex-direction: column;
     
 }
+
+@media (max-width: 960px) {
+    section .taille {
+        text-align: center;
+    }
+}
+
+.btns-taille{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.btns-taille label{
+    flex: none !important;
+    width: 15%;
+}

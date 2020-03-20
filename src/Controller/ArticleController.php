@@ -32,6 +32,7 @@ class ArticleController extends AbstractController
             $nbMaxParPage = $parameters['nb_max_par_page'];
         }
 
+
         $articles = $this->getDoctrine()
             ->getRepository(Article::class)
             ->findByParametersPagine($page, $nbMaxParPage, $parameters);
