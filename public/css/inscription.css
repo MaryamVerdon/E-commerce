@@ -20,7 +20,7 @@
     font-size: 15px;
 }
 
-#client_registration_enregistrer, #edit_client_enregistrer, #edit_pwd_client_enregistrer, #adresse_Ajouter {
+#client_registration_enregistrer, #edit_client_enregistrer, #edit_pwd_client_enregistrer, #adresse_Ajouter, #commande_save {
     border-radius: 7px;
     border: 1px solid black;
     display: block;
@@ -71,4 +71,53 @@ tbody {
 
 tbody td {
     padding: 15px 0;
+}
+
+/*--------css edit commande admin------------*/
+.pb-2 {
+    font-family: var(--merri);
+    font-size: 20px;
+    border-bottom: 2px dotted black !important;
+    padding-left: 0 !important;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: black;
+}
+
+.content div, .content select {
+    font-family: var(--merri);
+    font-size: 13px;
+}
+
+.content button {
+    border-radius: 7px;
+    border: 1px solid #ff686b;
+    background: #ff686b;
+    width: 30%;
+    height: 35px;
+    color: white;
+    margin: 10px auto;
+    font-family: var(--merri);
+    font-size: 13px;
+}
+
+.add_ligne_link {
+    background: black !important;
+    border: 1px solid black !important;
+    height: 40px !important;
+
+}
+
+li:not(:last-child) {
+    list-style: none;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+li{
+    list-style: none;
+}
+
+select {
+   border: none;
 }
