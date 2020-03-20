@@ -186,14 +186,20 @@ input:checked[type="checkbox"] + label::before{
 
 /* admin article */
 
+.table tbody td{
+    font-family: var(--merri);
+    font-size: 12px;
+    border-bottom: 1px solid #dfdfdf;
+}
+
 h3 {
     font-size: 25px;
     font-family: var(--merri);
     margin: 0 auto;
 }
 
-#tbody-article tr:hover {
-    background: #fffecb;
+ tr:hover {
+    background: #dfdfdf;
 }
 
 .article-head , #tfoot-article{

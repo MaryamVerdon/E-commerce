@@ -23,7 +23,7 @@ h2 {
 /*--------------info user --------------*/
 
 h3, h4{
-    color: #246686;
+    color: black;
     font-family: var(--merri);
     font-size: 20px;
     margin-top: 20px;
@@ -79,3 +79,5 @@ tfoot {
 .adresses-client .table thead tr, .adresses-client .table thead th {
     border-top: none !important;
 }
+
+

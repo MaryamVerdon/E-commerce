@@ -12,9 +12,9 @@
 
 <div class="show-commande">
     <div class="container">
-        <table class="t table">
-            <thead>
-            <tr>
+        <table class="t table table-hover">
+            <thead class='head'>
+            <tr class="table-active tr-commande">
                 <th class="id-commande">Commande N°{{ commande.id }}</th>
             </tr>
             </thead>
@@ -33,9 +33,9 @@
 
     <h5>Détails de la commande</h5>
     <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
+        <table class="container table table-hover">
+            <thead class='head'>
+                <tr class='table-active'>
                     <th>Article</th>
                     <th>Taille</th>
                     <th>Prix Unitaire</th>
@@ -55,23 +55,23 @@
                 {% endfor %}
             </tbody>
             <tfoot>
-                <tr>
+                <tr class="table-active">
                     <td colspan="4" class="text-right">Sous-total :</td>
                     <td class="text-right">{{ commande.getPrixTotal }}$</td>
                 </tr>
-                <tr>
+                <tr class="table-active">
                     <td colspan="4" class="text-right">Frais de port :</td>
                     <td class="text-right">{{ commande.getFraisDePort }}$</td>
                 </tr>
-                <tr>
+                <tr class="table-active">
                     <td colspan="4" class="text-right">Total :</td>
                     <td class="text-right">{{ commande.getPrixTotalWithShipping }}$</td>
                 </tr>
             </tfoot>
         </table>
 
-        <button class="bouton btn btn-outline-danger" onclick="{window.location='{{ path("admin_commande_edit", {id: commande.id}) }}'}">Modifier</button>
-        <button class="bouton btn btn-outline-danger" onclick="{window.location='{{ path("admin_client_show", {id: commande.getClient.id}) }}'}">Voir le client</button>
+        <button class="btn btn-outline-dark " onclick="{window.location='{{ path("admin_commande_edit", {id: commande.id}) }}'}">Modifier</button>
+        <button class="btn btn-outline-dark " onclick="{window.location='{{ path("admin_client_show", {id: commande.getClient.id}) }}'}">Voir le client</button>
     </div>
 </div>
 {% endblock %}
