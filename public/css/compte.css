@@ -22,7 +22,7 @@ h2 {
 
 /*--------------info user --------------*/
 
-h3{
+h3, h4{
     color: #246686;
     font-family: var(--merri);
     font-size: 20px;
@@ -69,3 +69,13 @@ tfoot {
     margin-bottom: 40px;
 }
 
+/*----------admin client----------*/
+
+.item-client {
+    font-family: var(--merri);
+    font-size: 13px;
+}
+
+.adresses-client .table thead tr, .adresses-client .table thead th {
+    border-top: none !important;
+}

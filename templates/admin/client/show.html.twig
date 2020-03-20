@@ -2,14 +2,14 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/client.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/compte.css"/>{% endblock %}
 
 {% block body_top %}
 {{ block("panel", "/admin/panel.html.twig") }}
 {% endblock %}
 
 {% block body %}
-
+<div class="container">
     <div class="item-client">
         <h4>Infos</h4>
         <div class="nom-client">Nom : {{ client.nom }}</div>
@@ -72,6 +72,7 @@
                 </tr>
             </tfoot>
         </table>
-    </div>  
+    </div>
+</div>
 
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/inscription.css"/>{% endblock %}
 
 {% block body_top %}
 {{ block("panel", "/admin/panel.html.twig") }}
@@ -10,21 +10,21 @@
 
 {% block body %}
 
-{{ form_start(form) }}
-    {{ form_row(form.date) }}
-    {{ form_row(form.adresse) }}
-    {{ form_row(form.mode_paiement) }}
-    {{ form_row(form.statut_commande) }}
+    {{ form_start(form , {'attr': {'class': 'form-container col-md-6 col-sm-12 col-6'}}) }}
+    {{ form_row(form.date, {'attr': {'class': 'form-control'}}) }}
+    {{ form_row(form.adresse, {'attr': {'class': 'form-group form-control'}}) }}
+    {{ form_row(form.mode_paiement, {'attr': {'class': 'form-group form-control'}}) }}
+    {{ form_row(form.statut_commande, {'attr': {'class': 'form-group form-control'}}) }}
 
 
-    <h3>Lignes</h3>
+    <h3 class="pb-2">Lignes</h3>
     <ul class="lignes-de-commande" data-prototype="{{ form_widget(form.lignes_de_commande.vars.prototype)|e('html_attr') }}">
         {% for ligne_de_commande in form.lignes_de_commande %}
-            <li>{{ form_row(ligne_de_commande.article) }} {{ form_row(ligne_de_commande.taille) }} {{ form_row(ligne_de_commande.qte) }}</li>
+            <li>{{ form_row(ligne_de_commande.article, {'attr': {'class': 'form-group form-control'}}) }} {{ form_row(ligne_de_commande.taille, {'attr': {'class': 'form-group form-control'}}) }} {{ form_row(ligne_de_commande.qte, {'attr': {'class': 'form-group form-control'}}) }}</li>
         {% endfor %}
     </ul>
 
-    {{ form_row(form.frais_de_port) }}
+    {{ form_row(form.frais_de_port, {'attr': {'class': 'form-group form-control'}}) }}
 {{ form_end(form) }}
 
 {% endblock %}

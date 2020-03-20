@@ -4,6 +4,7 @@
     font-weight: normal;
     font-family: var(--merri);
     font-size: 15px;
+    color: white;
 }
 .table tbody td{
     font-family: var(--merri);
@@ -24,15 +25,16 @@ h3 {
 /*--------admin liste commandes---------*/
 
 #tbody-commandes tr:hover {
-    background: #fffecb;
+    background: #dfdfdf;
 }
 
-.commande-head , #tfoot-commandes{
-    background: #ffff6b;
+.commande-head , #tfoot-commandes, .clients-head, #tfoot-clients, .cli{
+    background: black;
+    color: white;
 }
 
 .container .table, .container tr, .container td, .container th{
-    border: 1px solid #ffff6b !important;
+    border: 1px solid black !important;
     text-align: center;
 }
 
