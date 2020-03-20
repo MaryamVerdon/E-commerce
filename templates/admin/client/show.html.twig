@@ -18,8 +18,8 @@
     </div>
     <div class="adresses-client">
         <h3>Mes Adresses</h3>
-    <table class="table table-striped adresses-client">
-        <thead>
+    <table class="table adresses-client table-hover">
+        <thead class='head'>
         <tr class="table-active">
         <th>adresse</th>
         <th>code postal</th>
@@ -30,7 +30,7 @@
         </thead>
         <tbody class='adresse'>
             {% for adresse in client.adresses %}
-                <tr >
+                <tr>
                     <td class="adresse-adresse">{{ adresse.adresse }}</td>
                     <td class="cp-adresse">{{ adresse.cp }}</td>
                     <td class="ville-adresse">{{ adresse.ville }}</td>
@@ -46,7 +46,7 @@
     <div class="commandes-client">
         <h4>Dernieres commandes</h4>
         <table class="table table-sm table-hover">
-            <thead>
+            <thead class='head'>
                 <tr class="table-active">
                     <th>N°</th>
                     <th>Date</th>
