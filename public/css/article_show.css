@@ -21,13 +21,23 @@
     
 }
 
-@media (max-width: 960px) {
+@media (max-width: 992px) {
     section .taille {
         text-align: center;
     }
 
-    #btns_tailles {
-        justify-content: center;
+    .div-tailles {
+        margin: auto;
+    }
+
+
+    .text-md-left {
+        text-align: center !important;
+    }
+
+    .taille{
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -41,7 +51,7 @@
 .btns-taille label{
     float:left;
     flex: none !important;
-    width: 20%;
+    box-sizing: unset;
 }
 
 .btns-taille:after{

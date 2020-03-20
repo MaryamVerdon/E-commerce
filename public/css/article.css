@@ -217,10 +217,9 @@ h3 {
 #table-article{
     margin: auto;
 }
-/*
-#description{
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}*/
+
+.container-articles {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
