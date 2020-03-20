@@ -2,11 +2,14 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/client.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/compte.css"/>{% endblock %}
+
+{% block body_top %}
+{{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html.twig' %}
-
+<div class="container">
     <div class="item-client">
         <h4>Infos</h4>
         <div class="nom-client">Nom : {{ client.nom }}</div>
@@ -14,32 +17,36 @@
         <div class="email-client">Email : {{ client.email }}</div>
     </div>
     <div class="adresses-client">
-        <h4>Adresses</h4>
-        <table>
-            <thead>
-                <th>Adresses</th>
-                <th>code postale</th>
-                <th>ville</th>
-                <th>pays</th>
-                <th>tel</th>
-            </thead>
-            <tbody>
-                {% for adresse in client.adresses %}
+        <h3>Mes Adresses</h3>
+    <table class="table adresses-client table-hover">
+        <thead class='head'>
+        <tr class="table-active">
+        <th>adresse</th>
+        <th>code postal</th>
+        <th>ville</th>
+        <th>pays</th>
+        <th>telephone</th>
+        </tr>
+        </thead>
+        <tbody class='adresse'>
+            {% for adresse in client.adresses %}
                 <tr>
-                        <td><div class="adresse">{{ adresse.adresse }}</div></td>
-                        <td><div class="cp">{{ adresse.cp }}</div></td>
-                        <td><div class="ville">{{ adresse.ville }}</div></td>
-                        <td><div class="pays">{{ adresse.pays }}</div></td>
-                        <td><div class="tel">{{ adresse.tel }}</div></td>
+                    <td class="adresse-adresse">{{ adresse.adresse }}</td>
+                    <td class="cp-adresse">{{ adresse.cp }}</td>
+                    <td class="ville-adresse">{{ adresse.ville }}</td>
+                    <td class="pays-adresse">{{ adresse.pays }}</td>
+                    <td class="tel-adresse">{{ adresse.tel }}</td>
                 </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
     </div>
     <div class="commandes-client">
         <h4>Dernieres commandes</h4>
         <table class="table table-sm table-hover">
-            <thead>
+            <thead class='head'>
                 <tr class="table-active">
                     <th>N°</th>
                     <th>Date</th>
@@ -65,6 +72,7 @@
                 </tr>
             </tfoot>
         </table>
-    </div>  
+    </div>
+</div>
 
 {% endblock %}

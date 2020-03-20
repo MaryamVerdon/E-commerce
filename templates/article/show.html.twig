@@ -1,15 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArticleController!{% endblock %}
+{% block title %}{{ article.libelle }}{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="/css/article_show.css"/>{% endblock %}
 
 {% block body %}
-
-    <div class="item-article">
-        <div class="libelle-article">{{ article.libelle }}</div>
-        <div class="image-article"><img src="{{ article.image }}"/></div>
-        <div class="description-article">{{ article.description }}</div>
-        <div class="prix-article">{{ article.prixU }}$</div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-7">
+      <img class="img-fluid" src="{{ article.image }}"/>
     </div>
+  <div class="col-lg-5">
+    <h2 class="h2-responsive mb-1">{{ article.libelle }}</h2>
+    <h3 class="h3-responsive text-right mb-3 mr-3"><strong>{{ article.prixU }} €</strong></h3>
+    <div id="description mb-5">
+      <h3 class="h3-responsive mb-2">Description</h3>
+      <p class="text-muted font-weight-light ml-2">{{ article.description }}</p>
+    </div>
+    <p>Choissisez la taille</p>
+    <div class="d-flex align-items-center flex-column div-tailles mb-5">
+      <div id="btns_tailles" class="col-lg-6 col-sm-6 col-6 btn-group btn-group-toggle btns-taille mb-1" data-toggle="buttons">
+        {% for q in article.getQuantiteTailles %}
+          <label id="btn_taille" class="col-lg-4 col-sm-4 col-4 p-2 btn btn-outline-dark {{q.qte > 0 ? "" : "disabled"}}">
+            <input type="radio" value="{{ q.taille.id }}" name="taille"><strong>{{ q.taille.libelle }}</strong>
+          </label>
+          {% if (loop.index)%3 == 0 %}
+            </div>
+            <div id="btns_taille" class="col-lg-6 col-sm-6 col-6 btn-group btn-group-toggle btns-taille mb-1" data-toggle="buttons">
+          {% endif %}
+        {% endfor %}
+      </div>
+    <input type="hidden" value="{{ article.id }}" id="id-article">
+    </div>
+  <div class="bottom">
+    <button class="mb-1 btn btn-outline-dark btn-rounded add-article-panier disabled">
+      <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Ajouter au panier
+    </button>
+  </div>
+</div>
+</div>
+</div>
+<h3 class="mt-5 ml-5 text-left">Articles similaires</h3>
+<div class="presentoir-all">
+    {% for articleSimilaire in articlesSimilaire %}
+      <div class="card">
+        <img src={{ articleSimilaire.image }} class="card-img-top" alt="..." draggable="false">
+        <div class="card-body">
+          <h5 class="card-title" onclick="{window.location='{{ path("article_show",{id: articleSimilaire.id})}}'}">{{ articleSimilaire.libelle }}</h5>
+          <p class="card-text">{{ articleSimilaire.description }}</p>
+        </div>
+      </div>
+  {% endfor %}
+</div>
+
+
 {% endblock %}
+{% block javascripts %}<script src="/js/article_show.js"></script>{% endblock %}
+

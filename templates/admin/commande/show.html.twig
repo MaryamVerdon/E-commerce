@@ -2,57 +2,76 @@
 
 {% block title %}Hello ClientController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/commandeShow.css"/>{% endblock %}
+
+{% block body_top %}
+{{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html.twig' %}
 
 <div class="show-commande">
-    <div class="id-commande">Commande N°{{ commande.id }}</div>
-    <div class="date-commande">Le {{ commande.date|date('d/m/Y') }}</div>
-    <div class="adresse-commande">Adresse de livraison : {{ commande.adresse.adresse ~ " " ~ commande.adresse.cp ~ " " ~ commande.adresse.ville}}</div>
-    <div class="articles-commande">{{ commande.getNbArticles }} Article(s)</div>
-    <div class="mode-paiement-commande">Paiement : {{ commande.getModePaiement.libelle }}</div>
-    <div class="statut-commande">Statut : {{ commande.statutCommande.libelle }}</div>
-    <h5>Détails de la commande</h5>
-    <table>
-        <thead>
-            <tr>
-                <th>Article</th>
-                <th>Taille</th>
-                <th>Prix Unitaire</th>
-                <th>Quantité</th>
-                <th>Montant</th>
+    <div class="container">
+        <table class="t table table-hover">
+            <thead class='head'>
+            <tr class="table-active tr-commande">
+                <th class="id-commande">Commande N°{{ commande.id }}</th>
             </tr>
-        </thead>
-        <tbody>
-            {% for ligneDeCommande in commande.getLignesDeCommande %}
-                <tr class="ligne-de-commande">
-                    <td class="libelle-article-ligne-de-commande">{{ ligneDeCommande.article.libelle }}</td>
-                    <td class="taille-article-ligne-de-commande">{{ ligneDeCommande.taille.libelle }}</td>
-                    <td class="prux-u-article-ligne-de-commande text-right">{{ ligneDeCommande.article.getPrixU }}$</td>
-                    <td class="qte-article-ligne-de-commande">{{ ligneDeCommande.qte }}</td>
-                    <td class="montant-article-ligne-de-commande text-right">{{ ligneDeCommande.getMontant }}$</td>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="date-commande">Le {{ commande.date|date('d/m/Y') }}</td>
+                    <td class="adresse-commande">Adresse de livraison : {{ commande.adresse.adresse ~ " " ~ commande.adresse.cp ~ " " ~ commande.adresse.ville}}</td>
+                    <td class="articles-commande">Quantité : {{ commande.getNbArticles }} Article(s)</td>
+                    <td class="mode-paiement-commande">Paiement : {{ commande.getModePaiement.libelle }}</td>
+                    <td class="statut-commande">Status : {{ commande.statutCommande.libelle }}</td>
                 </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="4" class="text-right">Sous-total :</td>
-                <td class="text-right">{{ commande.getPrixTotal }}$</td>
-            </tr>
-            <tr>
-                <td colspan="4" class="text-right">Frais de port :</td>
-                <td class="text-right">{{ commande.getFraisDePort }}$</td>
-            </tr>
-            <tr>
-                <td colspan="4" class="text-right">Total :</td>
-                <td class="text-right">{{ commande.getPrixTotalWithShipping }}$</td>
-            </tr>
-        </tfoot>
-    </table>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <button onclick="{window.location='{{ path("admin_commande_edit", {id: commande.id}) }}'}">Modifier</button>
-    <button onclick="{window.location='{{ path("admin_client_show", {id: commande.getClient.id}) }}'}">Voir le client</button>
+    <h5>Détails de la commande</h5>
+    <div class="container">
+        <table class="container table table-hover">
+            <thead class='head'>
+                <tr class='table-active'>
+                    <th>Article</th>
+                    <th>Taille</th>
+                    <th>Prix Unitaire</th>
+                    <th>Quantité</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligneDeCommande in commande.getLignesDeCommande %}
+                    <tr class="ligne-de-commande">
+                        <td class="libelle-article-ligne-de-commande">{{ ligneDeCommande.article.libelle }}</td>
+                        <td class="taille-article-ligne-de-commande">{{ ligneDeCommande.taille.libelle }}</td>
+                        <td class="prux-u-article-ligne-de-commande">{{ ligneDeCommande.article.getPrixU }}$</td>
+                        <td class="qte-article-ligne-de-commande">{{ ligneDeCommande.qte }}</td>
+                        <td class="montant-article-ligne-de-commande text-right">{{ ligneDeCommande.getMontant }}$</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="table-active">
+                    <td colspan="4" class="text-right">Sous-total :</td>
+                    <td class="text-right">{{ commande.getPrixTotal }}$</td>
+                </tr>
+                <tr class="table-active">
+                    <td colspan="4" class="text-right">Frais de port :</td>
+                    <td class="text-right">{{ commande.getFraisDePort }}$</td>
+                </tr>
+                <tr class="table-active">
+                    <td colspan="4" class="text-right">Total :</td>
+                    <td class="text-right">{{ commande.getPrixTotalWithShipping }}$</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <button class="btn btn-outline-dark " onclick="{window.location='{{ path("admin_commande_edit", {id: commande.id}) }}'}">Modifier</button>
+        <button class="btn btn-outline-dark " onclick="{window.location='{{ path("admin_client_show", {id: commande.getClient.id}) }}'}">Voir le client</button>
+    </div>
 </div>
 {% endblock %}

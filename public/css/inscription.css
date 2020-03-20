@@ -1,53 +1,123 @@
 
-input {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    outline: none;
+/* import font*/
+@import url('https://fonts.googleapis.com/css?family=Anton|Gugi|Muli|Lato|Merriweather+Sans|Roboto|Sofia&display=swap');
+
+:root{
+    --light-gray: #2b3032a1;
+    --primary-color: white;
+    --border: #2b303218;
+    --text-color: #ff686b;
+    --roboto: "Roboto", sans-serif;
+    --merri: "Merriweather Sans", sans-serif;
+    --sofia: "Sofia", cursive;
+}
+
+.form-container {
+    padding: 50px 60px;
+    margin:  25px auto;
+    border: 1px solid black;
+    font-family: var(--merri);
+    font-size: 15px;
+}
+
+#client_registration_enregistrer, #edit_client_enregistrer, #edit_pwd_client_enregistrer, #adresse_Ajouter, #commande_save {
+    border-radius: 7px;
+    border: 1px solid black;
     display: block;
-    width: 60%;
-    padding: 7px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    background: transparent;
-    margin: 10px;
-    font: 16px Arial, Helvetica, sans-serif;
-    height: 10px;
+    background: black;
+    width: 100%;
+    height: 40px;
+    color: white;
+    margin: 20px auto;
+    font-family: var(--merri);
 }
 
-#registration_form_adresses_pays {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    display: block;
-    width: 60%;
-    padding: 7px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    background: transparent;
-    margin: 10px;
-    font: 16px Arial, Helvetica, sans-serif;
-    height: 55px;
-}
-
-button {
-    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    background-color: #2CBBBB;
-    border: 1px solid #27A0A0;
-    display: inline-block;
-    cursor: pointer;
-    color: #FFFFFF;
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 14px;
-    padding: 8px 18px;
-    text-decoration: none;
-    text-transform: uppercase;
+/*-----twig commande-----*/
+#valide {
+    margin-top: 20px;
 
 }
 
-form {
-    margin-left: 45px;
+h3 {
+    font-family: var(--merri);
+    font-size: 20px;
+    border-bottom: 2px dotted #4682B4 !important;
+    padding-left: 15%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #4682B4;
 }
 
+h1 {
+    font-family: var(--merri);
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.container {
+    font-family: var(--merri);
+    font-size: 12px;
+    text-align: center;
+}
+
+
+
+tbody {
+    text-align: center;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 2px solid black;
+}
+
+tbody td {
+    padding: 15px 0;
+}
+
+/*--------css edit commande admin------------*/
+.pb-2 {
+    font-family: var(--merri);
+    font-size: 20px;
+    border-bottom: 2px dotted black !important;
+    padding-left: 0 !important;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: black;
+}
+
+.content div, .content select {
+    font-family: var(--merri);
+    font-size: 13px;
+}
+
+.content button {
+    border-radius: 7px;
+    border: 1px solid #ff686b;
+    background: #ff686b;
+    width: 30%;
+    height: 35px;
+    color: white;
+    margin: 10px auto;
+    font-family: var(--merri);
+    font-size: 13px;
+}
+
+.add_ligne_link {
+    background: black !important;
+    border: 1px solid black !important;
+    height: 40px !important;
+
+}
+
+li:not(:last-child) {
+    list-style: none;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+li{
+    list-style: none;
+}
+
+select {
+   border: none;
+}

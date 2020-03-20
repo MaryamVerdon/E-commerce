@@ -141,11 +141,11 @@ class PanierService {
         $panier = $this->getPanier();
         $total = 0;
 
-        if(isset($panier[$id][$idTaille])){
-            $total = $panier[$id][$idTaille];
+        foreach($panier as $ligne){
+            if($ligne['article']->getId() == $id && $ligne['taille']->getId() == $idTaille){
+                $total = $ligne['quantite'];
+            }
         }
-
-        return $total;
     }
 
     public function getPanierTest2(){

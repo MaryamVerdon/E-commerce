@@ -2,25 +2,71 @@
 
 {% block title %}Hello CommandeController!{% endblock %}
 
+{% block stylesheets %} <link rel="stylesheet" href="/css/inscription.css"/>{% endblock %}
+
 {% block body %}
 
+
     <div class="commande">
+        <h3>Recapitulatif de commande</h3>
+        <table class="container">
+            <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Taille</th>
+                    <th>Prix Unitaire</th>
+                    <th>Quantité</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in panier %}
+                    <tr class="ligne-de-commande">
+                        <td class="libelle-article-ligne-de-commande">{{ ligne.article.libelle }}</td>
+                        <td class="taille-article-ligne-de-commande">{{ ligne.taille.libelle }}</td>
+                        <td class="prux-u-article-ligne-de-commande">{{ ligne.article.getPrixU }}$</td>
+                        <td class="qte-article-ligne-de-commande">{{ ligne.quantite }}</td>
+                        <td class="montant-article-ligne-de-commande text-right">{{ ligne.article.getPrixU * ligne.quantite }}$</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">Sous-total :</td>
+                    <td class="text-right">{{ prixTot }}$</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-right">Frais de port :</td>
+                    <td class="text-right">2.99$</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-right">Total :</td>
+                    <td class="text-right">{{ prixTot+2.99 }}$</td>
+                </tr>
+            </tfoot>
+        </table>
+
         <div>
-        <div>Montant Total : {{prixTot}}</div>
-        </div>
-        <div>
-            <h1 style='font-size:30px;'>Adresse de livraison</h1>
-            <select id='adresse'>
+            <h3>Adresse de livraison</h3>
+            <h1 class="m-3">Vos adresses</h1>
+            <select id='adresse' class="form-control col-6 m-3">
                 {% for adresse in adresses %}
                     <option value={{adresse.id}}>{{adresse.adresse}} {{adresse.cp}} {{adresse.ville}} {{adresse.pays}}</option>
                 {% endfor %}
-                    <option value="new">Nouvelle adresse</option>
+                <option value="new">Nouvelle adresse</option>
             </select>
         </div>
         <div class="form-new-adresse" style="display: none;">
-            {{ form(form) }}
+            {{ form_start(form , {'attr': {'class': 'form-container col-md-6 col-sm-12 col-6'}}) }}
+            {{ form_row(form.adresse, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_row(form.ville, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_row(form.cp, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_row(form.pays, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_row(form.tel, {'attr': {'class': 'form-group form-control'}}) }}
+            {{ form_end(form) }}
         </div>
-        <div><button id='valide' >Valider la commande</button></div>
-</div>
+        <div><button class="btn btn-outline-dark m-3" id='valide'>Valider la commande</button></div>
+    </div>
+
 {% endblock %}
 {% block javascripts %}<script src="/js/validationCommande.js"></script>{% endblock %}

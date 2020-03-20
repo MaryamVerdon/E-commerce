@@ -3,18 +3,17 @@
 {% block title %}Hello PaymentController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h3>Merci de votre achat</h3>
+    <div class="d-flex flex-column recap-paiement">
+        <div>Vous avez choisi de payer avec {{ payment.paymentMode }}</div>
+        <div>Utilisateur paypal : {{ payment.user }}</div>
+        <div>Statut du paiement : {{ payment.state }}</div>
+        <div>Adresse de livraison : {{ payment.address.line1 ~ " " ~ payment.address.postal_code ~ " " ~ payment.address.city ~ " " ~ payment.address.state ~ " " ~ payment.address.country_code }}</div>
+        <div>Total de la transaction (TTC) : {{ payment.price }}€</div>
+        <div>Description de la transaction : {{ payment.description }}</div>
+        <div>Votre numéro de transacion paypal est : {{ payment.paymentId }}</div>
+        <div>Votre numéro de commande est : {{ commande.id }}</div>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/jonathan/Documents/prog/projetS4/e-commerce/src/Controller/PaymentController.php'|file_link(0) }}">src/Controller/PaymentController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/jonathan/Documents/prog/projetS4/e-commerce/templates/payment/index.html.twig'|file_link(0) }}">templates/payment/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <a href="{{ path('compte_commandes') }}">Retour aux commandes</a>
 {% endblock %}

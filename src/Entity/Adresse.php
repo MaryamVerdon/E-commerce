@@ -46,7 +46,7 @@ class Adresse
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="adresses")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $client;
 

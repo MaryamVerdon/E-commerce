@@ -13,7 +13,12 @@ window.addEventListener("load", e => {
 
 function addOnClickButtonPagine(){
     let precedent = document.querySelector("#precedent");
+    precedent.className = 'btn btn-outline-dark bg-white'
+    precedent.style.color = 'black';
+
     let suivant = document.querySelector("#suivant");
+    suivant.className = 'btn btn-outline-dark bg-white'
+    suivant.style.color = 'black';
     precedent.addEventListener("click", e => {
         fetchArticles(p-1,nbMax,parametres);
     });
@@ -85,6 +90,7 @@ function createTrArticle(article){
     let td2 = document.createElement("td");
     let td3 = document.createElement("td");
     let td4 = document.createElement("td");
+    td4.id = 'description';
     let td5 = document.createElement("td");
     let td6 = document.createElement("td");
     
@@ -98,18 +104,25 @@ function createTrArticle(article){
     td4.textContent = article["description"];
     td5.textContent = article["prix_u"].toFixed(2) + "€";
     let suppBtn = document.createElement("button");
-    suppBtn.textContent = 'supprimer';
+    let iSupp = document.createElement('i');
+    //iSupp.className('')
+    suppBtn.className = "btn btn-outline-dark";
+    suppBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+
     suppBtn.addEventListener('click',(event)=>{
         window.location = '/admin/article/'+article["id"]+'/remove';
     });
+
     let editBtn = document.createElement("button");
-    editBtn.textContent = 'editer';
+    editBtn.className = "btn btn-outline-dark";
+    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
     editBtn.addEventListener('click',(event)=>{
         window.location = '/admin/article/'+article["id"]+'/edit';
     });
-    td6.appendChild(suppBtn);
-    td6.appendChild(editBtn);
 
+    td6.appendChild(editBtn);
+    td6.appendChild(suppBtn);
+    
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);

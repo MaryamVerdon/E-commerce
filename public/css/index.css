@@ -1,6 +1,14 @@
 /* import font*/
 @import url('https://fonts.googleapis.com/css?family=Anton|Gugi|Muli|Lato|Merriweather+Sans|Roboto|Sofia&display=swap');
 
+body{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 #button-panier {
     display: flex;
@@ -26,26 +34,61 @@ header{
 }
 
 header .site-title {
-    font-family: var(--merri);
-    text-decoration: none;
-    color: black;
-    font-size: 2em;
+    height: 4em;
+    background-image: url('/img/logo.png');
+    background-repeat: no-repeat;
+    background-size: auto 4em;
+    margin: auto;
+}
+
+.header-links {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    align-items: flex-end;
+}
+
+.header-links.header-row{
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
 .header-links a {
     color: black;
     font-size: 0.9em;
     text-decoration: none;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
 
+.header-links a i{
+    padding-right: 0.2em;
 }
 
 /* navbar*/
 
-.navbar {
+.navbar-bar {
     padding: 0.8em 0em;
     background-color: white ;
     color: black;
     border-color: black;
+    display: flex;
+    align-items: flex-start;
+    z-index: 99999;
+}
+
+.navbar{
+    flex: 1;
+}
+
+.navbar .dropdown-menu{
+    z-index: 9999999;
+}
+
+.navbar-toggler{
+    color: black;
+    font-size: 2.5em;
 }
 
 .nav-item .nav-link {
@@ -54,8 +97,80 @@ header .site-title {
     font-family: 'Muli', sans-serif;
 }
 
+.navbar-right{
+    display: flex;
+    margin-right: 0.5em;
+    flex-wrap: wrap;
+}
+
+
+.nav-search-bar{
+    flex-wrap: nowrap;
+}
+
+.nav-search-bar i{
+    font-size: 1.5em;
+}
+
+.btn-cart{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.btn-cart i{
+    font-size: 2em;
+}
+
+.sticky{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 83.59px;
+}
+
+/* accueil*/
+
 .carousel-item{
-    background-image: url(https://www.azutura.com/media/catalog/product/cache/49/image/650x/040ec09b1e35df139433887a97daa66f/W/S/WS-47352_WP.jpg) ;
+    /* background-image: url(https://www.azutura.com/media/catalog/product/cache/49/image/650x/040ec09b1e35df139433887a97daa66f/W/S/WS-47352_WP.jpg) ;*/
+}
+
+.carousel a{
+    z-index: 1000;
+}
+
+.carousel-indicators li{
+    background-color: grey;
+}
+
+.carousel-voile{
+    position: absolute;
+    z-index: 499;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+
+.carousel-voile:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: 0.5s;
+}
+
+.carousel-item img{
+    margin: auto;
+    width: 500px;
+}
+
+.carousel-caption{
+    z-index: 999;
+    color: transparent;
+    pointer-events:none;
+}
+
+.carousel-voile:hover + .carousel-caption{
+    color: white;
 }
 
 .presentoir-all {
@@ -67,8 +182,43 @@ header .site-title {
     -webkit-overflow-scrolling: touch;
 }
 
+
+.presentoir-all img{
+    width: 286px;
+    height: 286px;
+}
+
+.presentoir-all p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* scrollbar*/
+::-webkit-scrollbar{
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f1f1f1;
+    border-radius: 1em;
+    box-shadow: inset 0 0 5px grey;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #888;
+    box-shadow: inset 0 0 5px black;
+}
+
 .presentoir-all .card{
     flex: 0 0 auto;
+    overflow: hidden;
+    width: 18rem;
 }
 
 .presentoir-2, .presentoir-4 {
@@ -77,10 +227,34 @@ header .site-title {
     margin: auto;
 }
 
+
+.presentoir-2 p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 .presentoir-2 .card{
-    width: 45%;
+    width: 25rem;
 }
 
 .presentoir-4 .card{
-    width: 22.5%;
+    width: 25rem;
+    align-items: center;
+}
+
+.presentoir-4 .card .card-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.card-title{
+    cursor: pointer;
+}
+
+.carousel-voile{
+    cursor: pointer;
 }

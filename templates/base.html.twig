@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/index.css"/>
     <!-- font awesome -->
-        <link rel="stylesheet" href="/css/font-awesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="/css/font-awesome/css/solid.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/solid.min.css">
+    <link rel="shortcut icon" href="/img/favicon.ico" />
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
@@ -19,81 +20,93 @@
 <header class="container-fluid">
     <div class="row">
         <!--- titre du site -->
-        <div class="col-md-10 col-12 text-center mt-2">
-            <a href="/" class="my-md-3 site-title">Site web</a>
+        <div class="col-md-9 col-12 text-center mt-2">
+            <a href="/" ><div class="my-md-3 site-title"></div></a>
+            {#<a href="/" class="my-md-3 site-title">FiveSportsWear</a>#}
         </div>
-        <div class="col-md-2 col-12 text-right">
-            <p class="my-md-4 header-links">
+        <div class="col-md-3 col-12 text-right">
                 {% if app.user %}
-                {% if is_granted('ROLE_ADMIN') %}
-                <a href="/admin" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Admin</a>
-                {% elseif is_granted('ROLE_USER') %}
-            <div onClick={window.location="{{ path('compte') }}"}>Bonjour {{ app.user.prenom }}</div>
-            {% endif %}
-            <a href="/logout" class="px-2">Deconnexion</a>
-            {% else %}
-                <a class="px-2" href="/login">Connexion</a>
-                <a class="px-1" href="/register">Inscription</a>
-            {% endif %}
-            </p>
+            <div class="my-md-4 header-links header-row">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="/admin">Admin</a>
+                    {% elseif is_granted('ROLE_USER') %}
+                        <a href="{{ path('compte') }}"><i class="fas fa-user"></i> {{ app.user.prenom }}</a>
+                    {% endif %}
+                    <a href="/logout" class="px-2"><i class="fas fa-sign-out-alt"></i> Deconnexion</a>
+                {% else %}
+            <div class="my-md-4 header-links">
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+                    <a href="/register"><i class="fas fa-user-plus"></i> Inscription</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 
 </header>
-<nav class="navbar navbar-expand-lg border-top border-bottom">
-    <button class="navbar-toggler btn btn-secondary" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="/article">Articles<span class="sr-only">(current)</span></a>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    HOMME
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Voir tout</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    FEMME
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Voir tout</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    ENFANT
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Voir tout</a>
-                </div>
-            </li>
-        </ul>
-        <div class="w-50"></div>
-        <form class="form-inline mr-0 pr-0">
+<div class="navbar-bar border-top border-bottom">
+    <nav class="navbar navbar-expand-lg ">
+        <button class="navbar-toggler btn btn-secondary" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/article">Articles<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Homme
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/article?sections[]=homme&categories[]=vetement">Vetements</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme&categories[]=chaussure">Chaussures</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme&categories[]=accessoire">Accessoires</a>
+                        <a class="dropdown-item" href="/article?sections[]=homme">Voir tout</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Femme
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/article?sections[]=femme&categories[]=vetement">Vetements</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme&categories[]=chaussure">Chaussures</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme&categories[]=accessoire">Accessoires</a>
+                        <a class="dropdown-item" href="/article?sections[]=femme">Voir tout</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Enfant
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/article?sections[]=enfant&categories[]=vetement">Vetements</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant&categories[]=chaussure">Chaussures</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant&categories[]=accessoire">Accessoires</a>
+                        <a class="dropdown-item" href="/article?sections[]=enfant">Voir tout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="navbar-right">
+        <form action="/article" class="form-inline mr-0 pr-0 nav-search-bar">
             <input class="form-control mr-0 pr-0" type="search" placeholder="Rechercher" aria-label="Search" name="libelle">
             <button class="btn  my-2 my-sm-0" type="submit">
-                <img src="https://img.icons8.com/material-rounded/24/000000/search.png">
+                <i class="fas fa-search"></i>
             </button>
-            <a href="/panier" class="btn btn-outline-dark btn-lg float-right " role="button" aria-pressed="true" id="button-panier">
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/shopping-basket.png"><div class="size-panier"></div>
-            </a>
+        </form>
+        <form class="form-inline mr-0 pr-0">
+            <button type="button" class="btn btn-cart btn-outline-dark my-2 my-sm-0" onclick="window.location.href='/panier';">
+                <i class="fas fa-shopping-basket"></i><div class="size-panier"></div>
+            </button>    
         </form>
     </div>
-</nav>
+</div>
+{% block body_top %}{% endblock %}
+<div class="content">
 {% block body %}{% endblock %}
+</div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

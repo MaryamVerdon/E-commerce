@@ -2,22 +2,25 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/article.css"/>{% endblock %}
+
+{% block body_top %}
+{{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html.twig' %}
 
-<h3>liste des article</h3>
+<h3 class="col-3 text-center border border-dark mb-4 mt-4 p-1">liste des article</h3>
 <div>
     <table id="table-article" class="tablee table-bordered table-hover">
-        <thead>
+        <thead class="article-head">
             <tr class="table-active">
                 <th class="th-tri">N°<i class="fas fa-sort"></i><input type="hidden" value="id.ASC"></th>
                 <th class="th-tri">libelle<i class="fas fa-sort"></i><input type="hidden" value="libelle.ASC"></th>
                 <th>image</th>
                 <th class="th-tri">description<i class="fas fa-sort"></i><input type="hidden" value="description.ASC"></th>
                 <th class="th-tri">prix_u<i class="fas fa-sort"></i><input type="hidden" value="prix_u.ASC"></th>
-                
+                <th>option</th>
             </tr>
         </thead>
         <tbody id="tbody-article">

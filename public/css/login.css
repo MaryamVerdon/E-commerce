@@ -1,0 +1,32 @@
+/* import font*/
+@import url('https://fonts.googleapis.com/css?family=Anton|Gugi|Muli|Lato|Merriweather+Sans|Roboto|Sofia&display=swap');
+
+:root{
+    --light-gray: #2b3032a1;
+    --primary-color: white;
+    --border: #2b303218;
+    --text-color: #ff686b;
+    --roboto: "Roboto", sans-serif;
+    --merri: "Merriweather Sans", sans-serif;
+    --sofia: "Sofia", cursive;
+}
+
+.form-container {
+    padding: 50px 60px;
+    margin:  25px auto;
+    border: 1px solid black;
+    font-size: var(--merri);
+}
+
+
+
+form a {
+    color: black;
+    font-family: var(--merri);
+
+}
+
+h1 {
+    font-family: var(--merri);
+}
+

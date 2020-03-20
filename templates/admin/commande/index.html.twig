@@ -2,14 +2,17 @@
 
 {% block title %}Hello ArticleController!{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
+{% block stylesheets %}{{ block("stylesheets", "/admin/panel.html.twig") }}<link rel="stylesheet" href="/css/commande.css"/>{% endblock %}
+
+{% block body_top %}
+{{ block("panel", "/admin/panel.html.twig") }}
+{% endblock %}
 
 {% block body %}
-{% include '/admin/panel.html.twig' %}
-<h3>liste des commandes</h3>
+<h3 class="col-3 text-center border border-dark mb-4 mt-4 p-1">Liste des commandes</h3>
 <div>
-    <table id="table-commandes" class="tablee table-bordered table-hover">
-        <thead>
+    <table id="table-commandes" class="container table table-hover">
+        <thead class="commande-head">
             <tr class="table-active">
                 <th class="th-tri">N°<i class="fas fa-sort"></i><input type="hidden" value="id.ASC"></th>
                 <th class="th-tri">Date<i class="fas fa-sort"></i><input type="hidden" value="date.ASC"></th>
@@ -19,8 +22,8 @@
                 <th>Montant</th>
             </tr>
         </thead>
-        <tbody id="tbody-commandes">
-            {# 
+        <tbody id="tbody-commandes" >
+            {#
             {% for commande in commandes %}
                 <tr onClick="{window.location='{{ path('admin_commande_show', {id: commande.id}) }}'}">
                     <td><div class="id-commande">{{ commande.id }}</div></td>
@@ -36,9 +39,9 @@
         <tfoot id="tfoot-commandes">
             <tr class="table-active">
                 <td colspan="6" class="text-center">
-                    <button id="precedent">Précédent</button>
+                    <button class="btn btn-light" id="precedent">Précédent</button>
                     <span id="page"></span>
-                    <button id="suivant">Suivant</button>
+                    <button class="btn btn-light" id="suivant">Suivant</button>
                 </td>
             </tr>
         </tfoot>

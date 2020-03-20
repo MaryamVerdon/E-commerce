@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\QuantiteTaille;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -34,7 +35,16 @@ class ArticleRepository extends ServiceEntityRepository
             throw new InvalidArgumentException('La valeur de l\'argument $nbMaxParPage est incorrecte (valeur : ' . $nbMaxParPage . ').');
         }
         
-        $qb = $this->createQueryBuilder('a');
+        $em = $this->getEntityManager();
+        $req = $em->getRepository(QuantiteTaille::class)
+            ->createQueryBuilder('qt')
+            ->select('SUM(qt.qte)')
+            ->where('qt.article = a')
+            ->groupBy('qt.article');
+        $qb = $this->createQueryBuilder('aq');
+        $qb = $this->createQueryBuilder('a')
+            ->select('a')
+            ->andWhere($qb->expr()->gt("(".$req.")",'0'));
  
         if(isset($parameters['libelle'])){
             $qb->andWhere('UPPER(a.libelle) LIKE :str')
@@ -245,14 +255,15 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findArticlesStocked($order = "ASC", $nbArticles = 1)
+    public function findArticlesStocked($order = "ASC", $firstResult = 0, $nbArticles = 1)
     {
         // retirer si quantité === 0
         return $this->createQueryBuilder("a")
-            ->select('a.id','a.libelle','a.description','a.prix_u','a.image','count(q.qte)')
+            ->select('a.id','a.libelle','a.description','a.prix_u','a.image','sum(q.qte)')
             ->join('a.quantite_tailles', 'q')
             ->groupBy('a.id','a.libelle','a.description','a.prix_u','a.image')
             ->orderBy('sum(q.qte)',$order)
+            ->setFirstResult($firstResult)
             ->setMaxResults($nbArticles)
             ->getQuery()
             ->getResult();
@@ -263,6 +274,30 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->select('a.id','a.libelle','a.description','a.prix_u','a.image')
             ->orderBy('a.id', 'DESC')
+            ->setMaxResults($nbArticles)
+            ->getQuery()
+            ->getResult();
+    }
+
+     /**
+     * Trouve des article de la même section
+     */
+    function  findBySameArticles($article, $nbArticles = 5){
+        $qb = $this->createQueryBuilder("aa");
+        return $this->createQueryBuilder("a")
+            ->select("a")
+            ->leftJoin('a.sections','s')
+           // ->andWhere('a.id' != $article->getId())
+            ->addSelect("s")
+            ->where($qb->expr()->in('s',':s'))
+            ->andWhere($qb->expr()->notIn('a', ':a'))
+            ->setParameter('a',$article)
+            ->setParameter('s', array_values(array($article->getSections())))
+            ->addSelect('a')
+            ->leftJoin('a.type_article','ta')
+            ->addSelect("ta")
+            ->andWhere($qb->expr()->in('ta',':ta'))
+            ->setParameter('ta', $article->getTypeArticle())
             ->setMaxResults($nbArticles)
             ->getQuery()
             ->getResult();
