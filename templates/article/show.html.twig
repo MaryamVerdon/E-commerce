@@ -5,6 +5,7 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/article_show.css"/>{% endblock %}
 
 {% block body %}
+<div class="container my-4">
     <section class="text-center">
 
     <!-- Section heading -->
@@ -25,21 +26,23 @@
             <strong>{{ article.prixU }} €</strong>
           </span>
         </h3>
+        <div id="description">
          <h3 class="h3-responsive text-center text-md-left mb-2 ml-xl-0 ml-4">Description</h3>
-         <p class="text-muted font-weight-light ml-3 mb-5">{{ article.description }}</p>
+         <p class="text-muted font-weight-light ml-5 mb-5">{{ article.description }}</p>
+        </div>
 
       <section class="taille">
-          <div class="mt-5">
+
             <p class="text-muted">Choissisez la taille</p>
             <div class="row text-md-left text-center d-flex flex-wrap ">
-                        <div class="btn-group btn-group-toggle btns-taille" data-toggle="buttons">
+                        <div id="btns_tailles" class="btn-group btn-group-toggle btns-taille" data-toggle="buttons">
                         {% for q in article.getQuantiteTailles %}
-                            <label class="p-2 btn btn-outline-dark {{q.qte > 0 ? "" : "disabled"}}">
+                            <label id="btn_taille" class="p-2 btn btn-outline-dark {{q.qte > 0 ? "" : "disabled"}}">
                                 <input type="radio" value="{{ q.taille.id }}" name="taille"><strong>{{ q.taille.libelle }}</strong>
                             </label>
                             {% if (loop.index)%3 == 0 %}
                               </div>
-                              <div class="btn-group btn-group-toggle btns-taille" data-toggle="buttons">
+                              <div id="btns_tailles" class="btn-group btn-group-toggle btns-taille" data-toggle="buttons">
                             {% endif %}
                         {% endfor %}
                         </div>
@@ -56,6 +59,7 @@
         </div>
     </div>
 </section>
+</div>
 <br>
 
     {#<div class="item-article">

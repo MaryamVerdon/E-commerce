@@ -25,16 +25,26 @@
     section .taille {
         text-align: center;
     }
+
+    #btns_tailles {
+        justify-content: center;
+    }
 }
 
 .btns-taille{
-    width: 100%;
     display: flex;
-    flex-wrap: nowrap;
+    width: 100%;
     justify-content: flex-start;
 }
 
+
 .btns-taille label{
+    float:left;
     flex: none !important;
-    width: 15%;
+    width: 20%;
+}
+
+.btns-taille:after{
+    clear: both;
+    display: table;
 }
