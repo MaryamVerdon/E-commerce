@@ -22,11 +22,11 @@
       <p class="text-muted font-weight-light ml-2">{{ article.description }}</p>
     </div>
   <div class="bottom">
-    <button class="mb-1 btn btn-outline-dark btn-rounded add-article-panier disabled" onclick="{window.location='{{ path("admin_article_remove",{id: article.id}) }}'}">
-      <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Supprimer
+    <button class="mb-1 btn btn-outline-dark btn-rounded add-article-panier" onclick="{window.location='{{ path("admin_article_remove",{id: article.id}) }}'}">
+      <i class="fas fa-trash mr-2" aria-hidden="true"></i>Supprimer
     </button>
-    <button class="mb-1 btn btn-outline-dark btn-rounded add-article-panier disabled" onclick="{window.location='{{ path("admin_article_edit",{id: article.id}) }}'}">
-      <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Modifier
+    <button class="mb-1 btn btn-outline-dark btn-rounded add-article-panier" onclick="{window.location='{{ path("admin_article_edit",{id: article.id}) }}'}">
+      <i class="fas fa-edit mr-2" aria-hidden="true"></i>Modifier
     </button>
   </div>
 </div>
